@@ -1,10 +1,13 @@
 import asyncio
 import time
 import re
+from datetime import datetime, timezone
 from playwright.async_api import async_playwright
 from src.db import db
 from src.logger import logger
 from src.auth import load_token
+
+OFFLINE_RESET_MINUTES = 30
 
 class TwitchBotEngine:
     def __init__(self):
@@ -182,6 +185,20 @@ class TwitchBotEngine:
                 
         logger.info("Sync beendet.")
 
+    def _get_elapsed_offline_seconds(self, offline_since, now_utc):
+        offline_since_utc = datetime.fromisoformat(
+            str(offline_since).replace('Z', '+00:00')
+        )
+        if offline_since_utc.tzinfo is None:
+            raise ValueError("Zeitwert enthält keine Zeitzone")
+
+        offline_since_utc = offline_since_utc.astimezone(timezone.utc)
+        elapsed_seconds = (now_utc - offline_since_utc).total_seconds()
+        if elapsed_seconds < 0:
+            raise ValueError("Zeitwert liegt in der Zukunft")
+
+        return elapsed_seconds
+
     async def _radar_mode(self):
         if not self.is_running: return
         logger.info("Starte Radar (Live-Prüfung)...")
@@ -218,21 +235,72 @@ class TwitchBotEngine:
             await page.close()
             
             all_channels = db.get_all_channels()
-            
+            now_utc = datetime.now(timezone.utc)
+
             for c, data in all_channels.items():
                 if c in live_channels:
-                    db.upsert_channel(c, is_live=True, offline_checks=0)
                     if data['status'] == 'Offline-Warteschleife':
-                        db.upsert_channel(c, status='Bereit')
+                        offline_since = data.get('offline_since')
+                        if not offline_since:
+                            logger.warning(
+                                f"[{c}] Offline-Warteschleife ohne offline_since beendet. "
+                                "Kanal bleibt erledigt."
+                            )
+                            next_status = 'Erledigt'
+                        else:
+                            try:
+                                elapsed_seconds = self._get_elapsed_offline_seconds(
+                                    offline_since,
+                                    now_utc
+                                )
+                                if elapsed_seconds >= OFFLINE_RESET_MINUTES * 60:
+                                    next_status = 'Bereit'
+                                else:
+                                    next_status = 'Erledigt'
+                            except (TypeError, ValueError, OverflowError) as e:
+                                logger.warning(
+                                    f"[{c}] Ungültiger offline_since-Wert {offline_since!r}: {e}. "
+                                    "Kanal bleibt erledigt."
+                                )
+                                next_status = 'Erledigt'
+
+                        db.upsert_channel(
+                            c,
+                            is_live=True,
+                            status=next_status,
+                            offline_since=None
+                        )
+                    else:
+                        db.upsert_channel(c, is_live=True)
                 else:
                     db.upsert_channel(c, is_live=False)
                     if data['status'] == 'Erledigt':
-                        # Offline Reset logic
-                        checks = data.get('offline_checks', 0) + 1
-                        if checks >= 3:
-                            db.upsert_channel(c, status='Offline-Warteschleife', offline_checks=0)
-                        else:
-                            db.upsert_channel(c, offline_checks=checks)
+                        db.upsert_channel(
+                            c,
+                            status='Offline-Warteschleife',
+                            offline_since=now_utc.isoformat()
+                        )
+                    elif data['status'] == 'Offline-Warteschleife':
+                        offline_since = data.get('offline_since')
+                        if not offline_since:
+                            db.upsert_channel(c, offline_since=now_utc.isoformat())
+                            continue
+
+                        try:
+                            elapsed_seconds = self._get_elapsed_offline_seconds(
+                                offline_since,
+                                now_utc
+                            )
+                        except (TypeError, ValueError, OverflowError) as e:
+                            logger.warning(
+                                f"[{c}] Ungültiger offline_since-Wert {offline_since!r}: {e}. "
+                                "Offline-Timer wird mit aktueller UTC-Zeit neu gestartet."
+                            )
+                            db.upsert_channel(c, offline_since=now_utc.isoformat())
+                            continue
+
+                        if elapsed_seconds >= OFFLINE_RESET_MINUTES * 60:
+                            db.upsert_channel(c, status='Bereit', offline_since=None)
                             
             logger.info(f"Radar beendet. {len(live_channels)} Kanäle live.")
         except Exception as e:

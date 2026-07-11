@@ -4,6 +4,8 @@ import shutil
 import datetime
 from src.paths import DB_PATH, BACKUP_DIR
 
+_UNSET = object()
+
 class Database:
     def __init__(self):
         self.conn = sqlite3.connect(DB_PATH, check_same_thread=False)
@@ -20,9 +22,15 @@ class Database:
                     is_live BOOLEAN DEFAULT 0,
                     last_update TEXT DEFAULT 'Nie',
                     error_count INTEGER DEFAULT 0,
-                    offline_checks INTEGER DEFAULT 0
+                    offline_checks INTEGER DEFAULT 0,
+                    offline_since TEXT DEFAULT NULL
                 )
             ''')
+            cursor = self.conn.execute("PRAGMA table_info(channels)")
+            channel_columns = {row['name'] for row in cursor.fetchall()}
+            if 'offline_since' not in channel_columns:
+                self.conn.execute("ALTER TABLE channels ADD COLUMN offline_since TEXT DEFAULT NULL")
+
             self.conn.execute('''
                 CREATE TABLE IF NOT EXISTS settings (
                     key TEXT PRIMARY KEY,
@@ -38,7 +46,6 @@ class Database:
                     ('worker_limit', '3'),
                     ('series_check_minutes', '3'),
                     ('max_watch_minutes', '45'),
-                    ('offline_reset_minutes', '90'),
                     ('headless_mode', '1'),
                     ('mute_audio', '1'),
                     ('auto_chat', '1'),
@@ -74,7 +81,7 @@ class Database:
         cursor.execute("SELECT * FROM channels")
         return {row['name']: dict(row) for row in cursor.fetchall()}
 
-    def upsert_channel(self, name, streak=None, status=None, is_live=None, last_update=None, error_count=None, offline_checks=None):
+    def upsert_channel(self, name, streak=None, status=None, is_live=None, last_update=None, error_count=None, offline_checks=None, offline_since=_UNSET):
         channel = self.get_channel(name)
         if not channel:
             channel = {
@@ -84,7 +91,8 @@ class Database:
                 'is_live': 0,
                 'last_update': 'Nie',
                 'error_count': 0,
-                'offline_checks': 0
+                'offline_checks': 0,
+                'offline_since': None
             }
         
         if streak is not None: channel['streak'] = streak
@@ -93,15 +101,17 @@ class Database:
         if last_update is not None: channel['last_update'] = last_update
         if error_count is not None: channel['error_count'] = error_count
         if offline_checks is not None: channel['offline_checks'] = offline_checks
+        if offline_since is not _UNSET: channel['offline_since'] = offline_since
 
         with self.conn:
             self.conn.execute('''
                 INSERT OR REPLACE INTO channels 
-                (name, streak, status, is_live, last_update, error_count, offline_checks)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
+                (name, streak, status, is_live, last_update, error_count, offline_checks, offline_since)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             ''', (
                 channel['name'], channel['streak'], channel['status'], 
-                channel['is_live'], channel['last_update'], channel['error_count'], channel['offline_checks']
+                channel['is_live'], channel['last_update'], channel['error_count'], channel['offline_checks'],
+                channel['offline_since']
             ))
 
     def delete_channel(self, name):
