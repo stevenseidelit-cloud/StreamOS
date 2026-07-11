@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamOS 0.0.1</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    <div id="token-modal" class="modal">
+        <div class="modal-content">
+            <h2>Willkommen bei StreamOS</h2>
+            <p>Bitte gib deinen Twitch Auth-Token ein, um zu starten.</p>
+            <input type="password" id="auth-token-input" placeholder="Twitch Auth-Token">
+            <button onclick="saveToken()">Speichern</button>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <i data-lucide="twitch" class="brand-icon"></i>
+                <h1>StreamOS</h1>
+            </div>
+            <nav>
+                <a href="#" class="nav-item active" onclick="switchTab('dashboard')">
+                    <i data-lucide="layout-dashboard"></i> Dashboard
+                </a>
+                <a href="#" class="nav-item" onclick="switchTab('settings')">
+                    <i data-lucide="settings"></i> Einstellungen
+                </a>
+                <a href="#" class="nav-item" onclick="switchTab('logs')">
+                    <i data-lucide="file-text"></i> Logs
+                </a>
+                <a href="#" class="nav-item" onclick="switchTab('stats')">
+                    <i data-lucide="bar-chart-2"></i> Statistiken
+                </a>
+                <a href="#" class="nav-item" onclick="switchTab('about')">
+                    <i data-lucide="info"></i> Über
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <div id="bot-status-dot" class="status-dot"></div>
+                    <span id="bot-status-text">Bot gestoppt</span>
+                </div>
+                <div class="footer-stats">
+                    <small>Worker: <span id="worker-count">0</span> / <span id="worker-limit">3</span></small>
+                </div>
+                <div class="footer-actions">
+                    <button id="btn-start" onclick="toggleBot()">Start</button>
+                    <button id="btn-sync" onclick="startSync()">Sync</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            
+            <!-- Dashboard Tab -->
+            <section id="tab-dashboard" class="tab-content active">
+                <header>
+                    <h2>Dashboard</h2>
+                </header>
+                
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <h3>Gesamt</h3>
+                        <p class="kpi-value" id="kpi-total">0</p>
+                    </div>
+                    <div class="kpi-card kpi-live">
+                        <h3>Live</h3>
+                        <p class="kpi-value" id="kpi-live">0</p>
+                    </div>
+                    <div class="kpi-card kpi-ready">
+                        <h3>Bereit</h3>
+                        <p class="kpi-value" id="kpi-ready">0</p>
+                    </div>
+                    <div class="kpi-card kpi-done">
+                        <h3>Erledigt</h3>
+                        <p class="kpi-value" id="kpi-done">0</p>
+                    </div>
+                    <div class="kpi-card kpi-error">
+                        <h3>Fehler</h3>
+                        <p class="kpi-value" id="kpi-error">0</p>
+                    </div>
+                </div>
+
+                <div class="table-controls">
+                    <input type="text" id="search-input" placeholder="Kanal suchen..." onkeyup="renderTable()">
+                    <select id="filter-select" onchange="renderTable()">
+                        <option value="all">Alle Filter</option>
+                        <option value="Live: Überwachung läuft">Live Überwachung</option>
+                        <option value="Bereit">Bereit</option>
+                        <option value="Erledigt">Erledigt</option>
+                        <option value="Fehler">Fehler</option>
+                        <option value="Fehlt: Initiale Erfassung">Initiale Erfassung</option>
+                        <option value="Offline-Warteschleife">Warteschleife</option>
+                    </select>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Kanal</th>
+                                <th>Serie</th>
+                                <th>Live</th>
+                                <th>Status</th>
+                                <th>Aktionen</th>
+                            </tr>
+                        </thead>
+                        <tbody id="channel-table-body">
+                            <!-- Rows via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Settings Tab -->
+            <section id="tab-settings" class="tab-content">
+                <header>
+                    <h2>Einstellungen</h2>
+                </header>
+                <div class="settings-grid">
+                    
+                    <div class="settings-card">
+                        <h3>Twitch Account</h3>
+                        <div class="form-group">
+                            <label>Auth Token</label>
+                            <input type="password" id="set-auth-token" placeholder="Neuer Token...">
+                            <button onclick="updateToken()">Token speichern</button>
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3>Allgemeine Parameter</h3>
+                        <div class="form-group">
+                            <label>Radar Intervall (Minuten)</label>
+                            <input type="number" id="set-radar_interval_minutes" class="setting-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Worker Limit (gleichzeitige Streams)</label>
+                            <input type="number" id="set-worker_limit" class="setting-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Serienprüfung (Minuten)</label>
+                            <input type="number" id="set-series_check_minutes" class="setting-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Max Überwachungsdauer (Minuten)</label>
+                            <input type="number" id="set-max_watch_minutes" class="setting-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Offline Reset (Minuten)</label>
+                            <input type="number" id="set-offline_reset_minutes" class="setting-input">
+                        </div>
+                        <button onclick="saveSettings()">Einstellungen speichern</button>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3>Verhalten</h3>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="set-headless_mode" class="setting-cb">
+                            <label>Browser im Hintergrund (unsichtbar) starten</label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="set-auto_cookie" class="setting-cb">
+                            <label>Cookie Banner automatisch schließen</label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="set-auto_rules" class="setting-cb">
+                            <label>Chat Regeln automatisch schließen</label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="set-auto_18plus" class="setting-cb">
+                            <label>18+ Warnungen automatisch schließen</label>
+                        </div>
+                        <button onclick="saveSettings()">Einstellungen speichern</button>
+                    </div>
+
+                    <div class="settings-card danger-zone">
+                        <h3>Daten & Wartung</h3>
+                        <p>Hier kannst du die Datenbank sichern oder zurücksetzen.</p>
+                        <div class="action-buttons">
+                            <button onclick="backupDb()" class="btn-secondary">Datenbank sichern</button>
+                            <button onclick="resetDb()" class="btn-danger">Datenbank zurücksetzen</button>
+                            <button onclick="uninstallBot()" class="btn-danger">Bot deinstallieren</button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Logs Tab -->
+            <section id="tab-logs" class="tab-content">
+                <header>
+                    <h2>Live Logs</h2>
+                </header>
+                <div class="log-container" id="log-container">
+                    <!-- Logs via JS -->
+                </div>
+            </section>
+
+            <section id="tab-stats" class="tab-content">
+                <header>
+                    <h2>Statistiken</h2>
+                </header>
+                <p>Statistik-Modul wird in einem zukünftigen Update ausgebaut.</p>
+            </section>
+            
+            <section id="tab-about" class="tab-content">
+                <header>
+                    <h2>Über StreamOS</h2>
+                </header>
+                <p>Version: 0.0.1</p>
+                <p>Entwickelt für automatisierte Twitch Serien-Überwachung.</p>
+            </section>
+            
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

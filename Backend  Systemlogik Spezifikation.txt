@@ -1,0 +1,206 @@
+TwitchBot 2.0 - Dashboard / Frontend Spezifikation
+
+Ziel:
+Modernes Desktop-Dashboard im Twitch Dark Theme mit violetten Akzenten. Das Dashboard dient ausschließlich zur Überwachung und Konfiguration des Bots.
+
+DESIGN
+
+* Twitch Dark Theme
+* Schwarzer Hintergrund (#18181b)
+* Violette Akzentfarbe (#9147ff)
+* Abgerundete Karten
+* Moderne Windows 11 Optik
+* Responsive Layout
+* Keine Browser-Optik sichtbar
+
+LINKE SIDEBAR
+
+Menüpunkte:
+
+* Dashboard
+* Einstellungen
+* Logs
+* Statistiken
+* Über
+
+Unten:
+
+* Sync starten Button
+* Bot Status (Online / Offline)
+* Versionsnummer
+
+DASHBOARD
+
+Oben:
+
+Titel:
+"TwitchBot 2.0"
+
+Status-Anzeige:
+
+🟢 Bot läuft
+🔴 Bot gestoppt
+
+INFO-KARTEN
+
+Karte 1:
+Gesamt Kanäle
+
+Karte 2:
+Live Kanäle
+
+Karte 3:
+Bereit
+
+Karte 4:
+Erledigt
+
+Karte 5:
+Fehler
+
+KANALLISTE
+
+Spalten:
+
+* Kanalname
+* Serie
+* Live Status
+* Status
+* Letztes Update
+
+SUCHE
+
+Suchfeld:
+
+"Kanal suchen"
+
+FILTER
+
+Dropdown:
+
+* Alle
+* Live
+* Bereit
+* Erledigt
+* Fehler
+* Initiale Erfassung
+
+STATUSFARBEN
+
+Fehlt: Initiale Erfassung
+= Grau
+
+Bereit
+= Gelb
+
+Live: Überwachung läuft
+= Blau
+
+Erledigt
+= Grün
+
+Offline-Warteschleife
+= Lila
+
+Fehler
+= Rot
+
+FUSSBEREICH
+
+Anzeige:
+
+Nächster Radar:
+XX:XX
+
+Aktive Worker:
+2 / 3
+
+EINSTELLUNGEN
+
+TWITCH ACCOUNT
+
+* Auth Token Eingabe
+* Token speichern
+* Token testen
+
+BETTERTTV
+
+Schalter:
+
+☑ BetterTTV automatisch installieren
+
+Beschreibung:
+
+Beim ersten Start soll BetterTTV automatisch in Firefox installiert werden.
+
+Allgemeine Einstellungen
+
+Radar Intervall:
+15 Minuten
+
+Worker Limit:
+3
+
+Serienprüfung:
+3 Minuten
+
+Maximale Überwachungsdauer:
+45 Minuten
+
+Offline Reset:
+90 Minuten
+
+VERHALTEN
+
+☑ Browser im Hintergrund starten
+
+☑ Stream stumm schalten
+
+☑ Chat automatisch öffnen
+
+☑ Cookie Banner automatisch schließen
+
+☑ Chat Regeln automatisch schließen
+
+☑ 18+ Warnungen automatisch schließen
+
+DATEN
+
+Button:
+
+Datenbank sichern
+
+Button:
+
+Datenbank zurücksetzen
+
+LOGS
+
+Anzeige aller Aktionen:
+
+* Stream erkannt
+* Serie gefunden
+* Serie erhöht
+* Worker gestartet
+* Worker beendet
+* Fehler
+* Login Fehler
+* Internetfehler
+
+STATISTIKEN
+
+* Anzahl gefundener Kanäle
+* Anzahl erfüllter Serien
+* Durchschnittliche Prüfzeit
+* Erfolgsquote
+* Fehlerquote
+
+Ziel:
+
+Das Dashboard soll auf einen Blick zeigen:
+
+Wer live ist.
+Welche Serie gespeichert ist.
+Welche Kanäle aktuell überwacht werden.
+Welche Kanäle bereits erledigt wurden.
+Welche Kanäle Probleme verursachen.

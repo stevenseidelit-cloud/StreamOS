@@ -1,0 +1,242 @@
+TwitchBot 2.0 - Backend / Systemlogik
+
+Ziel:
+
+Automatische Überwachung der Twitch Zuschauer-Serie für alle gefolgten Kanäle.
+
+INSTALLATION
+
+1. TwitchBot_Setup.exe starten
+2. Installieren klicken
+3. Installation nach AppData
+4. Desktop-Verknüpfung erstellen
+5. Firefox + BetterTTV vorbereiten
+
+STARTPHASE
+
+Beim Start:
+
+1. Datenbank laden
+2. Einstellungen laden
+3. Auth Token prüfen
+
+Wenn Token ungültig:
+
+* Dashboard öffnen
+* Fehlermeldung anzeigen
+* Bot nicht starten
+
+Wenn Token gültig:
+
+* Dashboard starten
+* Hintergrundprozess starten
+
+FOLLOWER ERKENNEN
+
+Alle 15 Minuten:
+
+1. Twitch öffnen
+2. Linke Follower-Leiste auslesen
+3. Neue Kanäle erkennen
+4. Datenbank aktualisieren
+
+Neue Kanäle:
+
+Serie = ?
+Status = Fehlt Initiale Erfassung
+
+SYNC MODUS
+
+Automatisch beim ersten Start.
+
+Für jeden Kanal:
+
+1. Unsichtbaren Chat öffnen
+2. Cookie Banner schließen
+3. Chat Regeln schließen
+4. 18+ Warnung schließen
+5. Zuschauer-Serie lesen
+
+Wenn Serie gefunden:
+
+Serie = X
+
+Wenn keine Serie gefunden:
+
+Serie = 0
+
+Status = Bereit
+
+Nach Abschluss:
+
+Sync beendet
+
+RADAR
+
+Alle 15 Minuten:
+
+1. Prüfen welche bekannten Kanäle live sind
+2. Live Status aktualisieren
+3. Dashboard aktualisieren
+
+WORKER START
+
+Voraussetzungen:
+
+Status = Bereit
+
+UND
+
+Live = True
+
+UND
+
+Aktive Worker < 3
+
+Dann:
+
+Status = Überwachung läuft
+
+STREAM ÜBERWACHUNG
+
+1. Echten Stream öffnen
+2. Stream stumm schalten
+3. Cookie Banner schließen
+4. Chat Regeln schließen
+5. 18+ Warnungen schließen
+
+SERIENÜBERWACHUNG
+
+Gespeicherte Serie:
+
+saved_streak
+
+Prüfung:
+
+alle 3 Minuten
+
+Maximal:
+
+15 Prüfungen
+
+Gesamt:
+
+45 Minuten
+
+ERFOLGSBEDINGUNG
+
+Nur wenn:
+
+current_streak > saved_streak
+
+Dann:
+
+Serie speichern
+
+Status = Erledigt
+
+Stream schließen
+
+WICHTIG
+
+Nicht:
+
+current_streak != saved_streak
+
+sondern:
+
+current_streak > saved_streak
+
+TIMEOUT
+
+Nach 15 Prüfungen:
+
+Wenn keine Erhöhung:
+
+Status = Bereit
+
+Stream schließen
+
+Später erneut versuchen
+
+OFFLINE RESET
+
+Wenn:
+
+Status = Erledigt
+
+UND
+
+Streamer offline
+
+Dann:
+
+Status = Offline-Warteschleife
+
+Offline Timer starten
+
+Nach 90 Minuten Offlinezeit:
+
+Status = Bereit
+
+FEHLERBEHANDLUNG
+
+Bei Lesefehlern:
+
+error_count +1
+
+Ab 3 Fehlern:
+
+Status = Fehler
+
+FEHLERKANÄLE
+
+Werden nicht mehr überwacht.
+
+LOGIN FEHLER
+
+Wenn Twitch ausgeloggt:
+
+Bot pausieren
+
+Fehlermeldung anzeigen
+
+INTERNETAUSFALL
+
+Wenn:
+
+* DNS Fehler
+* Timeout
+* Internetverlust
+
+Dann:
+
+60 Sekunden warten
+
+Danach erneut versuchen
+
+TAB MANAGEMENT
+
+Maximal:
+
+3 Worker gleichzeitig
+
+Priorität:
+
+1. Initiale Erfassung
+2. Live + Bereit
+3. Rest warten
+
+SYSTEMZIEL
+
+Der Benutzer startet den Bot.
+
+Danach läuft alles automatisch:
+
+* Follower erkennen
+* Serien erfassen
+* Live Streams erkennen
+* Zuschauer-Serie überwachen
+* Erfolgreiche Serien markieren
+* Nach Offlinezeit zurücksetzen
+* Fehler automatisch behandeln
