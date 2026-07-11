@@ -262,7 +262,25 @@ class TwitchBotEngine:
 
     async def _worker_task(self, channel_name):
         logger.info(f"[{channel_name}] Worker gestartet...")
+        page = None
         try:
+            channel = db.get_channel(channel_name)
+            if not channel:
+                raise ValueError(f"Kanal {channel_name} wurde nicht in der Datenbank gefunden.")
+
+            raw_saved_streak = channel.get('streak')
+            try:
+                saved_streak = int(raw_saved_streak)
+                if saved_streak < 0:
+                    raise ValueError("negative Serie")
+            except (TypeError, ValueError):
+                logger.warning(
+                    f"[{channel_name}] Ungültige gespeicherte Serie {raw_saved_streak!r}. "
+                    "Kanal wird zur erneuten initialen Erfassung auf baseline gesetzt."
+                )
+                db.upsert_channel(channel_name, status='baseline')
+                return
+
             page = await self.context.new_page()
             await page.goto(f"https://www.twitch.tv/{channel_name}")
             await asyncio.sleep(4)
@@ -270,7 +288,6 @@ class TwitchBotEngine:
             await self._click_banners(page)
             
             # Start Series Check
-            initial_streak = None
             try:
                 btn = await page.wait_for_selector('.community-points-summary button:last-child', timeout=15000)
                 if btn: await btn.click(force=True)
@@ -282,15 +299,22 @@ class TwitchBotEngine:
                 
                 all_text = await page.evaluate("document.body.innerText")
                 match = re.search(r'(?i)(?:serie|streak):\s*(\d+)', all_text)
-                if match: initial_streak = match.group(1)
-                else: initial_streak = "0"
+                if match:
+                    current_streak = int(match.group(1))
+                    if current_streak > saved_streak:
+                        logger.info(f"[{channel_name}] Serie erhöht auf {current_streak}!")
+                        db.upsert_channel(channel_name, streak=str(current_streak), status='Erledigt')
+                        return
+                    if current_streak < saved_streak:
+                        logger.warning(
+                            f"[{channel_name}] Gelesene Serie {current_streak} liegt unter der "
+                            f"gespeicherten Serie {saved_streak}. Wert wird nicht gespeichert."
+                        )
+                else:
+                    logger.warning(f"[{channel_name}] Beim initialen Lesen wurde keine Serie gefunden.")
                 await page.keyboard.press("Escape")
             except Exception as e:
                 logger.warning(f"[{channel_name}] Fehler beim initialen Lesen: {e}")
-                initial_streak = "0"
-                
-            db.upsert_channel(channel_name, streak=initial_streak)
-            saved_streak = int(initial_streak)
             
             max_minutes = int(db.get_setting('max_watch_minutes', '45'))
             check_interval = int(db.get_setting('series_check_minutes', '3'))
@@ -308,14 +332,21 @@ class TwitchBotEngine:
                     all_text = await page.evaluate("document.body.innerText")
                     match = re.search(r'(?i)(?:serie|streak):\s*(\d+)', all_text)
                     if match:
-                        current = int(match.group(1))
-                        if current > saved_streak:
-                            logger.info(f"[{channel_name}] 🎉 Serie erhöht auf {current}!")
-                            db.upsert_channel(channel_name, streak=str(current), status='Erledigt')
-                            await page.close()
+                        current_streak = int(match.group(1))
+                        if current_streak > saved_streak:
+                            logger.info(f"[{channel_name}] 🎉 Serie erhöht auf {current_streak}!")
+                            db.upsert_channel(channel_name, streak=str(current_streak), status='Erledigt')
                             return
+                        if current_streak < saved_streak:
+                            logger.warning(
+                                f"[{channel_name}] Gelesene Serie {current_streak} liegt unter der "
+                                f"gespeicherten Serie {saved_streak}. Wert wird nicht gespeichert."
+                            )
+                    else:
+                        logger.warning(f"[{channel_name}] Keine Serie gelesen. Gespeicherter Wert bleibt unverändert.")
                     await page.keyboard.press("Escape")
-                except: pass
+                except Exception as e:
+                    logger.warning(f"[{channel_name}] Fehler beim Lesen der Serie: {e}")
                 
                 # Check for bonus chest
                 try:
@@ -330,15 +361,18 @@ class TwitchBotEngine:
             # Timeout
             logger.info(f"[{channel_name}] Timeout nach {max_minutes} Minuten erreicht.")
             db.upsert_channel(channel_name, status='Bereit')
-            await page.close()
             
         except Exception as e:
             logger.error(f"[{channel_name}] Worker Fehler: {e}")
             channel = db.get_channel(channel_name)
-            errors = channel.get('error_count', 0) + 1
+            errors = (channel.get('error_count', 0) if channel else 0) + 1
             if errors >= 3:
                 db.upsert_channel(channel_name, status='Fehler', error_count=errors)
             else:
                 db.upsert_channel(channel_name, status='Bereit', error_count=errors)
-            try: await page.close()
-            except: pass
+        finally:
+            if page:
+                try:
+                    await page.close()
+                except Exception as e:
+                    logger.warning(f"[{channel_name}] Playwright-Seite konnte nicht geschlossen werden: {e}")
