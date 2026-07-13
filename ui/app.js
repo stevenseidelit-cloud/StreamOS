@@ -197,6 +197,104 @@ async function backupDb() {
     alert('Backup erstellt!');
 }
 
+async function readApiResponse(response) {
+    let data = await response.json();
+    if(!response.ok || data.success === false) {
+        throw new Error(data.error || `HTTP ${response.status}`);
+    }
+    return data;
+}
+
+async function checkUpdates() {
+    let status = document.getElementById('update-status');
+    let result = document.getElementById('update-result');
+    let portableButton = document.getElementById('btn-download-portable');
+    let setupButton = document.getElementById('btn-install-update');
+
+    status.innerText = 'GitHub-Release wird geprüft...';
+    result.innerText = '';
+    portableButton.disabled = true;
+    setupButton.disabled = true;
+
+    try {
+        let response = await fetch('/api/update/status');
+        let data = await readApiResponse(response);
+        if(data.update_available) {
+            status.innerText = `Neue Version ${data.latest_version} verfügbar (installiert: ${data.current_version}).`;
+        } else {
+            status.innerText = `Aktuelle Version: ${data.current_version}. Neuestes Release: ${data.latest_version}.`;
+        }
+        portableButton.disabled = !data.portable_available;
+        setupButton.disabled = !data.setup_available;
+    } catch(error) {
+        status.innerText = `Update-Prüfung fehlgeschlagen: ${error.message}`;
+    }
+}
+
+async function downloadPortableVersion() {
+    let result = document.getElementById('update-result');
+    let openFolderButton = document.getElementById('btn-open-update-folder');
+    result.innerText = 'Portable Version wird heruntergeladen und geprüft...';
+    openFolderButton.classList.add('hidden');
+
+    try {
+        let response = await fetch('/api/update/download', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({kind: 'portable'})
+        });
+        let data = await readApiResponse(response);
+        result.innerText = `Portable Version wurde geprüft und gespeichert: ${data.local_path}`;
+        openFolderButton.classList.remove('hidden');
+    } catch(error) {
+        result.innerText = `Portable Download fehlgeschlagen: ${error.message}`;
+    }
+}
+
+async function installUpdate() {
+    let result = document.getElementById('update-result');
+    result.innerText = 'Installer wird heruntergeladen und geprüft...';
+
+    try {
+        let downloadResponse = await fetch('/api/update/download', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({kind: 'setup'})
+        });
+        let data = await readApiResponse(downloadResponse);
+        result.innerText = `Installer wurde geprüft und gespeichert: ${data.local_path}`;
+
+        if(!confirm(`StreamOS ${data.version} jetzt sichtbar starten und installieren?`)) {
+            result.innerText += ' Installation wurde nicht gestartet.';
+            return;
+        }
+
+        let installResponse = await fetch('/api/update/install', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: '{}'
+        });
+        await readApiResponse(installResponse);
+        result.innerText = 'Der verifizierte Installer wurde sichtbar gestartet.';
+    } catch(error) {
+        result.innerText = `Update fehlgeschlagen: ${error.message}`;
+    }
+}
+
+async function openUpdateFolder() {
+    let result = document.getElementById('update-result');
+    try {
+        let response = await fetch('/api/update/open-folder', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: '{}'
+        });
+        await readApiResponse(response);
+    } catch(error) {
+        result.innerText = `Ordner konnte nicht geöffnet werden: ${error.message}`;
+    }
+}
+
 async function resetDb() {
     if(confirm('Wirklich alles zurücksetzen?')) {
         await fetch('/api/action', { method: 'POST', body: JSON.stringify({action: 'delete_db'}) });

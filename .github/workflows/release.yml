@@ -1,0 +1,117 @@
+name: Build release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: Python 3.12 einrichten
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Version aus Tag lesen
+        id: version
+        shell: pwsh
+        run: |
+          $version = "${{ github.ref_name }}" -replace '^v', ''
+          if ($version -notmatch '^\d+\.\d+\.\d+$') {
+            throw "Release-Tag muss das Format vX.Y.Z haben: ${{ github.ref_name }}"
+          }
+          "STREAMOS_VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+
+      - name: Python-Abhängigkeiten installieren
+        shell: pwsh
+        run: |
+          python -m pip install -r requirements.txt pyinstaller
+
+      - name: Playwright Firefox lokal einbetten
+        shell: pwsh
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: "0"
+        run: |
+          python -m playwright install firefox
+
+      - name: Python-Syntax prüfen
+        shell: pwsh
+        run: |
+          python -m compileall -q src
+
+      - name: StreamOS bauen
+        shell: pwsh
+        run: |
+          pyinstaller --clean StreamOS.spec
+          if (-not (Test-Path "dist\StreamOS\StreamOS.exe")) {
+            throw "dist\StreamOS\StreamOS.exe wurde nicht erzeugt."
+          }
+          $firefox = Get-ChildItem "dist\StreamOS" -Recurse -Filter firefox.exe
+          if (-not $firefox) {
+            throw "Playwright Firefox fehlt im Build."
+          }
+
+      - name: Portable-ZIP erstellen
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path release -Force | Out-Null
+          $portableName = "StreamOS_$env:STREAMOS_VERSION`_Portable"
+          $portableDir = Join-Path release $portableName
+          Copy-Item "dist\StreamOS" $portableDir -Recurse
+          Compress-Archive -Path $portableDir -DestinationPath "release\$portableName.zip" -CompressionLevel Optimal
+          $entries = tar -tf "release\$portableName.zip"
+          if ($entries -notcontains "$portableName/StreamOS.exe") {
+            throw "Portable-ZIP enthält StreamOS.exe nicht an der erwarteten Stelle."
+          }
+
+      - name: Inno Setup 6 installieren
+        shell: pwsh
+        run: |
+          choco install innosetup --no-progress --yes
+
+      - name: Installer erstellen
+        shell: pwsh
+        run: |
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path $iscc)) {
+            throw "Inno Setup 6 wurde auf dem GitHub-Runner nicht gefunden."
+          }
+          & $iscc "/DMyAppVersion=$env:STREAMOS_VERSION" "/O$PWD\release" "installer\setup.iss"
+          if ($LASTEXITCODE -ne 0) {
+            exit $LASTEXITCODE
+          }
+
+      - name: SHA-256-Dateien erzeugen
+        shell: pwsh
+        run: |
+          $portable = "StreamOS_$env:STREAMOS_VERSION`_Portable.zip"
+          $setup = "StreamOS_$env:STREAMOS_VERSION`_Setup.exe"
+          foreach ($file in @($portable, $setup)) {
+            $path = Join-Path release $file
+            if (-not (Test-Path $path)) {
+              throw "Release-Datei fehlt: $path"
+            }
+            $hash = (Get-FileHash $path -Algorithm SHA256).Hash.ToLowerInvariant()
+            "$hash  $file" | Set-Content "$path.sha256" -Encoding ascii -NoNewline
+          }
+
+      - name: Release-Assets hochladen
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            release/StreamOS_${{ steps.version.outputs.version }}_Portable.zip
+            release/StreamOS_${{ steps.version.outputs.version }}_Portable.zip.sha256
+            release/StreamOS_${{ steps.version.outputs.version }}_Setup.exe
+            release/StreamOS_${{ steps.version.outputs.version }}_Setup.exe.sha256
+          generate_release_notes: true

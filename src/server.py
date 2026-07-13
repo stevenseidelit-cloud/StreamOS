@@ -6,10 +6,12 @@ from src.db import db
 from src.paths import get_base_dir
 from src.logger import get_recent_logs
 from src.auth import save_token, load_token
+from src.updater import GitHubUpdater, UpdateError
 
 class ApiServer:
     def __init__(self, engine):
         self.engine = engine
+        self.updater = GitHubUpdater()
         self.app = web.Application()
         self.app.add_routes([
             web.get('/api/status', self.get_status),
@@ -20,6 +22,10 @@ class ApiServer:
             web.post('/api/action', self.post_action),
             web.post('/api/token', self.post_token),
             web.get('/api/token/status', self.get_token_status),
+            web.get('/api/update/status', self.get_update_status),
+            web.post('/api/update/download', self.post_update_download),
+            web.post('/api/update/install', self.post_update_install),
+            web.post('/api/update/open-folder', self.post_update_open_folder),
             
             # Serve static UI files
             web.static('/', os.path.join(get_base_dir(), 'ui'))
@@ -85,3 +91,36 @@ class ApiServer:
     async def get_token_status(self, request):
         token = load_token()
         return web.json_response({'has_token': token is not None})
+
+    async def get_update_status(self, request):
+        try:
+            return web.json_response(await self.updater.check_for_update())
+        except Exception as e:
+            return self._update_error_response(e)
+
+    async def post_update_download(self, request):
+        try:
+            data = await request.json()
+            result = await self.updater.download_release(data.get('kind'))
+            return web.json_response({'success': True, **result})
+        except Exception as e:
+            return self._update_error_response(e)
+
+    async def post_update_install(self, request):
+        try:
+            self.updater.launch_verified_installer()
+            return web.json_response({'success': True})
+        except Exception as e:
+            return self._update_error_response(e)
+
+    async def post_update_open_folder(self, request):
+        try:
+            self.updater.open_portable_folder()
+            return web.json_response({'success': True})
+        except Exception as e:
+            return self._update_error_response(e)
+
+    @staticmethod
+    def _update_error_response(error):
+        status = 400 if isinstance(error, UpdateError) else 500
+        return web.json_response({'success': False, 'error': str(error)}, status=status)

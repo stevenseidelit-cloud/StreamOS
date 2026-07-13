@@ -1,5 +1,6 @@
 import os
 import sys
+import ctypes
 # Add Neu path to sys path to allow absolute imports
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -13,6 +14,18 @@ from src.logger import logger
 def start_background_loop(loop):
     asyncio.set_event_loop(loop)
     loop.run_forever()
+
+def show_startup_error(message):
+    logger.error(message)
+    try:
+        ctypes.windll.user32.MessageBoxW(
+            0,
+            message,
+            'StreamOS 0.0.1',
+            0x10
+        )
+    except Exception:
+        pass
 
 if __name__ == '__main__':
     logger.info("===== NEUER START =====")
@@ -28,7 +41,18 @@ if __name__ == '__main__':
     server = ApiServer(engine)
     
     # Start server in the background loop
-    asyncio.run_coroutine_threadsafe(server.start(), loop)
+    server_future = asyncio.run_coroutine_threadsafe(server.start(), loop)
+    try:
+        server_future.result(timeout=10)
+    except Exception as e:
+        show_startup_error(
+            "StreamOS konnte den lokalen Dienst auf Port 8080 nicht starten.\n\n"
+            "Möglicherweise läuft StreamOS bereits. Bitte schließe die andere Instanz "
+            f"und versuche es erneut.\n\nTechnischer Fehler: {e}"
+        )
+        loop.call_soon_threadsafe(loop.stop)
+        t.join(timeout=3)
+        sys.exit(1)
     
     # Create the webview window
     webview.create_window(

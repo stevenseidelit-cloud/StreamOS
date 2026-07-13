@@ -1,6 +1,10 @@
+#ifndef MyAppVersion
+  #define MyAppVersion "0.0.1"
+#endif
+
 [Setup]
 AppName=StreamOS
-AppVersion=0.0.1
+AppVersion={#MyAppVersion}
 AppPublisher=StreamOS
 DefaultDirName={localappdata}\StreamOS
 DefaultGroupName=StreamOS
@@ -8,7 +12,7 @@ UninstallDisplayIcon={app}\StreamOS.exe
 Compression=lzma2
 SolidCompression=yes
 OutputDir=..\
-OutputBaseFilename=StreamOS_0.0.1_Setup
+OutputBaseFilename=StreamOS_{#MyAppVersion}_Setup
 PrivilegesRequired=lowest
 
 [Tasks]

@@ -6,6 +6,7 @@ venv/
 
 build/
 dist/
+release/
 
 *.db
 *.db-journal
@@ -23,3 +24,7 @@ logs/
 backups/
 
 StreamOS_0.0.1_GitHub_Start.zip
+StreamOS_*_Portable.zip
+StreamOS_*_Portable.zip.sha256
+StreamOS_*_Setup.exe
+StreamOS_*_Setup.exe.sha256

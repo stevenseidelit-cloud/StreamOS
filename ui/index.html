@@ -177,6 +177,28 @@
                         <button onclick="saveSettings()">Einstellungen speichern</button>
                     </div>
 
+                    <div class="settings-card">
+                        <h3>Updates</h3>
+                        <p id="update-status" class="update-status">
+                            Suche manuell nach einer neuen GitHub-Version.
+                        </p>
+                        <div class="update-actions">
+                            <button onclick="checkUpdates()" class="btn-secondary">
+                                Nach Updates suchen
+                            </button>
+                            <button id="btn-download-portable" onclick="downloadPortableVersion()" disabled>
+                                Portable Version herunterladen
+                            </button>
+                            <button id="btn-install-update" onclick="installUpdate()" disabled>
+                                Update installieren
+                            </button>
+                        </div>
+                        <p id="update-result" class="update-result"></p>
+                        <button id="btn-open-update-folder" class="btn-secondary hidden" onclick="openUpdateFolder()">
+                            Ordner öffnen
+                        </button>
+                    </div>
+
                     <div class="settings-card danger-zone">
                         <h3>Daten & Wartung</h3>
                         <p>Hier kannst du die Datenbank sichern oder zurücksetzen.</p>

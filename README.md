@@ -48,6 +48,26 @@ StreamOS soll ein modernes Windows-Desktopprogramm für Twitch-Nutzer werden. Es
 - automatische Bonustruhe
 - Einstellungen, Backups und Live-Logs
 - PyInstaller- und Inno-Setup-Konfiguration
+- GitHub-Updater für Installer und portable Testversionen
+
+## Release-Artefakte
+
+Jedes mit `vX.Y.Z` getaggte GitHub-Release erzeugt zwei Windows-Versionen:
+
+- `StreamOS_X.Y.Z_Setup.exe` für den normalen dauerhaften Einsatz
+- `StreamOS_X.Y.Z_Portable.zip` zum manuellen Testen ohne Installation
+
+Zu beiden Dateien wird eine eigene `.sha256`-Datei veröffentlicht. StreamOS prüft
+Downloads anhand dieser SHA-256-Prüfsumme, bevor sie verwendet werden können.
+
+Die Portable-ZIP muss vor dem Start vollständig entpackt werden. Vor einem Test ist
+eine bereits installierte StreamOS-Version zu schließen, damit nicht zwei Instanzen
+gleichzeitig Port `8080` verwenden. Anschließend wird `StreamOS.exe` direkt aus dem
+entpackten Ordner gestartet. Die portable Version schreibt Einstellungen, Datenbank,
+Tokens und Logs weiterhin nach `%APPDATA%\StreamOS` und nicht in ihren Programmordner.
+
+Die Setup-Version bleibt der empfohlene Weg für den normalen dauerhaften Einsatz.
+Weitere Details stehen in [RELEASE.md](RELEASE.md).
 
 ## Aktueller automatischer Ablauf
 
@@ -76,7 +96,7 @@ StreamOS soll ein modernes Windows-Desktopprogramm für Twitch-Nutzer werden. Es
 - Token wird gespeichert, aber nicht vollständig auf Twitch-Gültigkeit geprüft
 - Sync kann im falschen Programmzustand fehlschlagen
 - Mehrere Fehler werden durch leere `except`-Blöcke verschluckt
-- Update- und Pluginsystem fehlen
+- Pluginsystem fehlt
 - Oberfläche entspricht noch nicht dem neuen StreamOS-Design
 - Externe Lucide-Symbole benötigen derzeit eine Internetverbindung
 
