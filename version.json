@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "product": "StreamOS",
+  "version": "0.0.1",
+  "channel": "development",
+  "legacy_reference": {
+    "product": "TwitchBot",
+    "version": "2.0.6",
+    "relationship": "behavioral-reference-only"
+  }
+}

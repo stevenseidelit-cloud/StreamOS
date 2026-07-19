@@ -1,0 +1,138 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python:
+    name: Python 3.13
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.13"
+
+      - name: Compile Python sources
+        run: python -m compileall -q src
+
+      - name: Run available unit tests
+        shell: bash
+        env:
+          PYTHONPATH: src
+        run: |
+          if [ -d tests ]; then
+            python -m unittest discover -s tests -v
+          fi
+          if [ -d scripts/tests ]; then
+            python -m unittest discover -s scripts/tests -v
+          fi
+
+      - name: Validate central version and pinned dependencies
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          data = json.loads(Path("version.json").read_text(encoding="utf-8"))
+          required_fields = {"schema_version", "product", "version", "channel"}
+          missing = required_fields - data.keys()
+          if missing:
+              raise SystemExit(f"version.json missing fields: {sorted(missing)}")
+          if data["schema_version"] != 1:
+              raise SystemExit("unsupported version.json schema_version")
+          if data["product"] != "StreamOS":
+              raise SystemExit("version.json product must be StreamOS")
+
+          version = data["version"]
+          semver = re.fullmatch(
+              r"(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)"
+              r"(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?"
+              r"(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?",
+              version,
+          )
+          if not semver:
+              raise SystemExit(f"invalid SemVer: {version!r}")
+          prerelease = semver.group(4) or ""
+          for identifier in prerelease.split("."):
+              if (
+                  identifier
+                  and identifier.isdigit()
+                  and len(identifier) > 1
+                  and identifier.startswith("0")
+              ):
+                  raise SystemExit(
+                      "numeric SemVer prerelease identifiers cannot have leading zeros"
+                  )
+
+          channel = data["channel"]
+          allowed_channels = {"development", "alpha", "beta", "rc", "stable"}
+          if channel not in allowed_channels:
+              raise SystemExit(f"invalid release channel: {channel!r}")
+          if channel == "stable" and prerelease:
+              raise SystemExit("stable channel cannot use a prerelease version")
+          if channel in {"alpha", "beta", "rc"} and channel not in prerelease.split("."):
+              raise SystemExit(f"{channel} channel requires matching SemVer prerelease")
+
+          expected = {
+              "README.md": [version],
+              "src/main.py": [
+                  f"BUILD: STREAMOS-{version}",
+                  f"'StreamOS {version}'",
+              ],
+              "ui/index.html": [
+                  f"<title>StreamOS {version}</title>",
+                  f"Version: {version}",
+              ],
+              "installer/setup.iss": [
+                  f"AppVersion={version}",
+                  f"OutputBaseFilename=StreamOS_{version}_Setup",
+              ],
+          }
+          errors = []
+          for filename, values in expected.items():
+              content = Path(filename).read_text(encoding="utf-8")
+              for value in values:
+                  if value not in content:
+                      errors.append(f"{filename}: missing {value!r}")
+
+          requirement_pattern = re.compile(
+              r"[A-Za-z0-9_.-]+==[A-Za-z0-9_.+!-]+"
+          )
+          for line_number, line in enumerate(
+              Path("requirements.txt").read_text(encoding="utf-8").splitlines(),
+              1,
+          ):
+              value = line.strip()
+              if (
+                  value
+                  and not value.startswith("#")
+                  and not requirement_pattern.fullmatch(value)
+              ):
+                  errors.append(
+                      f"requirements.txt:{line_number}: dependency is not exactly pinned"
+                  )
+
+          if errors:
+              raise SystemExit("\n".join(errors))
+          print(f"StreamOS {version} ({channel}) is consistent.")
+          PY
