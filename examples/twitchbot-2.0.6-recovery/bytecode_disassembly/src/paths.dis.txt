@@ -1,0 +1,541 @@
+﻿# pydisasm version 6.3.0
+# CPython Python bytecode 3.13.0 (3571)
+#   Disassembled from CPython Python 3.12.13 (main, Mar  3 2026, 15:01:35) [MSC v.1944 64 bit (AMD64)]
+# Timestamp in code: 0 (1970-01-01 01:00:00)
+# Source code size mod 2**32: 0 bytes
+# Method Name:       <module>
+# Filename:          src\paths.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        6
+# Flags:             0x00000000 (0x0)
+# First Line:        1
+# Constants:
+#    0: 0
+#    1: None
+#    2: <Code311 code object get_exe_dir at 0x15e1c74ecf0, file src\paths.py>, line 4
+#    3: 'portable.txt'
+#    4: <Code311 code object get_appdata_dir at 0x15e1e1b6180, file src\paths.py>, line 12
+#    5: <Code311 code object get_localappdata_dir at 0x15e1e1b6150, file src\paths.py>, line 24
+#    6: <Code311 code object get_base_dir at 0x15e1e19f7d0, file src\paths.py>, line 36
+#    7: 'twitchbot.db'
+#    8: 'logs'
+#    9: 'backups'
+#   10: 'auth_token.dat'
+#   11: 'ms-playwright'
+#   12: True
+#   13: ('exist_ok',)
+#   14: 'firefox_path.txt'
+#   15: 'r'
+#   16: 'utf-8'
+#   17: ('encoding',)
+# Names:
+#    0: os
+#    1: sys
+#    2: get_exe_dir
+#    3: path
+#    4: exists
+#    5: join
+#    6: IS_PORTABLE
+#    7: get_appdata_dir
+#    8: get_localappdata_dir
+#    9: get_base_dir
+#   10: USER_DATA_DIR
+#   11: DB_PATH
+#   12: LOGS_DIR
+#   13: BACKUP_DIR
+#   14: TOKEN_PATH
+#   15: PLAYWRIGHT_BROWSERS_PATH
+#   16: makedirs
+#   17: custom_firefox_file
+#   18: open
+#   19: f
+#   20: read
+#   21: strip
+#   22: CUSTOM_FIREFOX_PATH
+#   23: Exception
+
+  0:           0 RESUME               0
+
+  1:           2 LOAD_CONST           (0)
+               4 LOAD_CONST           (None)
+               6 IMPORT_NAME          (os)
+               8 STORE_NAME           (os)
+
+  2:          10 LOAD_CONST           (0)
+              12 LOAD_CONST           (None)
+              14 IMPORT_NAME          (sys)
+              16 STORE_NAME           (sys)
+
+  4:          18 LOAD_CONST           (<Code311 code object get_exe_dir at 0x15e1c74ecf0, file src\paths.py>, line 4)
+              20 MAKE_FUNCTION
+              22 STORE_NAME           (get_exe_dir)
+
+ 10:          24 LOAD_NAME            (os)
+              26 LOAD_ATTR            (path)
+              46 LOAD_ATTR            (NULL|self + exists)
+              66 LOAD_NAME            (os)
+              68 LOAD_ATTR            (path)
+              88 LOAD_ATTR            (NULL|self + join)
+             108 LOAD_NAME            (get_exe_dir)
+             110 PUSH_NULL
+             112 CALL                 (0 positional)
+             120 LOAD_CONST           ("portable.txt")
+             122 CALL                 (2 positional)
+             130 CALL                 (1 positional)
+             138 STORE_NAME           (IS_PORTABLE)
+
+ 12:         140 LOAD_CONST           (<Code311 code object get_appdata_dir at 0x15e1e1b6180, file src\paths.py>, line 12)
+             142 MAKE_FUNCTION
+             144 STORE_NAME           (get_appdata_dir)
+
+ 24:         146 LOAD_CONST           (<Code311 code object get_localappdata_dir at 0x15e1e1b6150, file src\paths.py>, line 24)
+             148 MAKE_FUNCTION
+             150 STORE_NAME           (get_localappdata_dir)
+
+ 36:         152 LOAD_CONST           (<Code311 code object get_base_dir at 0x15e1e19f7d0, file src\paths.py>, line 36)
+             154 MAKE_FUNCTION
+             156 STORE_NAME           (get_base_dir)
+
+ 41:         158 LOAD_NAME            (get_appdata_dir)
+             160 PUSH_NULL
+             162 CALL                 (0 positional)
+             170 STORE_NAME           (USER_DATA_DIR)
+
+ 42:         172 LOAD_NAME            (os)
+             174 LOAD_ATTR            (path)
+             194 LOAD_ATTR            (NULL|self + join)
+             214 LOAD_NAME            (USER_DATA_DIR)
+             216 LOAD_CONST           ("twitchbot.db")
+             218 CALL                 (2 positional)
+             226 STORE_NAME           (DB_PATH)
+
+ 43:         228 LOAD_NAME            (os)
+             230 LOAD_ATTR            (path)
+             250 LOAD_ATTR            (NULL|self + join)
+             270 LOAD_NAME            (USER_DATA_DIR)
+             272 LOAD_CONST           ("logs")
+             274 CALL                 (2 positional)
+             282 STORE_NAME           (LOGS_DIR)
+
+ 44:         284 LOAD_NAME            (os)
+             286 LOAD_ATTR            (path)
+             306 LOAD_ATTR            (NULL|self + join)
+             326 LOAD_NAME            (USER_DATA_DIR)
+             328 LOAD_CONST           ("backups")
+             330 CALL                 (2 positional)
+             338 STORE_NAME           (BACKUP_DIR)
+
+ 45:         340 LOAD_NAME            (os)
+             342 LOAD_ATTR            (path)
+             362 LOAD_ATTR            (NULL|self + join)
+             382 LOAD_NAME            (USER_DATA_DIR)
+             384 LOAD_CONST           ("auth_token.dat")
+             386 CALL                 (2 positional)
+             394 STORE_NAME           (TOKEN_PATH)
+
+ 48:         396 LOAD_NAME            (os)
+             398 LOAD_ATTR            (path)
+             418 LOAD_ATTR            (NULL|self + join)
+             438 LOAD_NAME            (get_exe_dir)
+             440 PUSH_NULL
+             442 CALL                 (0 positional)
+             450 LOAD_CONST           ("ms-playwright")
+             452 CALL                 (2 positional)
+             460 STORE_NAME           (PLAYWRIGHT_BROWSERS_PATH)
+
+ 50:         462 LOAD_NAME            (os)
+             464 LOAD_ATTR            (makedirs)
+             484 PUSH_NULL
+             486 LOAD_NAME            (LOGS_DIR)
+             488 LOAD_CONST           (True)
+             490 LOAD_CONST           (('exist_ok',))
+             492 CALL_KW              2
+             494 POP_TOP
+
+ 51:         496 LOAD_NAME            (os)
+             498 LOAD_ATTR            (makedirs)
+             518 PUSH_NULL
+             520 LOAD_NAME            (BACKUP_DIR)
+             522 LOAD_CONST           (True)
+             524 LOAD_CONST           (('exist_ok',))
+             526 CALL_KW              2
+             528 POP_TOP
+
+ 54:         530 LOAD_NAME            (os)
+             532 LOAD_ATTR            (path)
+             552 LOAD_ATTR            (NULL|self + join)
+             572 LOAD_NAME            (USER_DATA_DIR)
+             574 LOAD_CONST           ("firefox_path.txt")
+             576 CALL                 (2 positional)
+             584 STORE_NAME           (custom_firefox_file)
+
+ 55:         586 LOAD_NAME            (os)
+             588 LOAD_ATTR            (path)
+             608 LOAD_ATTR            (NULL|self + exists)
+             628 LOAD_NAME            (custom_firefox_file)
+             630 CALL                 (1 positional)
+             638 TO_BOOL
+             646 POP_JUMP_IF_FALSE    (to 748)
+
+ 56:         650 NOP
+
+ 57:         652 LOAD_NAME            (open)
+             654 PUSH_NULL
+             656 LOAD_NAME            (custom_firefox_file)
+             658 LOAD_CONST           ("r")
+             660 LOAD_CONST           ("utf-8")
+             662 LOAD_CONST           (('encoding',))
+             664 CALL_KW              3
+             666 BEFORE_WITH
+             668 STORE_NAME           (f)
+
+ 58:         670 LOAD_NAME            (f)
+             672 LOAD_ATTR            (NULL|self + read)
+             692 CALL                 (0 positional)
+             700 LOAD_ATTR            (NULL|self + strip)
+             720 CALL                 (0 positional)
+             728 STORE_NAME           (CUSTOM_FIREFOX_PATH)
+
+ 57:         730 LOAD_CONST           (None)
+             732 LOAD_CONST           (None)
+             734 LOAD_CONST           (None)
+             736 CALL                 (2 positional)
+             744 POP_TOP
+             746 RETURN_CONST         (None)
+
+ 62:     >>  748 LOAD_CONST           (None)
+             750 STORE_NAME           (CUSTOM_FIREFOX_PATH)
+             752 RETURN_CONST         (None)
+
+ 57:         754 PUSH_EXC_INFO
+             756 WITH_EXCEPT_START    0
+             758 TO_BOOL
+             766 POP_JUMP_IF_TRUE     (to 772)
+             770 RERAISE              2
+         >>  772 POP_TOP
+             774 POP_EXCEPT
+             776 POP_TOP
+             778 POP_TOP
+             780 RETURN_CONST         (None)
+             782 COPY                 3
+             784 POP_EXCEPT
+             786 RERAISE              1
+             788 PUSH_EXC_INFO
+
+ 59:         790 LOAD_NAME            (Exception)
+             792 CHECK_EXC_MATCH
+             794 POP_JUMP_IF_FALSE    (to 808)
+             798 POP_TOP
+
+ 60:         800 LOAD_CONST           (None)
+             802 STORE_NAME           (CUSTOM_FIREFOX_PATH)
+             804 POP_EXCEPT
+             806 RETURN_CONST         (None)
+
+ 59:     >>  808 RERAISE              0
+             810 COPY                 3
+             812 POP_EXCEPT
+             814 RERAISE              1
+
+ExceptionTable:
+  652 to 666 -> 788 [0]
+  668 to 728 -> 754 [1] lasti
+  730 to 744 -> 788 [0]
+  754 to 772 -> 782 [3] lasti
+  774 to 778 -> 788 [0]
+  782 to 786 -> 788 [0]
+  788 to 802 -> 810 [1] lasti
+  808 to 808 -> 810 [1] lasti
+
+# Method Name:       get_exe_dir
+# Filename:          src\paths.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        7
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        4
+# Constants:
+#    0: None
+#    1: 'frozen'
+#    2: False
+# Names:
+#    0: getattr
+#    1: sys
+#    2: os
+#    3: path
+#    4: dirname
+#    5: executable
+#    6: abspath
+#    7: __file__
+
+  4:           0 RESUME               0
+
+  5:           2 LOAD_GLOBAL          (NULL + getattr)
+              12 LOAD_GLOBAL          (sys)
+              22 LOAD_CONST           ("frozen")
+              24 LOAD_CONST           (False)
+              26 CALL                 (3 positional)
+              34 TO_BOOL
+              42 POP_JUMP_IF_FALSE    (to 136)
+
+  6:          46 LOAD_GLOBAL          (os)
+              56 LOAD_ATTR            (path)
+              76 LOAD_ATTR            (NULL|self + dirname)
+              96 LOAD_GLOBAL          (sys)
+             106 LOAD_ATTR            (executable)
+             126 CALL                 (1 positional)
+             134 RETURN_VALUE
+
+  7:     >>  136 LOAD_GLOBAL          (os)
+             146 LOAD_ATTR            (path)
+             166 LOAD_ATTR            (NULL|self + dirname)
+             186 LOAD_GLOBAL          (os)
+             196 LOAD_ATTR            (path)
+             216 LOAD_ATTR            (NULL|self + dirname)
+             236 LOAD_GLOBAL          (os)
+             246 LOAD_ATTR            (path)
+             266 LOAD_ATTR            (NULL|self + abspath)
+             286 LOAD_GLOBAL          (__file__)
+             296 CALL                 (1 positional)
+             304 CALL                 (1 positional)
+             312 CALL                 (1 positional)
+             320 RETURN_VALUE
+
+
+# Method Name:       get_appdata_dir
+# Filename:          src\paths.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  2
+# Stack size:        5
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        12
+# Constants:
+#    0: None
+#    1: 'data'
+#    2: 'APPDATA'
+#    3: ''
+#    4: '~'
+#    5: 'TwitchBot2'
+#    6: True
+#    7: ('exist_ok',)
+# Names:
+#    0: IS_PORTABLE
+#    1: os
+#    2: path
+#    3: join
+#    4: get_exe_dir
+#    5: environ
+#    6: get
+#    7: expanduser
+#    8: makedirs
+# Varnames:
+#	path, appdata
+# Local variables:
+#    0: path
+#    1: appdata
+
+ 12:           0 RESUME               0
+
+ 13:           2 LOAD_GLOBAL          (IS_PORTABLE)
+              12 TO_BOOL
+              20 POP_JUMP_IF_FALSE    (to 106)
+
+ 14:          24 LOAD_GLOBAL          (os)
+              34 LOAD_ATTR            (path)
+              54 LOAD_ATTR            (NULL|self + join)
+              74 LOAD_GLOBAL          (NULL + get_exe_dir)
+              84 CALL                 (0 positional)
+              92 LOAD_CONST           ("data")
+              94 CALL                 (2 positional)
+             102 STORE_FAST           (path)
+             104 JUMP_FORWARD         (to 310)
+
+ 17:     >>  106 LOAD_GLOBAL          (os)
+             116 LOAD_ATTR            (environ)
+             136 LOAD_ATTR            (NULL|self + get)
+             156 LOAD_CONST           ("APPDATA")
+             158 LOAD_CONST           ("")
+             160 CALL                 (2 positional)
+             168 STORE_FAST           (appdata)
+
+ 18:         170 LOAD_FAST            (appdata)
+             172 TO_BOOL
+             180 POP_JUMP_IF_TRUE     (to 246)
+
+ 19:         184 LOAD_GLOBAL          (os)
+             194 LOAD_ATTR            (path)
+             214 LOAD_ATTR            (NULL|self + expanduser)
+             234 LOAD_CONST           ("~")
+             236 CALL                 (1 positional)
+             244 STORE_FAST           (appdata)
+
+ 20:     >>  246 LOAD_GLOBAL          (os)
+             256 LOAD_ATTR            (path)
+             276 LOAD_ATTR            (NULL|self + join)
+             296 LOAD_FAST            (appdata)
+             298 LOAD_CONST           ("TwitchBot2")
+             300 CALL                 (2 positional)
+             308 STORE_FAST           (path)
+
+ 21:     >>  310 LOAD_GLOBAL          (os)
+             320 LOAD_ATTR            (makedirs)
+             340 PUSH_NULL
+             342 LOAD_FAST            (path)
+             344 LOAD_CONST           (True)
+             346 LOAD_CONST           (('exist_ok',))
+             348 CALL_KW              2
+             350 POP_TOP
+
+ 22:         352 LOAD_FAST            (path)
+             354 RETURN_VALUE
+
+
+# Method Name:       get_localappdata_dir
+# Filename:          src\paths.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  2
+# Stack size:        5
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        24
+# Constants:
+#    0: None
+#    1: 'data'
+#    2: 'LOCALAPPDATA'
+#    3: ''
+#    4: '~'
+#    5: 'TwitchBot2'
+#    6: True
+#    7: ('exist_ok',)
+# Names:
+#    0: IS_PORTABLE
+#    1: os
+#    2: path
+#    3: join
+#    4: get_exe_dir
+#    5: environ
+#    6: get
+#    7: expanduser
+#    8: makedirs
+# Varnames:
+#	path, localappdata
+# Local variables:
+#    0: path
+#    1: localappdata
+
+ 24:           0 RESUME               0
+
+ 25:           2 LOAD_GLOBAL          (IS_PORTABLE)
+              12 TO_BOOL
+              20 POP_JUMP_IF_FALSE    (to 106)
+
+ 26:          24 LOAD_GLOBAL          (os)
+              34 LOAD_ATTR            (path)
+              54 LOAD_ATTR            (NULL|self + join)
+              74 LOAD_GLOBAL          (NULL + get_exe_dir)
+              84 CALL                 (0 positional)
+              92 LOAD_CONST           ("data")
+              94 CALL                 (2 positional)
+             102 STORE_FAST           (path)
+             104 JUMP_FORWARD         (to 310)
+
+ 29:     >>  106 LOAD_GLOBAL          (os)
+             116 LOAD_ATTR            (environ)
+             136 LOAD_ATTR            (NULL|self + get)
+             156 LOAD_CONST           ("LOCALAPPDATA")
+             158 LOAD_CONST           ("")
+             160 CALL                 (2 positional)
+             168 STORE_FAST           (localappdata)
+
+ 30:         170 LOAD_FAST            (localappdata)
+             172 TO_BOOL
+             180 POP_JUMP_IF_TRUE     (to 246)
+
+ 31:         184 LOAD_GLOBAL          (os)
+             194 LOAD_ATTR            (path)
+             214 LOAD_ATTR            (NULL|self + expanduser)
+             234 LOAD_CONST           ("~")
+             236 CALL                 (1 positional)
+             244 STORE_FAST           (localappdata)
+
+ 32:     >>  246 LOAD_GLOBAL          (os)
+             256 LOAD_ATTR            (path)
+             276 LOAD_ATTR            (NULL|self + join)
+             296 LOAD_FAST            (localappdata)
+             298 LOAD_CONST           ("TwitchBot2")
+             300 CALL                 (2 positional)
+             308 STORE_FAST           (path)
+
+ 33:     >>  310 LOAD_GLOBAL          (os)
+             320 LOAD_ATTR            (makedirs)
+             340 PUSH_NULL
+             342 LOAD_FAST            (path)
+             344 LOAD_CONST           (True)
+             346 LOAD_CONST           (('exist_ok',))
+             348 CALL_KW              2
+             350 POP_TOP
+
+ 34:         352 LOAD_FAST            (path)
+             354 RETURN_VALUE
+
+
+# Method Name:       get_base_dir
+# Filename:          src\paths.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        7
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        36
+# Constants:
+#    0: None
+#    1: 'frozen'
+#    2: False
+# Names:
+#    0: getattr
+#    1: sys
+#    2: _MEIPASS
+#    3: os
+#    4: path
+#    5: dirname
+#    6: abspath
+#    7: __file__
+
+ 36:           0 RESUME               0
+
+ 37:           2 LOAD_GLOBAL          (NULL + getattr)
+              12 LOAD_GLOBAL          (sys)
+              22 LOAD_CONST           ("frozen")
+              24 LOAD_CONST           (False)
+              26 CALL                 (3 positional)
+              34 TO_BOOL
+              42 POP_JUMP_IF_FALSE    (to 78)
+
+ 38:          46 LOAD_GLOBAL          (sys)
+              56 LOAD_ATTR            (_MEIPASS)
+              76 RETURN_VALUE
+
+ 39:     >>   78 LOAD_GLOBAL          (os)
+              88 LOAD_ATTR            (path)
+             108 LOAD_ATTR            (NULL|self + dirname)
+             128 LOAD_GLOBAL          (os)
+             138 LOAD_ATTR            (path)
+             158 LOAD_ATTR            (NULL|self + dirname)
+             178 LOAD_GLOBAL          (os)
+             188 LOAD_ATTR            (path)
+             208 LOAD_ATTR            (NULL|self + abspath)
+             228 LOAD_GLOBAL          (__file__)
+             238 CALL                 (1 positional)
+             246 CALL                 (1 positional)
+             254 CALL                 (1 positional)
+             262 RETURN_VALUE
+

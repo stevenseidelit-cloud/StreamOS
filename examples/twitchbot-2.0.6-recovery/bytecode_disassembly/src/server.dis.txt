@@ -1,0 +1,2475 @@
+﻿# pydisasm version 6.3.0
+# CPython Python bytecode 3.13.0 (3571)
+#   Disassembled from CPython Python 3.12.13 (main, Mar  3 2026, 15:01:35) [MSC v.1944 64 bit (AMD64)]
+# Timestamp in code: 0 (1970-01-01 01:00:00)
+# Source code size mod 2**32: 0 bytes
+# Method Name:       <module>
+# Filename:          src\server.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        4
+# Flags:             0x00000000 (0x0)
+# First Line:        1
+# Constants:
+#    0: 0
+#    1: None
+#    2: ('web',)
+#    3: ('db',)
+#    4: ('get_base_dir',)
+#    5: ('logger', 'get_recent_logs')
+#    6: ('save_token', 'load_token', 'validate_token')
+#    7: <Code311 code object ApiServer at 0x221f1916990, file src\server.py>, line 10
+#    8: 'ApiServer'
+# Names:
+#    0: asyncio
+#    1: aiohttp
+#    2: web
+#    3: json
+#    4: os
+#    5: src.db
+#    6: db
+#    7: src.paths
+#    8: get_base_dir
+#    9: src.logger
+#   10: logger
+#   11: get_recent_logs
+#   12: src.auth
+#   13: save_token
+#   14: load_token
+#   15: validate_token
+#   16: ApiServer
+
+  0:           0 RESUME               0
+
+  1:           2 LOAD_CONST           (0)
+               4 LOAD_CONST           (None)
+               6 IMPORT_NAME          (asyncio)
+               8 STORE_NAME           (asyncio)
+
+  2:          10 LOAD_CONST           (0)
+              12 LOAD_CONST           (('web',))
+              14 IMPORT_NAME          (aiohttp)
+              16 IMPORT_FROM          (web)
+              18 STORE_NAME           (web)
+              20 POP_TOP
+
+  3:          22 LOAD_CONST           (0)
+              24 LOAD_CONST           (None)
+              26 IMPORT_NAME          (json)
+              28 STORE_NAME           (json)
+
+  4:          30 LOAD_CONST           (0)
+              32 LOAD_CONST           (None)
+              34 IMPORT_NAME          (os)
+              36 STORE_NAME           (os)
+
+  5:          38 LOAD_CONST           (0)
+              40 LOAD_CONST           (('db',))
+              42 IMPORT_NAME          (src.db)
+              44 IMPORT_FROM          (db)
+              46 STORE_NAME           (db)
+              48 POP_TOP
+
+  6:          50 LOAD_CONST           (0)
+              52 LOAD_CONST           (('get_base_dir',))
+              54 IMPORT_NAME          (src.paths)
+              56 IMPORT_FROM          (get_base_dir)
+              58 STORE_NAME           (get_base_dir)
+              60 POP_TOP
+
+  7:          62 LOAD_CONST           (0)
+              64 LOAD_CONST           (('logger', 'get_recent_logs'))
+              66 IMPORT_NAME          (src.logger)
+              68 IMPORT_FROM          (logger)
+              70 STORE_NAME           (logger)
+              72 IMPORT_FROM          (get_recent_logs)
+              74 STORE_NAME           (get_recent_logs)
+              76 POP_TOP
+
+  8:          78 LOAD_CONST           (0)
+              80 LOAD_CONST           (('save_token', 'load_token', 'validate_token'))
+              82 IMPORT_NAME          (src.auth)
+              84 IMPORT_FROM          (save_token)
+              86 STORE_NAME           (save_token)
+              88 IMPORT_FROM          (load_token)
+              90 STORE_NAME           (load_token)
+              92 IMPORT_FROM          (validate_token)
+              94 STORE_NAME           (validate_token)
+              96 POP_TOP
+
+ 10:          98 LOAD_BUILD_CLASS
+             100 PUSH_NULL
+             102 LOAD_CONST           (<Code311 code object ApiServer at 0x221f1916990, file src\server.py>, line 10)
+             104 MAKE_FUNCTION
+             106 LOAD_CONST           ("ApiServer")
+             108 CALL                 (2 positional)
+             116 STORE_NAME           (ApiServer)
+             118 RETURN_CONST         (None)
+
+
+# Method Name:       ApiServer
+# Filename:          src\server.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        2
+# Flags:             0x00000000 (0x0)
+# First Line:        10
+# Constants:
+#    0: 'ApiServer'
+#    1: 10
+#    2: None
+#    3: <Code311 code object __init__ at 0x221eff1ecf0, file src\server.py>, line 11
+#    4: <Code311 code object start at 0x221f19162a0, file src\server.py>, line 35
+#    5: <Code311 code object get_status at 0x221f19164b0, file src\server.py>, line 41
+#    6: <Code311 code object get_channels at 0x221f1916510, file src\server.py>, line 52
+#    7: <Code311 code object get_settings at 0x221f19165a0, file src\server.py>, line 55
+#    8: <Code311 code object post_settings at 0x221f19167b0, file src\server.py>, line 58
+#    9: <Code311 code object get_logs at 0x221f1916870, file src\server.py>, line 72
+#   10: <Code311 code object get_activities at 0x221f1916960, file src\server.py>, line 76
+#   11: <Code311 code object post_action at 0x221f1916cf0, file src\server.py>, line 80
+#   12: <Code311 code object post_token at 0x221f1916db0, file src\server.py>, line 141
+#   13: <Code311 code object get_token_status at 0x221f1916e10, file src\server.py>, line 150
+#   14: <Code311 code object post_log_error at 0x221f1916d50, file src\server.py>, line 154
+#   15: <Code311 code object post_toggle_ignore at 0x221f1916f30, file src\server.py>, line 159
+#   16: <Code311 code object post_set_favorite at 0x221f1916f60, file src\server.py>, line 166
+#   17: <Code311 code object post_export_logs at 0x221f1917140, file src\server.py>, line 173
+#   18: ('app', 'engine', 'host', 'window')
+#   19: (None, 'localhost')
+# Names:
+#    0: __name__
+#    1: __module__
+#    2: __qualname__
+#    3: __firstlineno__
+#    4: __init__
+#    5: start
+#    6: get_status
+#    7: get_channels
+#    8: get_settings
+#    9: post_settings
+#   10: get_logs
+#   11: get_activities
+#   12: post_action
+#   13: post_token
+#   14: get_token_status
+#   15: post_log_error
+#   16: post_toggle_ignore
+#   17: post_set_favorite
+#   18: post_export_logs
+#   19: __static_attributes__
+
+ 10:           0 RESUME               0
+               2 LOAD_NAME            (__name__)
+               4 STORE_NAME           (__module__)
+               6 LOAD_CONST           ("ApiServer")
+               8 STORE_NAME           (__qualname__)
+              10 LOAD_CONST           (10)
+              12 STORE_NAME           (__firstlineno__)
+
+ 11:          14 LOAD_CONST           ((None, 'localhost'))
+              16 LOAD_CONST           (<Code311 code object __init__ at 0x221eff1ecf0, file src\server.py>, line 11)
+              18 MAKE_FUNCTION
+              20 SET_FUNCTION_ATTRIBUTE 1
+              22 STORE_NAME           (__init__)
+
+ 35:          24 LOAD_CONST           (<Code311 code object start at 0x221f19162a0, file src\server.py>, line 35)
+              26 MAKE_FUNCTION
+              28 STORE_NAME           (start)
+
+ 41:          30 LOAD_CONST           (<Code311 code object get_status at 0x221f19164b0, file src\server.py>, line 41)
+              32 MAKE_FUNCTION
+              34 STORE_NAME           (get_status)
+
+ 52:          36 LOAD_CONST           (<Code311 code object get_channels at 0x221f1916510, file src\server.py>, line 52)
+              38 MAKE_FUNCTION
+              40 STORE_NAME           (get_channels)
+
+ 55:          42 LOAD_CONST           (<Code311 code object get_settings at 0x221f19165a0, file src\server.py>, line 55)
+              44 MAKE_FUNCTION
+              46 STORE_NAME           (get_settings)
+
+ 58:          48 LOAD_CONST           (<Code311 code object post_settings at 0x221f19167b0, file src\server.py>, line 58)
+              50 MAKE_FUNCTION
+              52 STORE_NAME           (post_settings)
+
+ 72:          54 LOAD_CONST           (<Code311 code object get_logs at 0x221f1916870, file src\server.py>, line 72)
+              56 MAKE_FUNCTION
+              58 STORE_NAME           (get_logs)
+
+ 76:          60 LOAD_CONST           (<Code311 code object get_activities at 0x221f1916960, file src\server.py>, line 76)
+              62 MAKE_FUNCTION
+              64 STORE_NAME           (get_activities)
+
+ 80:          66 LOAD_CONST           (<Code311 code object post_action at 0x221f1916cf0, file src\server.py>, line 80)
+              68 MAKE_FUNCTION
+              70 STORE_NAME           (post_action)
+
+141:          72 LOAD_CONST           (<Code311 code object post_token at 0x221f1916db0, file src\server.py>, line 141)
+              74 MAKE_FUNCTION
+              76 STORE_NAME           (post_token)
+
+150:          78 LOAD_CONST           (<Code311 code object get_token_status at 0x221f1916e10, file src\server.py>, line 150)
+              80 MAKE_FUNCTION
+              82 STORE_NAME           (get_token_status)
+
+154:          84 LOAD_CONST           (<Code311 code object post_log_error at 0x221f1916d50, file src\server.py>, line 154)
+              86 MAKE_FUNCTION
+              88 STORE_NAME           (post_log_error)
+
+159:          90 LOAD_CONST           (<Code311 code object post_toggle_ignore at 0x221f1916f30, file src\server.py>, line 159)
+              92 MAKE_FUNCTION
+              94 STORE_NAME           (post_toggle_ignore)
+
+166:          96 LOAD_CONST           (<Code311 code object post_set_favorite at 0x221f1916f60, file src\server.py>, line 166)
+              98 MAKE_FUNCTION
+             100 STORE_NAME           (post_set_favorite)
+
+173:         102 LOAD_CONST           (<Code311 code object post_export_logs at 0x221f1917140, file src\server.py>, line 173)
+             104 MAKE_FUNCTION
+             106 STORE_NAME           (post_export_logs)
+             108 LOAD_CONST           (('app', 'engine', 'host', 'window'))
+             110 STORE_NAME           (__static_attributes__)
+             112 RETURN_CONST         (None)
+
+
+# Method Name:       __init__
+# Filename:          src\server.py
+# Argument count:    4
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  4
+# Stack size:        22
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        11
+# Constants:
+#    0: None
+#    1: '/api/status'
+#    2: '/api/channels'
+#    3: '/api/settings'
+#    4: '/api/logs'
+#    5: '/api/action'
+#    6: '/api/token'
+#    7: '/api/token/status'
+#    8: '/api/log/error'
+#    9: '/api/channels/toggle_ignore'
+#   10: '/api/channels/set_favorite'
+#   11: '/api/activities'
+#   12: '/api/logs/export'
+#   13: '/'
+#   14: 'ui'
+# Names:
+#    0: engine
+#    1: window
+#    2: host
+#    3: web
+#    4: Application
+#    5: app
+#    6: add_routes
+#    7: get
+#    8: get_status
+#    9: get_channels
+#   10: get_settings
+#   11: post
+#   12: post_settings
+#   13: get_logs
+#   14: post_action
+#   15: post_token
+#   16: get_token_status
+#   17: post_log_error
+#   18: post_toggle_ignore
+#   19: post_set_favorite
+#   20: get_activities
+#   21: post_export_logs
+#   22: static
+#   23: os
+#   24: path
+#   25: join
+#   26: get_base_dir
+# Varnames:
+#	self, engine, window, host
+# Positional arguments:
+#	self, engine, window, host
+
+ 11:           0 RESUME               0
+
+ 12:           2 LOAD_FAST_LOAD_FAST  (engine, self)
+               4 STORE_ATTR           (engine)
+
+ 13:          14 LOAD_FAST_LOAD_FAST  (window, self)
+              16 STORE_ATTR           (window)
+
+ 14:          26 LOAD_FAST_LOAD_FAST  (host, self)
+              28 STORE_ATTR           (host)
+
+ 15:          38 LOAD_GLOBAL          (web)
+              48 LOAD_ATTR            (Application)
+              68 PUSH_NULL
+              70 CALL                 (0 positional)
+              78 LOAD_FAST            (self)
+              80 STORE_ATTR           (app)
+
+ 16:          90 LOAD_FAST            (self)
+              92 LOAD_ATTR            (app)
+             112 LOAD_ATTR            (NULL|self + add_routes)
+
+ 17:         132 LOAD_GLOBAL          (web)
+             142 LOAD_ATTR            (get)
+             162 PUSH_NULL
+             164 LOAD_CONST           ("/api/status")
+             166 LOAD_FAST            (self)
+             168 LOAD_ATTR            (get_status)
+             188 CALL                 (2 positional)
+
+ 18:         196 LOAD_GLOBAL          (web)
+             206 LOAD_ATTR            (get)
+             226 PUSH_NULL
+             228 LOAD_CONST           ("/api/channels")
+             230 LOAD_FAST            (self)
+             232 LOAD_ATTR            (get_channels)
+             252 CALL                 (2 positional)
+
+ 19:         260 LOAD_GLOBAL          (web)
+             270 LOAD_ATTR            (get)
+             290 PUSH_NULL
+             292 LOAD_CONST           ("/api/settings")
+             294 LOAD_FAST            (self)
+             296 LOAD_ATTR            (get_settings)
+             316 CALL                 (2 positional)
+
+ 20:         324 LOAD_GLOBAL          (web)
+             334 LOAD_ATTR            (post)
+             354 PUSH_NULL
+             356 LOAD_CONST           ("/api/settings")
+             358 LOAD_FAST            (self)
+             360 LOAD_ATTR            (post_settings)
+             380 CALL                 (2 positional)
+
+ 21:         388 LOAD_GLOBAL          (web)
+             398 LOAD_ATTR            (get)
+             418 PUSH_NULL
+             420 LOAD_CONST           ("/api/logs")
+             422 LOAD_FAST            (self)
+             424 LOAD_ATTR            (get_logs)
+             444 CALL                 (2 positional)
+
+ 22:         452 LOAD_GLOBAL          (web)
+             462 LOAD_ATTR            (post)
+             482 PUSH_NULL
+             484 LOAD_CONST           ("/api/action")
+             486 LOAD_FAST            (self)
+             488 LOAD_ATTR            (post_action)
+             508 CALL                 (2 positional)
+
+ 23:         516 LOAD_GLOBAL          (web)
+             526 LOAD_ATTR            (post)
+             546 PUSH_NULL
+             548 LOAD_CONST           ("/api/token")
+             550 LOAD_FAST            (self)
+             552 LOAD_ATTR            (post_token)
+             572 CALL                 (2 positional)
+
+ 24:         580 LOAD_GLOBAL          (web)
+             590 LOAD_ATTR            (get)
+             610 PUSH_NULL
+             612 LOAD_CONST           ("/api/token/status")
+             614 LOAD_FAST            (self)
+             616 LOAD_ATTR            (get_token_status)
+             636 CALL                 (2 positional)
+
+ 25:         644 LOAD_GLOBAL          (web)
+             654 LOAD_ATTR            (post)
+             674 PUSH_NULL
+             676 LOAD_CONST           ("/api/log/error")
+             678 LOAD_FAST            (self)
+             680 LOAD_ATTR            (post_log_error)
+             700 CALL                 (2 positional)
+
+ 26:         708 LOAD_GLOBAL          (web)
+             718 LOAD_ATTR            (post)
+             738 PUSH_NULL
+             740 LOAD_CONST           ("/api/channels/toggle_ignore")
+             742 LOAD_FAST            (self)
+             744 LOAD_ATTR            (post_toggle_ignore)
+             764 CALL                 (2 positional)
+
+ 27:         772 LOAD_GLOBAL          (web)
+             782 LOAD_ATTR            (post)
+             802 PUSH_NULL
+             804 LOAD_CONST           ("/api/channels/set_favorite")
+             806 LOAD_FAST            (self)
+             808 LOAD_ATTR            (post_set_favorite)
+             828 CALL                 (2 positional)
+
+ 28:         836 LOAD_GLOBAL          (web)
+             846 LOAD_ATTR            (get)
+             866 PUSH_NULL
+             868 LOAD_CONST           ("/api/activities")
+             870 LOAD_FAST            (self)
+             872 LOAD_ATTR            (get_activities)
+             892 CALL                 (2 positional)
+
+ 29:         900 LOAD_GLOBAL          (web)
+             910 LOAD_ATTR            (post)
+             930 PUSH_NULL
+             932 LOAD_CONST           ("/api/logs/export")
+             934 LOAD_FAST            (self)
+             936 LOAD_ATTR            (post_export_logs)
+             956 CALL                 (2 positional)
+
+ 32:         964 LOAD_GLOBAL          (web)
+             974 LOAD_ATTR            (static)
+             994 PUSH_NULL
+             996 LOAD_CONST           ("/")
+             998 LOAD_GLOBAL          (os)
+            1008 LOAD_ATTR            (path)
+            1028 LOAD_ATTR            (NULL|self + join)
+            1048 LOAD_GLOBAL          (NULL + get_base_dir)
+            1058 CALL                 (0 positional)
+            1066 LOAD_CONST           ("ui")
+            1068 CALL                 (2 positional)
+            1076 CALL                 (2 positional)
+
+ 16:        1084 BUILD_LIST           14
+            1086 CALL                 (1 positional)
+            1094 POP_TOP
+            1096 RETURN_CONST         (None)
+
+
+# Method Name:       start
+# Filename:          src\server.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  3
+# Stack size:        5
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        35
+# Constants:
+#    0: None
+#    1: 8080
+# Names:
+#    0: web
+#    1: AppRunner
+#    2: app
+#    3: setup
+#    4: TCPSite
+#    5: host
+#    6: start
+# Varnames:
+#	self, runner, site
+# Positional arguments:
+#	self
+# Local variables:
+#    1: runner
+#    2: site
+
+ 35:           0 RETURN_GENERATOR
+               2 POP_TOP
+               4 RESUME               0
+
+ 36:           6 LOAD_GLOBAL          (web)
+              16 LOAD_ATTR            (AppRunner)
+              36 PUSH_NULL
+              38 LOAD_FAST            (self)
+              40 LOAD_ATTR            (app)
+              60 CALL                 (1 positional)
+              68 STORE_FAST           (runner)
+
+ 37:          70 LOAD_FAST            (runner)
+              72 LOAD_ATTR            (NULL|self + setup)
+              92 CALL                 (0 positional)
+             100 GET_AWAITABLE        0
+             102 LOAD_CONST           (None)
+             104 SEND                 (to 112)
+             108 YIELD_VALUE          1
+             110 RESUME               3
+             112 JUMP_BACKWARD_NO_INTERRUPT (to 104)
+         >>  114 END_SEND
+             116 POP_TOP
+
+ 38:         118 LOAD_GLOBAL          (web)
+             128 LOAD_ATTR            (TCPSite)
+             148 PUSH_NULL
+             150 LOAD_FAST_LOAD_FAST  (runner, self)
+             152 LOAD_ATTR            (host)
+             172 LOAD_CONST           (8080)
+             174 CALL                 (3 positional)
+             182 STORE_FAST           (site)
+
+ 39:         184 LOAD_FAST            (site)
+             186 LOAD_ATTR            (NULL|self + start)
+             206 CALL                 (0 positional)
+             214 GET_AWAITABLE        0
+             216 LOAD_CONST           (None)
+             218 SEND                 (to 226)
+             222 YIELD_VALUE          1
+             224 RESUME               3
+             226 JUMP_BACKWARD_NO_INTERRUPT (to 218)
+         >>  228 END_SEND
+             230 POP_TOP
+             232 RETURN_CONST         (None)
+
+ 37:         234 CLEANUP_THROW
+             236 JUMP_BACKWARD_NO_INTERRUPT (to 114)
+
+ 39:     >>  238 CLEANUP_THROW
+             240 JUMP_BACKWARD_NO_INTERRUPT (to 228)
+             242 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+             244 RERAISE              1
+
+ExceptionTable:
+  4 to 106 -> 242 [0] lasti
+  108 to 108 -> 234 [2]
+  110 to 220 -> 242 [0] lasti
+  222 to 222 -> 238 [2]
+  224 to 234 -> 242 [0] lasti
+  238 to 238 -> 242 [0] lasti
+
+# Method Name:       get_status
+# Filename:          src\server.py
+# Argument count:    2
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  5
+# Stack size:        11
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        41
+# Constants:
+#    0: None
+#    1: ('name', 'status')
+#    2: 'worker_limit'
+#    3: '3'
+#    4: ('is_running', 'active_workers_count', 'active_tasks', 'worker_limit')
+# Names:
+#    0: list
+#    1: engine
+#    2: current_activities
+#    3: items
+#    4: append
+#    5: web
+#    6: json_response
+#    7: is_running
+#    8: len
+#    9: active_workers
+#   10: int
+#   11: db
+#   12: get_setting
+# Varnames:
+#	self, request, sorted_tasks, k, v
+# Positional arguments:
+#	self, request
+# Local variables:
+#    2: sorted_tasks
+#    3: k
+#    4: v
+
+ 41:           0 RETURN_GENERATOR
+               2 POP_TOP
+               4 RESUME               0
+
+ 42:           6 BUILD_LIST           0
+               8 STORE_FAST           (sorted_tasks)
+
+ 43:          10 LOAD_GLOBAL          (NULL + list)
+              20 LOAD_FAST            (self)
+              22 LOAD_ATTR            (engine)
+              42 LOAD_ATTR            (current_activities)
+              62 LOAD_ATTR            (NULL|self + items)
+              82 CALL                 (0 positional)
+              90 CALL                 (1 positional)
+              98 GET_ITER
+             100 FOR_ITER             (to 152)
+             104 UNPACK_SEQUENCE      2
+             108 STORE_FAST_STORE_FAST (k, v)
+
+ 44:         110 LOAD_FAST            (sorted_tasks)
+             112 LOAD_ATTR            (NULL|self + append)
+             132 LOAD_FAST_LOAD_FAST  (k, v)
+             134 LOAD_CONST           (('name', 'status'))
+             136 BUILD_CONST_KEY_MAP  2
+             138 CALL                 (1 positional)
+             146 POP_TOP
+             148 JUMP_BACKWARD        (to 100)
+
+ 43:     >>  152 END_FOR
+             154 POP_TOP
+
+ 45:         156 LOAD_GLOBAL          (web)
+             166 LOAD_ATTR            (json_response)
+             186 PUSH_NULL
+
+ 46:         188 LOAD_FAST            (self)
+             190 LOAD_ATTR            (engine)
+             210 LOAD_ATTR            (is_running)
+
+ 47:         230 LOAD_GLOBAL          (NULL + len)
+             240 LOAD_FAST            (self)
+             242 LOAD_ATTR            (engine)
+             262 LOAD_ATTR            (active_workers)
+             282 CALL                 (1 positional)
+
+ 48:         290 LOAD_FAST            (sorted_tasks)
+
+ 49:         292 LOAD_GLOBAL          (NULL + int)
+             302 LOAD_GLOBAL          (db)
+             312 LOAD_ATTR            (get_setting)
+             332 PUSH_NULL
+             334 LOAD_CONST           ("worker_limit")
+             336 LOAD_CONST           ("3")
+             338 CALL                 (2 positional)
+             346 CALL                 (1 positional)
+
+ 45:         354 LOAD_CONST           (('is_running', 'active_workers_count', 'active_tasks', 'worker_limit'))
+             356 BUILD_CONST_KEY_MAP  4
+             358 CALL                 (1 positional)
+             366 RETURN_VALUE
+             368 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+             370 RERAISE              1
+
+ExceptionTable:
+  4 to 366 -> 368 [0] lasti
+
+# Method Name:       get_channels
+# Filename:          src\server.py
+# Argument count:    2
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  2
+# Stack size:        4
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        52
+# Constants:
+#    0: None
+# Names:
+#    0: web
+#    1: json_response
+#    2: db
+#    3: get_all_channels
+# Varnames:
+#	self, request
+# Positional arguments:
+#	self, request
+
+ 52:           0 RETURN_GENERATOR
+               2 POP_TOP
+               4 RESUME               0
+
+ 53:           6 LOAD_GLOBAL          (web)
+              16 LOAD_ATTR            (json_response)
+              36 PUSH_NULL
+              38 LOAD_GLOBAL          (db)
+              48 LOAD_ATTR            (get_all_channels)
+              68 PUSH_NULL
+              70 CALL                 (0 positional)
+              78 CALL                 (1 positional)
+              86 RETURN_VALUE
+              88 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+              90 RERAISE              1
+
+ExceptionTable:
+  4 to 86 -> 88 [0] lasti
+
+# Method Name:       get_settings
+# Filename:          src\server.py
+# Argument count:    2
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  2
+# Stack size:        4
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        55
+# Constants:
+#    0: None
+# Names:
+#    0: web
+#    1: json_response
+#    2: db
+#    3: get_all_settings
+# Varnames:
+#	self, request
+# Positional arguments:
+#	self, request
+
+ 55:           0 RETURN_GENERATOR
+               2 POP_TOP
+               4 RESUME               0
+
+ 56:           6 LOAD_GLOBAL          (web)
+              16 LOAD_ATTR            (json_response)
+              36 PUSH_NULL
+              38 LOAD_GLOBAL          (db)
+              48 LOAD_ATTR            (get_all_settings)
+              68 PUSH_NULL
+              70 CALL                 (0 positional)
+              78 CALL                 (1 positional)
+              86 RETURN_VALUE
+              88 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+              90 RERAISE              1
+
+ExceptionTable:
+  4 to 86 -> 88 [0] lasti
+
+# Method Name:       post_settings
+# Filename:          src\server.py
+# Argument count:    2
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  6
+# Stack size:        5
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        58
+# Constants:
+#    0: None
+#    1: 'Speichere neue Einstellungen: '
+#    2: 'Bot l�uft. Starte Engine neu, um Einstellungen anzuwenden...'
+#    3: <Code311 code object restart_flow at 0x221f1916660, file src\server.py>, line 65
+#    4: 'status'
+#    5: 'ok'
+# Names:
+#    0: json
+#    1: logger
+#    2: info
+#    3: items
+#    4: db
+#    5: set_setting
+#    6: engine
+#    7: is_running
+#    8: asyncio
+#    9: create_task
+#   10: web
+#   11: json_response
+# Varnames:
+#	self, request, data, k, v, restart_flow
+# Positional arguments:
+#	self, request
+# Local variables:
+#    2: data
+#    3: k
+#    4: v
+#    5: restart_flow
+# Cell variables:
+#    0: self
+               0 MAKE_CELL            (self)
+
+ 58:           2 RETURN_GENERATOR
+               4 POP_TOP
+               6 RESUME               0
+
+ 59:           8 LOAD_FAST            (request)
+              10 LOAD_ATTR            (NULL|self + json)
+              30 CALL                 (0 positional)
+              38 GET_AWAITABLE        0
+              40 LOAD_CONST           (None)
+              42 SEND                 (to 50)
+              46 YIELD_VALUE          1
+              48 RESUME               3
+              50 JUMP_BACKWARD_NO_INTERRUPT (to 42)
+         >>   52 END_SEND
+              54 STORE_FAST           (data)
+
+ 60:          56 LOAD_GLOBAL          (logger)
+              66 LOAD_ATTR            (info)
+              86 PUSH_NULL
+              88 LOAD_CONST           ("Speichere neue Einstellungen: ")
+              90 LOAD_FAST            (data)
+              92 FORMAT_SIMPLE
+              94 BUILD_STRING         2
+              96 CALL                 (1 positional)
+             104 POP_TOP
+
+ 61:         106 LOAD_FAST            (data)
+             108 LOAD_ATTR            (NULL|self + items)
+             128 CALL                 (0 positional)
+             136 GET_ITER
+             138 FOR_ITER             (to 196)
+             142 UNPACK_SEQUENCE      2
+             146 STORE_FAST_STORE_FAST (k, v)
+
+ 62:         148 LOAD_GLOBAL          (db)
+             158 LOAD_ATTR            (set_setting)
+             178 PUSH_NULL
+             180 LOAD_FAST_LOAD_FAST  (k, v)
+             182 CALL                 (2 positional)
+             190 POP_TOP
+             192 JUMP_BACKWARD        (to 138)
+
+ 61:     >>  196 END_FOR
+             198 POP_TOP
+
+ 63:         200 LOAD_DEREF           (self)
+             202 LOAD_ATTR            (engine)
+             222 LOAD_ATTR            (is_running)
+             242 TO_BOOL
+             250 POP_JUMP_IF_FALSE    (to 364)
+
+ 64:     >>  254 LOAD_GLOBAL          (logger)
+             264 LOAD_ATTR            (info)
+             284 PUSH_NULL
+             286 LOAD_CONST           ("Bot l�uft. Starte Engine neu, um Einstellungen anzuwenden...")
+             288 CALL                 (1 positional)
+             296 POP_TOP
+
+ 65:         298 LOAD_FAST            (self)
+             300 BUILD_TUPLE          1
+             302 LOAD_CONST           (<Code311 code object restart_flow at 0x221f1916660, file src\server.py>, line 65)
+             304 MAKE_FUNCTION
+             306 SET_FUNCTION_ATTRIBUTE 8
+             308 STORE_FAST           (restart_flow)
+
+ 69:         310 LOAD_GLOBAL          (asyncio)
+             320 LOAD_ATTR            (create_task)
+             340 PUSH_NULL
+             342 LOAD_FAST            (restart_flow)
+             344 PUSH_NULL
+             346 CALL                 (0 positional)
+             354 CALL                 (1 positional)
+             362 POP_TOP
+
+ 70:     >>  364 LOAD_GLOBAL          (web)
+             374 LOAD_ATTR            (json_response)
+             394 PUSH_NULL
+             396 LOAD_CONST           ("status")
+             398 LOAD_CONST           ("ok")
+             400 BUILD_MAP            1
+             402 CALL                 (1 positional)
+             410 RETURN_VALUE
+
+ 59:         412 CLEANUP_THROW
+             414 JUMP_BACKWARD_NO_INTERRUPT (to 52)
+             416 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+             418 RERAISE              1
+
+ExceptionTable:
+  6 to 44 -> 416 [0] lasti
+  46 to 46 -> 412 [2]
+  48 to 412 -> 416 [0] lasti
+
+# Method Name:       get_logs
+# Filename:          src\server.py
+# Argument count:    2
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  3
+# Stack size:        6
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        72
+# Constants:
+#    0: None
+#    1: 'limit'
+#    2: 200
+#    3: 'logs'
+# Names:
+#    0: int
+#    1: query
+#    2: get
+#    3: web
+#    4: json_response
+#    5: get_recent_logs
+# Varnames:
+#	self, request, limit
+# Positional arguments:
+#	self, request
+# Local variables:
+#    2: limit
+
+ 72:           0 RETURN_GENERATOR
+               2 POP_TOP
+               4 RESUME               0
+
+ 73:           6 LOAD_GLOBAL          (NULL + int)
+              16 LOAD_FAST            (request)
+              18 LOAD_ATTR            (query)
+              38 LOAD_ATTR            (NULL|self + get)
+              58 LOAD_CONST           ("limit")
+              60 LOAD_CONST           (200)
+              62 CALL                 (2 positional)
+              70 CALL                 (1 positional)
+              78 STORE_FAST           (limit)
+
+ 74:          80 LOAD_GLOBAL          (web)
+              90 LOAD_ATTR            (json_response)
+             110 PUSH_NULL
+             112 LOAD_CONST           ("logs")
+             114 LOAD_GLOBAL          (NULL + get_recent_logs)
+             124 LOAD_FAST            (limit)
+             126 CALL                 (1 positional)
+             134 BUILD_MAP            1
+             136 CALL                 (1 positional)
+             144 RETURN_VALUE
+             146 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+             148 RERAISE              1
+
+ExceptionTable:
+  4 to 144 -> 146 [0] lasti
+
+# Method Name:       get_activities
+# Filename:          src\server.py
+# Argument count:    2
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  3
+# Stack size:        6
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        76
+# Constants:
+#    0: None
+#    1: 'limit'
+#    2: 100
+#    3: 'activities'
+# Names:
+#    0: int
+#    1: query
+#    2: get
+#    3: web
+#    4: json_response
+#    5: db
+#    6: get_activities
+# Varnames:
+#	self, request, limit
+# Positional arguments:
+#	self, request
+# Local variables:
+#    2: limit
+
+ 76:           0 RETURN_GENERATOR
+               2 POP_TOP
+               4 RESUME               0
+
+ 77:           6 LOAD_GLOBAL          (NULL + int)
+              16 LOAD_FAST            (request)
+              18 LOAD_ATTR            (query)
+              38 LOAD_ATTR            (NULL|self + get)
+              58 LOAD_CONST           ("limit")
+              60 LOAD_CONST           (100)
+              62 CALL                 (2 positional)
+              70 CALL                 (1 positional)
+              78 STORE_FAST           (limit)
+
+ 78:          80 LOAD_GLOBAL          (web)
+              90 LOAD_ATTR            (json_response)
+             110 PUSH_NULL
+             112 LOAD_CONST           ("activities")
+             114 LOAD_GLOBAL          (db)
+             124 LOAD_ATTR            (get_activities)
+             144 PUSH_NULL
+             146 LOAD_FAST            (limit)
+             148 CALL                 (1 positional)
+             156 BUILD_MAP            1
+             158 CALL                 (1 positional)
+             166 RETURN_VALUE
+             168 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+             170 RERAISE              1
+
+ExceptionTable:
+  4 to 166 -> 168 [0] lasti
+
+# Method Name:       post_action
+# Filename:          src\server.py
+# Argument count:    2
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  12
+# Stack size:        8
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        80
+# Constants:
+#    0: None
+#    1: 'action'
+#    2: 'start'
+#    3: 'stop'
+#    4: 'sync'
+#    5: 'refresh_stats'
+#    6: <Code311 code object refresh_flow at 0x221f1916a50, file src\server.py>, line 93
+#    7: 'reset_channel'
+#    8: 'channel'
+#    9: 'Bereit'
+#   10: 0
+#   11: 'System-Aktualisierung'
+#   12: ('status', 'error_count', 'last_update')
+#   13: 'mark_done'
+#   14: 'Erledigt'
+#   15: '%Y-%m-%d %H:%M'
+#   16: 'kill_worker'
+#   17: ('status',)
+#   18: 'delete_db'
+#   19: 'backup_db'
+#   20: 'uninstall'
+#   21: ('get_exe_dir',)
+#   22: 'unins000.exe'
+#   23: 'Starte Deinstaller: '
+#   24: 'Deinstaller unins000.exe nicht gefunden (Portable Version?)'
+#   25: 'error'
+#   26: 'Deinstaller unins000.exe nicht gefunden. Nutzt du die Portable Version?'
+#   27: ('status', 'error')
+#   28: 'quit'
+#   29: 'status'
+#   30: 'ok'
+# Names:
+#    0: json
+#    1: get
+#    2: engine
+#    3: is_running
+#    4: asyncio
+#    5: create_task
+#    6: start
+#    7: stop
+#    8: run_sync_standalone
+#    9: db
+#   10: upsert_channel
+#   11: datetime
+#   12: now
+#   13: strftime
+#   14: active_workers
+#   15: cancel
+#   16: reset_database
+#   17: create_diagnosis_backup
+#   18: os
+#   19: subprocess
+#   20: src.paths
+#   21: get_exe_dir
+#   22: path
+#   23: join
+#   24: exists
+#   25: logger
+#   26: info
+#   27: Popen
+#   28: webview
+#   29: windows
+#   30: destroy
+#   31: _exit
+#   32: warning
+#   33: web
+#   34: json_response
+# Varnames:
+#	self, request, data, action, refresh_flow, name, datetime, os, subprocess, get_exe_dir, uninstaller, webview
+# Positional arguments:
+#	self, request
+# Local variables:
+#    2: data
+#    3: action
+#    4: refresh_flow
+#    5: name
+#    6: datetime
+#    7: os
+#    8: subprocess
+#    9: get_exe_dir
+#   10: uninstaller
+#   11: webview
+# Cell variables:
+#    0: self
+               0 MAKE_CELL            (self)
+
+ 80:           2 RETURN_GENERATOR
+               4 POP_TOP
+               6 RESUME               0
+
+ 81:           8 LOAD_FAST            (request)
+              10 LOAD_ATTR            (NULL|self + json)
+              30 CALL                 (0 positional)
+              38 GET_AWAITABLE        0
+              40 LOAD_CONST           (None)
+              42 SEND                 (to 50)
+              46 YIELD_VALUE          1
+              48 RESUME               3
+              50 JUMP_BACKWARD_NO_INTERRUPT (to 42)
+         >>   52 END_SEND
+              54 STORE_FAST           (data)
+
+ 82:          56 LOAD_FAST            (data)
+              58 LOAD_ATTR            (NULL|self + get)
+              78 LOAD_CONST           ("action")
+              80 CALL                 (1 positional)
+              88 STORE_FAST           (action)
+
+ 84:          90 LOAD_FAST            (action)
+              92 LOAD_CONST           ("start")
+              94 COMPARE_OP           (==)
+              98 POP_JUMP_IF_FALSE    (to 252)
+
+ 85:         102 LOAD_DEREF           (self)
+             104 LOAD_ATTR            (engine)
+             124 LOAD_ATTR            (is_running)
+             144 TO_BOOL
+             152 POP_JUMP_IF_TRUE     (to 248)
+
+ 86:         156 LOAD_GLOBAL          (asyncio)
+             166 LOAD_ATTR            (create_task)
+             186 PUSH_NULL
+             188 LOAD_DEREF           (self)
+             190 LOAD_ATTR            (engine)
+             210 LOAD_ATTR            (NULL|self + start)
+             230 CALL                 (0 positional)
+             238 CALL                 (1 positional)
+             246 POP_TOP
+         >>  248 EXTENDED_ARG         (768)
+             250 JUMP_FORWARD         (to 1810)
+
+ 87:     >>  252 LOAD_FAST            (action)
+             254 LOAD_CONST           ("stop")
+             256 COMPARE_OP           (==)
+             260 POP_JUMP_IF_FALSE    (to 414)
+
+ 88:         264 LOAD_DEREF           (self)
+             266 LOAD_ATTR            (engine)
+             286 LOAD_ATTR            (is_running)
+             306 TO_BOOL
+             314 POP_JUMP_IF_FALSE    (to 410)
+
+ 89:         318 LOAD_GLOBAL          (asyncio)
+             328 LOAD_ATTR            (create_task)
+             348 PUSH_NULL
+             350 LOAD_DEREF           (self)
+             352 LOAD_ATTR            (engine)
+             372 LOAD_ATTR            (NULL|self + stop)
+             392 CALL                 (0 positional)
+             400 CALL                 (1 positional)
+             408 POP_TOP
+         >>  410 EXTENDED_ARG         (512)
+             412 JUMP_FORWARD         (to 1810)
+
+ 90:     >>  414 LOAD_FAST            (action)
+             416 LOAD_CONST           ("sync")
+             418 COMPARE_OP           (==)
+             422 POP_JUMP_IF_FALSE    (to 522)
+
+ 91:         426 LOAD_GLOBAL          (asyncio)
+             436 LOAD_ATTR            (create_task)
+             456 PUSH_NULL
+             458 LOAD_DEREF           (self)
+             460 LOAD_ATTR            (engine)
+             480 LOAD_ATTR            (NULL|self + run_sync_standalone)
+             500 CALL                 (0 positional)
+             508 CALL                 (1 positional)
+             516 POP_TOP
+             518 EXTENDED_ARG         (512)
+             520 JUMP_FORWARD         (to 1810)
+
+ 92:     >>  522 LOAD_FAST            (action)
+             524 LOAD_CONST           ("refresh_stats")
+             526 COMPARE_OP           (==)
+             530 POP_JUMP_IF_FALSE    (to 604)
+
+ 93:         534 LOAD_FAST            (self)
+             536 BUILD_TUPLE          1
+             538 LOAD_CONST           (<Code311 code object refresh_flow at 0x221f1916a50, file src\server.py>, line 93)
+             540 MAKE_FUNCTION
+             542 SET_FUNCTION_ATTRIBUTE 8
+             544 STORE_FAST           (refresh_flow)
+
+ 96:         546 LOAD_GLOBAL          (asyncio)
+             556 LOAD_ATTR            (create_task)
+             576 PUSH_NULL
+             578 LOAD_FAST            (refresh_flow)
+             580 PUSH_NULL
+             582 CALL                 (0 positional)
+             590 CALL                 (1 positional)
+             598 POP_TOP
+             600 EXTENDED_ARG         (512)
+             602 JUMP_FORWARD         (to 1810)
+
+ 97:     >>  604 LOAD_FAST            (action)
+             606 LOAD_CONST           ("reset_channel")
+             608 COMPARE_OP           (==)
+             612 POP_JUMP_IF_FALSE    (to 700)
+
+ 98:         616 LOAD_FAST            (data)
+             618 LOAD_ATTR            (NULL|self + get)
+             638 LOAD_CONST           ("channel")
+             640 CALL                 (1 positional)
+             648 STORE_FAST           (name)
+
+ 99:         650 LOAD_GLOBAL          (db)
+             660 LOAD_ATTR            (upsert_channel)
+             680 PUSH_NULL
+             682 LOAD_FAST            (name)
+             684 LOAD_CONST           ("Bereit")
+             686 LOAD_CONST           (0)
+             688 LOAD_CONST           ("System-Aktualisierung")
+             690 LOAD_CONST           (('status', 'error_count', 'last_update'))
+             692 CALL_KW              4
+             694 POP_TOP
+             696 EXTENDED_ARG         (512)
+             698 JUMP_FORWARD         (to 1810)
+
+100:     >>  700 LOAD_FAST            (action)
+             702 LOAD_CONST           ("mark_done")
+             704 COMPARE_OP           (==)
+             708 POP_JUMP_IF_FALSE    (to 882)
+
+101:         712 LOAD_FAST            (data)
+             714 LOAD_ATTR            (NULL|self + get)
+             734 LOAD_CONST           ("channel")
+             736 CALL                 (1 positional)
+             744 STORE_FAST           (name)
+
+102:         746 LOAD_CONST           (0)
+             748 LOAD_CONST           (None)
+             750 IMPORT_NAME          (datetime)
+             752 STORE_FAST           (datetime)
+
+103:         754 LOAD_GLOBAL          (db)
+             764 LOAD_ATTR            (upsert_channel)
+             784 PUSH_NULL
+             786 LOAD_FAST            (name)
+             788 LOAD_CONST           ("Erledigt")
+             790 LOAD_CONST           (0)
+             792 LOAD_FAST            (datetime)
+             794 LOAD_ATTR            (datetime)
+             814 LOAD_ATTR            (NULL|self + now)
+             834 CALL                 (0 positional)
+             842 LOAD_ATTR            (NULL|self + strftime)
+             862 LOAD_CONST           ("%Y-%m-%d %H:%M")
+             864 CALL                 (1 positional)
+             872 LOAD_CONST           (('status', 'error_count', 'last_update'))
+             874 CALL_KW              4
+             876 POP_TOP
+             878 EXTENDED_ARG         (256)
+             880 JUMP_FORWARD         (to 1810)
+
+104:     >>  882 LOAD_FAST            (action)
+             884 LOAD_CONST           ("kill_worker")
+             886 COMPARE_OP           (==)
+             890 POP_JUMP_IF_FALSE    (to 1104)
+
+105:         894 LOAD_FAST            (data)
+             896 LOAD_ATTR            (NULL|self + get)
+             916 LOAD_CONST           ("channel")
+             918 CALL                 (1 positional)
+             926 STORE_FAST           (name)
+
+106:         928 LOAD_FAST            (name)
+             930 LOAD_DEREF           (self)
+             932 LOAD_ATTR            (engine)
+             952 LOAD_ATTR            (active_workers)
+             972 CONTAINS_OP          (in)
+             976 POP_JUMP_IF_FALSE    (to 1100)
+
+107:         980 LOAD_DEREF           (self)
+             982 LOAD_ATTR            (engine)
+            1002 LOAD_ATTR            (active_workers)
+            1022 LOAD_FAST            (name)
+            1024 BINARY_SUBSCR
+            1028 LOAD_ATTR            (NULL|self + cancel)
+            1048 CALL                 (0 positional)
+            1056 POP_TOP
+
+108:        1058 LOAD_GLOBAL          (db)
+            1068 LOAD_ATTR            (upsert_channel)
+            1088 PUSH_NULL
+            1090 LOAD_FAST            (name)
+            1092 LOAD_CONST           ("Bereit")
+            1094 LOAD_CONST           (('status',))
+            1096 CALL_KW              2
+            1098 POP_TOP
+         >> 1100 EXTENDED_ARG         (256)
+            1102 JUMP_FORWARD         (to 1810)
+
+109:     >> 1104 LOAD_FAST            (action)
+            1106 LOAD_CONST           ("delete_db")
+            1108 COMPARE_OP           (==)
+            1112 POP_JUMP_IF_FALSE    (to 1162)
+
+110:        1116 LOAD_GLOBAL          (db)
+            1126 LOAD_ATTR            (reset_database)
+            1146 PUSH_NULL
+            1148 CALL                 (0 positional)
+            1156 POP_TOP
+            1158 EXTENDED_ARG         (256)
+            1160 JUMP_FORWARD         (to 1810)
+
+111:     >> 1162 LOAD_FAST            (action)
+            1164 LOAD_CONST           ("backup_db")
+            1166 COMPARE_OP           (==)
+            1170 POP_JUMP_IF_FALSE    (to 1230)
+
+112:        1174 LOAD_DEREF           (self)
+            1176 LOAD_ATTR            (engine)
+            1196 LOAD_ATTR            (NULL|self + create_diagnosis_backup)
+            1216 CALL                 (0 positional)
+            1224 POP_TOP
+            1226 EXTENDED_ARG         (256)
+            1228 JUMP_FORWARD         (to 1810)
+
+113:     >> 1230 LOAD_FAST            (action)
+            1232 LOAD_CONST           ("uninstall")
+            1234 COMPARE_OP           (==)
+            1238 POP_JUMP_IF_FALSE    (to 1686)
+
+114:        1242 LOAD_CONST           (0)
+            1244 LOAD_CONST           (None)
+            1246 IMPORT_NAME          (os)
+            1248 STORE_FAST           (os)
+
+115:        1250 LOAD_CONST           (0)
+            1252 LOAD_CONST           (None)
+            1254 IMPORT_NAME          (subprocess)
+            1256 STORE_FAST           (subprocess)
+
+116:        1258 LOAD_CONST           (0)
+            1260 LOAD_CONST           (('get_exe_dir',))
+            1262 IMPORT_NAME          (src.paths)
+            1264 IMPORT_FROM          (get_exe_dir)
+            1266 STORE_FAST           (get_exe_dir)
+            1268 POP_TOP
+
+117:        1270 LOAD_FAST            (os)
+            1272 LOAD_ATTR            (path)
+            1292 LOAD_ATTR            (NULL|self + join)
+            1312 LOAD_FAST            (get_exe_dir)
+            1314 PUSH_NULL
+            1316 CALL                 (0 positional)
+            1324 LOAD_CONST           ("unins000.exe")
+            1326 CALL                 (2 positional)
+            1334 STORE_FAST           (uninstaller)
+
+118:        1336 LOAD_FAST            (os)
+            1338 LOAD_ATTR            (path)
+            1358 LOAD_ATTR            (NULL|self + exists)
+            1378 LOAD_FAST            (uninstaller)
+            1380 CALL                 (1 positional)
+            1388 TO_BOOL
+            1396 POP_JUMP_IF_FALSE    (to 1592)
+
+119:        1400 LOAD_GLOBAL          (logger)
+            1410 LOAD_ATTR            (info)
+            1430 PUSH_NULL
+            1432 LOAD_CONST           ("Starte Deinstaller: ")
+            1434 LOAD_FAST            (uninstaller)
+            1436 FORMAT_SIMPLE
+            1438 BUILD_STRING         2
+            1440 CALL                 (1 positional)
+            1448 POP_TOP
+
+120:        1450 LOAD_FAST            (subprocess)
+            1452 LOAD_ATTR            (NULL|self + Popen)
+            1472 LOAD_FAST            (uninstaller)
+            1474 BUILD_LIST           1
+            1476 CALL                 (1 positional)
+            1484 POP_TOP
+
+121:        1486 LOAD_CONST           (0)
+            1488 LOAD_CONST           (None)
+            1490 IMPORT_NAME          (webview)
+            1492 STORE_FAST           (webview)
+
+122:        1494 NOP
+
+123:        1496 LOAD_FAST            (webview)
+            1498 LOAD_ATTR            (windows)
+            1518 LOAD_CONST           (0)
+            1520 BINARY_SUBSCR
+            1524 LOAD_ATTR            (NULL|self + destroy)
+            1544 CALL                 (0 positional)
+            1552 POP_TOP
+
+126:        1554 LOAD_FAST            (os)
+            1556 LOAD_ATTR            (_exit)
+            1576 PUSH_NULL
+            1578 LOAD_CONST           (0)
+            1580 CALL                 (1 positional)
+            1588 POP_TOP
+            1590 JUMP_FORWARD         (to 1810)
+
+128:     >> 1592 LOAD_GLOBAL          (logger)
+            1602 LOAD_ATTR            (warning)
+            1622 PUSH_NULL
+            1624 LOAD_CONST           ("Deinstaller unins000.exe nicht gefunden (Portable Version?)")
+            1626 CALL                 (1 positional)
+            1634 POP_TOP
+
+129:        1636 LOAD_GLOBAL          (web)
+            1646 LOAD_ATTR            (json_response)
+            1666 PUSH_NULL
+            1668 LOAD_CONST           ("error")
+            1670 LOAD_CONST           ("Deinstaller unins000.exe nicht gefunden. Nutzt du die Portable Version?")
+            1672 LOAD_CONST           (('status', 'error'))
+            1674 BUILD_CONST_KEY_MAP  2
+            1676 CALL                 (1 positional)
+            1684 RETURN_VALUE
+
+130:     >> 1686 LOAD_FAST            (action)
+            1688 LOAD_CONST           ("quit")
+            1690 COMPARE_OP           (==)
+            1694 POP_JUMP_IF_FALSE    (to 1810)
+
+131:        1698 LOAD_CONST           (0)
+            1700 LOAD_CONST           (None)
+            1702 IMPORT_NAME          (webview)
+            1704 STORE_FAST           (webview)
+
+132:        1706 LOAD_CONST           (0)
+            1708 LOAD_CONST           (None)
+            1710 IMPORT_NAME          (os)
+            1712 STORE_FAST           (os)
+
+133:        1714 NOP
+
+134:        1716 LOAD_FAST            (webview)
+            1718 LOAD_ATTR            (windows)
+            1738 LOAD_CONST           (0)
+            1740 BINARY_SUBSCR
+            1744 LOAD_ATTR            (NULL|self + destroy)
+            1764 CALL                 (0 positional)
+            1772 POP_TOP
+
+137:        1774 LOAD_FAST            (os)
+            1776 LOAD_ATTR            (_exit)
+            1796 PUSH_NULL
+            1798 LOAD_CONST           (0)
+            1800 CALL                 (1 positional)
+            1808 POP_TOP
+
+139:     >> 1810 LOAD_GLOBAL          (web)
+            1820 LOAD_ATTR            (json_response)
+            1840 PUSH_NULL
+            1842 LOAD_CONST           ("status")
+            1844 LOAD_CONST           ("ok")
+            1846 BUILD_MAP            1
+            1848 CALL                 (1 positional)
+            1856 RETURN_VALUE
+
+ 81:        1858 CLEANUP_THROW
+            1860 EXTENDED_ARG         (768)
+            1862 JUMP_BACKWARD_NO_INTERRUPT (to 52)
+            1864 PUSH_EXC_INFO
+
+124:        1866 POP_TOP
+
+125:        1868 POP_EXCEPT
+            1870 JUMP_BACKWARD_NO_INTERRUPT (to 1554)
+            1872 COPY                 3
+            1874 POP_EXCEPT
+            1876 RERAISE              1
+            1878 PUSH_EXC_INFO
+
+135:        1880 POP_TOP
+
+136:        1882 POP_EXCEPT
+            1884 JUMP_BACKWARD_NO_INTERRUPT (to 1774)
+            1886 COPY                 3
+            1888 POP_EXCEPT
+            1890 RERAISE              1
+            1892 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+            1894 RERAISE              1
+
+ExceptionTable:
+  6 to 44 -> 1892 [0] lasti
+  46 to 46 -> 1858 [2]
+  48 to 1492 -> 1892 [0] lasti
+  1496 to 1552 -> 1864 [0]
+  1554 to 1712 -> 1892 [0] lasti
+  1716 to 1772 -> 1878 [0]
+  1774 to 1858 -> 1892 [0] lasti
+  1864 to 1866 -> 1872 [1] lasti
+  1868 to 1876 -> 1892 [0] lasti
+  1878 to 1880 -> 1886 [1] lasti
+  1882 to 1890 -> 1892 [0] lasti
+
+# Method Name:       post_token
+# Filename:          src\server.py
+# Argument count:    2
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  6
+# Stack size:        5
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        141
+# Constants:
+#    0: None
+#    1: 'token'
+#    2: False
+#    3: 'Token ung�ltig oder abgelaufen'
+#    4: ('success', 'error')
+#    5: 'success'
+# Names:
+#    0: json
+#    1: get
+#    2: validate_token
+#    3: web
+#    4: json_response
+#    5: save_token
+# Varnames:
+#	self, request, data, token, is_valid, success
+# Positional arguments:
+#	self, request
+# Local variables:
+#    2: data
+#    3: token
+#    4: is_valid
+#    5: success
+
+141:           0 RETURN_GENERATOR
+               2 POP_TOP
+               4 RESUME               0
+
+142:           6 LOAD_FAST            (request)
+               8 LOAD_ATTR            (NULL|self + json)
+              28 CALL                 (0 positional)
+              36 GET_AWAITABLE        0
+              38 LOAD_CONST           (None)
+              40 SEND                 (to 48)
+              44 YIELD_VALUE          1
+              46 RESUME               3
+              48 JUMP_BACKWARD_NO_INTERRUPT (to 40)
+         >>   50 END_SEND
+              52 STORE_FAST           (data)
+
+143:          54 LOAD_FAST            (data)
+              56 LOAD_ATTR            (NULL|self + get)
+              76 LOAD_CONST           ("token")
+              78 CALL                 (1 positional)
+              86 STORE_FAST           (token)
+
+144:          88 LOAD_GLOBAL          (NULL + validate_token)
+              98 LOAD_FAST            (token)
+             100 CALL                 (1 positional)
+             108 GET_AWAITABLE        0
+             110 LOAD_CONST           (None)
+             112 SEND                 (to 120)
+             116 YIELD_VALUE          1
+             118 RESUME               3
+             120 JUMP_BACKWARD_NO_INTERRUPT (to 112)
+         >>  122 END_SEND
+             124 STORE_FAST           (is_valid)
+
+145:         126 LOAD_FAST            (is_valid)
+             128 TO_BOOL
+             136 POP_JUMP_IF_TRUE     (to 190)
+
+146:         140 LOAD_GLOBAL          (web)
+             150 LOAD_ATTR            (json_response)
+             170 PUSH_NULL
+             172 LOAD_CONST           (False)
+             174 LOAD_CONST           ("Token ung�ltig oder abgelaufen")
+             176 LOAD_CONST           (('success', 'error'))
+             178 BUILD_CONST_KEY_MAP  2
+             180 CALL                 (1 positional)
+             188 RETURN_VALUE
+
+147:     >>  190 LOAD_GLOBAL          (NULL + save_token)
+             200 LOAD_FAST            (token)
+             202 CALL                 (1 positional)
+             210 STORE_FAST           (success)
+
+148:         212 LOAD_GLOBAL          (web)
+             222 LOAD_ATTR            (json_response)
+             242 PUSH_NULL
+             244 LOAD_CONST           ("success")
+             246 LOAD_FAST            (success)
+             248 BUILD_MAP            1
+             250 CALL                 (1 positional)
+             258 RETURN_VALUE
+
+142:         260 CLEANUP_THROW
+             262 JUMP_BACKWARD_NO_INTERRUPT (to 50)
+
+144:         264 CLEANUP_THROW
+             266 JUMP_BACKWARD_NO_INTERRUPT (to 122)
+             268 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+             270 RERAISE              1
+
+ExceptionTable:
+  4 to 42 -> 268 [0] lasti
+  44 to 44 -> 260 [2]
+  46 to 114 -> 268 [0] lasti
+  116 to 116 -> 264 [2]
+  118 to 260 -> 268 [0] lasti
+  264 to 264 -> 268 [0] lasti
+
+# Method Name:       get_token_status
+# Filename:          src\server.py
+# Argument count:    2
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  3
+# Stack size:        5
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        150
+# Constants:
+#    0: None
+#    1: 'has_token'
+# Names:
+#    0: load_token
+#    1: web
+#    2: json_response
+# Varnames:
+#	self, request, token
+# Positional arguments:
+#	self, request
+# Local variables:
+#    2: token
+
+150:           0 RETURN_GENERATOR
+               2 POP_TOP
+               4 RESUME               0
+
+151:           6 LOAD_GLOBAL          (NULL + load_token)
+              16 CALL                 (0 positional)
+              24 STORE_FAST           (token)
+
+152:          26 LOAD_GLOBAL          (web)
+              36 LOAD_ATTR            (json_response)
+              56 PUSH_NULL
+              58 LOAD_CONST           ("has_token")
+              60 LOAD_FAST            (token)
+              62 LOAD_CONST           (None)
+              64 IS_OP                (is not)
+              66 BUILD_MAP            1
+              68 CALL                 (1 positional)
+              76 RETURN_VALUE
+              78 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+              80 RERAISE              1
+
+ExceptionTable:
+  4 to 76 -> 78 [0] lasti
+
+# Method Name:       post_log_error
+# Filename:          src\server.py
+# Argument count:    2
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  3
+# Stack size:        10
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        154
+# Constants:
+#    0: None
+#    1: 'UI-Fehler: '
+#    2: 'message'
+#    3: ' in '
+#    4: 'source'
+#    5: ' bei Zeile '
+#    6: 'line'
+#    7: 'status'
+#    8: 'ok'
+# Names:
+#    0: json
+#    1: logger
+#    2: error
+#    3: get
+#    4: web
+#    5: json_response
+# Varnames:
+#	self, request, data
+# Positional arguments:
+#	self, request
+# Local variables:
+#    2: data
+
+154:           0 RETURN_GENERATOR
+               2 POP_TOP
+               4 RESUME               0
+
+155:           6 LOAD_FAST            (request)
+               8 LOAD_ATTR            (NULL|self + json)
+              28 CALL                 (0 positional)
+              36 GET_AWAITABLE        0
+              38 LOAD_CONST           (None)
+              40 SEND                 (to 48)
+              44 YIELD_VALUE          1
+              46 RESUME               3
+              48 JUMP_BACKWARD_NO_INTERRUPT (to 40)
+         >>   50 END_SEND
+              52 STORE_FAST           (data)
+
+156:          54 LOAD_GLOBAL          (logger)
+              64 LOAD_ATTR            (error)
+              84 PUSH_NULL
+              86 LOAD_CONST           ("UI-Fehler: ")
+              88 LOAD_FAST            (data)
+              90 LOAD_ATTR            (NULL|self + get)
+             110 LOAD_CONST           ("message")
+             112 CALL                 (1 positional)
+             120 FORMAT_SIMPLE
+             122 LOAD_CONST           (" in ")
+             124 LOAD_FAST            (data)
+             126 LOAD_ATTR            (NULL|self + get)
+             146 LOAD_CONST           ("source")
+             148 CALL                 (1 positional)
+             156 FORMAT_SIMPLE
+             158 LOAD_CONST           (" bei Zeile ")
+             160 LOAD_FAST            (data)
+             162 LOAD_ATTR            (NULL|self + get)
+             182 LOAD_CONST           ("line")
+             184 CALL                 (1 positional)
+             192 FORMAT_SIMPLE
+             194 BUILD_STRING         6
+             196 CALL                 (1 positional)
+             204 POP_TOP
+
+157:         206 LOAD_GLOBAL          (web)
+             216 LOAD_ATTR            (json_response)
+             236 PUSH_NULL
+             238 LOAD_CONST           ("status")
+             240 LOAD_CONST           ("ok")
+             242 BUILD_MAP            1
+             244 CALL                 (1 positional)
+             252 RETURN_VALUE
+
+155:         254 CLEANUP_THROW
+             256 JUMP_BACKWARD_NO_INTERRUPT (to 50)
+             258 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+             260 RERAISE              1
+
+ExceptionTable:
+  4 to 42 -> 258 [0] lasti
+  44 to 44 -> 254 [2]
+  46 to 254 -> 258 [0] lasti
+
+# Method Name:       post_toggle_ignore
+# Filename:          src\server.py
+# Argument count:    2
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  5
+# Stack size:        5
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        159
+# Constants:
+#    0: None
+#    1: 'channel'
+#    2: 'is_ignored'
+#    3: ('is_ignored',)
+#    4: 'status'
+#    5: 'ok'
+# Names:
+#    0: json
+#    1: get
+#    2: int
+#    3: db
+#    4: upsert_channel
+#    5: web
+#    6: json_response
+# Varnames:
+#	self, request, data, name, is_ignored
+# Positional arguments:
+#	self, request
+# Local variables:
+#    2: data
+#    3: name
+#    4: is_ignored
+
+159:           0 RETURN_GENERATOR
+               2 POP_TOP
+               4 RESUME               0
+
+160:           6 LOAD_FAST            (request)
+               8 LOAD_ATTR            (NULL|self + json)
+              28 CALL                 (0 positional)
+              36 GET_AWAITABLE        0
+              38 LOAD_CONST           (None)
+              40 SEND                 (to 48)
+              44 YIELD_VALUE          1
+              46 RESUME               3
+              48 JUMP_BACKWARD_NO_INTERRUPT (to 40)
+         >>   50 END_SEND
+              52 STORE_FAST           (data)
+
+161:          54 LOAD_FAST            (data)
+              56 LOAD_ATTR            (NULL|self + get)
+              76 LOAD_CONST           ("channel")
+              78 CALL                 (1 positional)
+              86 STORE_FAST           (name)
+
+162:          88 LOAD_GLOBAL          (NULL + int)
+              98 LOAD_FAST            (data)
+             100 LOAD_ATTR            (NULL|self + get)
+             120 LOAD_CONST           ("is_ignored")
+             122 CALL                 (1 positional)
+             130 CALL                 (1 positional)
+             138 STORE_FAST           (is_ignored)
+
+163:         140 LOAD_GLOBAL          (db)
+             150 LOAD_ATTR            (upsert_channel)
+             170 PUSH_NULL
+             172 LOAD_FAST_LOAD_FAST  (name, is_ignored)
+             174 LOAD_CONST           (('is_ignored',))
+             176 CALL_KW              2
+             178 POP_TOP
+
+164:         180 LOAD_GLOBAL          (web)
+             190 LOAD_ATTR            (json_response)
+             210 PUSH_NULL
+             212 LOAD_CONST           ("status")
+             214 LOAD_CONST           ("ok")
+             216 BUILD_MAP            1
+             218 CALL                 (1 positional)
+             226 RETURN_VALUE
+
+160:         228 CLEANUP_THROW
+             230 JUMP_BACKWARD_NO_INTERRUPT (to 50)
+             232 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+             234 RERAISE              1
+
+ExceptionTable:
+  4 to 42 -> 232 [0] lasti
+  44 to 44 -> 228 [2]
+  46 to 228 -> 232 [0] lasti
+
+# Method Name:       post_set_favorite
+# Filename:          src\server.py
+# Argument count:    2
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  5
+# Stack size:        6
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        166
+# Constants:
+#    0: None
+#    1: 'channel'
+#    2: 'priority'
+#    3: 0
+#    4: ('favorite_priority',)
+#    5: 'status'
+#    6: 'ok'
+# Names:
+#    0: json
+#    1: get
+#    2: int
+#    3: db
+#    4: upsert_channel
+#    5: web
+#    6: json_response
+# Varnames:
+#	self, request, data, name, priority
+# Positional arguments:
+#	self, request
+# Local variables:
+#    2: data
+#    3: name
+#    4: priority
+
+166:           0 RETURN_GENERATOR
+               2 POP_TOP
+               4 RESUME               0
+
+167:           6 LOAD_FAST            (request)
+               8 LOAD_ATTR            (NULL|self + json)
+              28 CALL                 (0 positional)
+              36 GET_AWAITABLE        0
+              38 LOAD_CONST           (None)
+              40 SEND                 (to 48)
+              44 YIELD_VALUE          1
+              46 RESUME               3
+              48 JUMP_BACKWARD_NO_INTERRUPT (to 40)
+         >>   50 END_SEND
+              52 STORE_FAST           (data)
+
+168:          54 LOAD_FAST            (data)
+              56 LOAD_ATTR            (NULL|self + get)
+              76 LOAD_CONST           ("channel")
+              78 CALL                 (1 positional)
+              86 STORE_FAST           (name)
+
+169:          88 LOAD_GLOBAL          (NULL + int)
+              98 LOAD_FAST            (data)
+             100 LOAD_ATTR            (NULL|self + get)
+             120 LOAD_CONST           ("priority")
+             122 LOAD_CONST           (0)
+             124 CALL                 (2 positional)
+             132 CALL                 (1 positional)
+             140 STORE_FAST           (priority)
+
+170:         142 LOAD_GLOBAL          (db)
+             152 LOAD_ATTR            (upsert_channel)
+             172 PUSH_NULL
+             174 LOAD_FAST_LOAD_FAST  (name, priority)
+             176 LOAD_CONST           (('favorite_priority',))
+             178 CALL_KW              2
+             180 POP_TOP
+
+171:         182 LOAD_GLOBAL          (web)
+             192 LOAD_ATTR            (json_response)
+             212 PUSH_NULL
+             214 LOAD_CONST           ("status")
+             216 LOAD_CONST           ("ok")
+             218 BUILD_MAP            1
+             220 CALL                 (1 positional)
+             228 RETURN_VALUE
+
+167:         230 CLEANUP_THROW
+             232 JUMP_BACKWARD_NO_INTERRUPT (to 50)
+             234 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+             236 RERAISE              1
+
+ExceptionTable:
+  4 to 42 -> 234 [0] lasti
+  44 to 44 -> 230 [2]
+  46 to 230 -> 234 [0] lasti
+
+# Method Name:       post_export_logs
+# Filename:          src\server.py
+# Argument count:    2
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  7
+# Stack size:        7
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        173
+# Constants:
+#    0: None
+#    1: 0
+#    2: ('LOGS_DIR',)
+#    3: False
+#    4: 'Kein aktives GUI-Fenster gefunden.'
+#    5: ('success', 'error')
+#    6: <Code311 code object open_dialog at 0x221f1916fc0, file src\server.py>, line 185
+#    7: True
+#    8: ('success', 'cancelled')
+#    9: '.txt'
+#   10: 'twitchbot.log'
+#   11: <Code311 code object copy_file at 0x221f1917050, file src\server.py>, line 208
+#   12: 'Logs erfolgreich nach '
+#   13: ' exportiert.'
+#   14: ('success', 'path')
+#   15: 'Logdatei existiert nicht.'
+#   16: 'Fehler beim Exportieren der Logs: '
+# Names:
+#    0: webview
+#    1: shutil
+#    2: src.paths
+#    3: LOGS_DIR
+#    4: window
+#    5: web
+#    6: json_response
+#    7: asyncio
+#    8: get_event_loop
+#    9: run_in_executor
+#   10: isinstance
+#   11: list
+#   12: tuple
+#   13: len
+#   14: lower
+#   15: endswith
+#   16: os
+#   17: path
+#   18: join
+#   19: exists
+#   20: logger
+#   21: info
+#   22: Exception
+#   23: error
+#   24: str
+# Varnames:
+#	self, request, LOGS_DIR, loop, open_dialog, copy_file, e
+# Positional arguments:
+#	self, request
+# Local variables:
+#    2: LOGS_DIR
+#    3: loop
+#    4: open_dialog
+#    5: copy_file
+#    6: e
+# Cell variables:
+#    0: filepath
+#    1: log_file
+#    2: shutil
+#    3: webview
+#    4: window
+               0 MAKE_CELL            (filepath)
+               2 MAKE_CELL            (log_file)
+               4 MAKE_CELL            (shutil)
+               6 MAKE_CELL            (webview)
+               8 MAKE_CELL            (window)
+
+173:          10 RETURN_GENERATOR
+              12 POP_TOP
+              14 RESUME               0
+
+174:          16 LOAD_CONST           (0)
+              18 LOAD_CONST           (None)
+              20 IMPORT_NAME          (webview)
+              22 STORE_DEREF          (webview)
+
+175:          24 LOAD_CONST           (0)
+              26 LOAD_CONST           (None)
+              28 IMPORT_NAME          (shutil)
+              30 STORE_DEREF          (shutil)
+
+176:          32 LOAD_CONST           (0)
+              34 LOAD_CONST           (('LOGS_DIR',))
+              36 IMPORT_NAME          (src.paths)
+              38 IMPORT_FROM          (LOGS_DIR)
+              40 STORE_FAST           (LOGS_DIR)
+              42 POP_TOP
+
+178:          44 LOAD_FAST            (self)
+              46 LOAD_ATTR            (window)
+              66 TO_BOOL
+              74 POP_JUMP_IF_TRUE     (to 128)
+
+179:          78 LOAD_GLOBAL          (web)
+              88 LOAD_ATTR            (json_response)
+             108 PUSH_NULL
+             110 LOAD_CONST           (False)
+             112 LOAD_CONST           ("Kein aktives GUI-Fenster gefunden.")
+             114 LOAD_CONST           (('success', 'error'))
+             116 BUILD_CONST_KEY_MAP  2
+             118 CALL                 (1 positional)
+             126 RETURN_VALUE
+
+181:     >>  128 NOP
+
+182:         130 LOAD_FAST            (self)
+             132 LOAD_ATTR            (window)
+             152 STORE_DEREF          (window)
+
+183:         154 LOAD_GLOBAL          (asyncio)
+             164 LOAD_ATTR            (get_event_loop)
+             184 PUSH_NULL
+             186 CALL                 (0 positional)
+             194 STORE_FAST           (loop)
+
+185:         196 LOAD_FAST            (webview)
+             198 LOAD_FAST            (window)
+             200 BUILD_TUPLE          2
+             202 LOAD_CONST           (<Code311 code object open_dialog at 0x221f1916fc0, file src\server.py>, line 185)
+             204 MAKE_FUNCTION
+             206 SET_FUNCTION_ATTRIBUTE 8
+             208 STORE_FAST           (open_dialog)
+
+192:         210 LOAD_FAST            (loop)
+             212 LOAD_ATTR            (NULL|self + run_in_executor)
+             232 LOAD_CONST           (None)
+             234 LOAD_FAST            (open_dialog)
+             236 CALL                 (2 positional)
+             244 GET_AWAITABLE        0
+             246 LOAD_CONST           (None)
+             248 SEND                 (to 256)
+             252 YIELD_VALUE          1
+             254 RESUME               3
+             256 JUMP_BACKWARD_NO_INTERRUPT (to 248)
+         >>  258 END_SEND
+             260 STORE_DEREF          (filepath)
+
+194:         262 LOAD_DEREF           (filepath)
+             264 TO_BOOL
+             272 POP_JUMP_IF_TRUE     (to 326)
+
+195:         276 LOAD_GLOBAL          (web)
+             286 LOAD_ATTR            (json_response)
+             306 PUSH_NULL
+             308 LOAD_CONST           (True)
+             310 LOAD_CONST           (True)
+             312 LOAD_CONST           (('success', 'cancelled'))
+             314 BUILD_CONST_KEY_MAP  2
+             316 CALL                 (1 positional)
+             324 RETURN_VALUE
+
+197:     >>  326 LOAD_GLOBAL          (NULL + isinstance)
+             336 LOAD_DEREF           (filepath)
+             338 LOAD_GLOBAL          (list)
+             348 LOAD_GLOBAL          (tuple)
+             358 BUILD_TUPLE          2
+             360 CALL                 (2 positional)
+             368 TO_BOOL
+             376 POP_JUMP_IF_FALSE    (to 472)
+
+198:         380 LOAD_GLOBAL          (NULL + len)
+             390 LOAD_DEREF           (filepath)
+             392 CALL                 (1 positional)
+             400 LOAD_CONST           (0)
+             402 COMPARE_OP           (>)
+             406 POP_JUMP_IF_FALSE    (to 422)
+
+199:         410 LOAD_DEREF           (filepath)
+             412 LOAD_CONST           (0)
+             414 BINARY_SUBSCR
+             418 STORE_DEREF          (filepath)
+             420 JUMP_FORWARD         (to 472)
+
+201:     >>  422 LOAD_GLOBAL          (web)
+             432 LOAD_ATTR            (json_response)
+             452 PUSH_NULL
+             454 LOAD_CONST           (True)
+             456 LOAD_CONST           (True)
+             458 LOAD_CONST           (('success', 'cancelled'))
+             460 BUILD_CONST_KEY_MAP  2
+             462 CALL                 (1 positional)
+             470 RETURN_VALUE
+
+203:     >>  472 LOAD_DEREF           (filepath)
+             474 LOAD_ATTR            (NULL|self + lower)
+             494 CALL                 (0 positional)
+             502 LOAD_ATTR            (NULL|self + endswith)
+             522 LOAD_CONST           (".txt")
+             524 CALL                 (1 positional)
+             532 TO_BOOL
+             540 POP_JUMP_IF_TRUE     (to 554)
+
+204:         544 LOAD_DEREF           (filepath)
+             546 LOAD_CONST           (".txt")
+             548 BINARY_OP            (+=)
+             552 STORE_DEREF          (filepath)
+
+206:     >>  554 LOAD_GLOBAL          (os)
+             564 LOAD_ATTR            (path)
+             584 LOAD_ATTR            (NULL|self + join)
+             604 LOAD_FAST            (LOGS_DIR)
+             606 LOAD_CONST           ("twitchbot.log")
+             608 CALL                 (2 positional)
+             616 STORE_DEREF          (log_file)
+
+207:         618 LOAD_GLOBAL          (os)
+             628 LOAD_ATTR            (path)
+             648 LOAD_ATTR            (NULL|self + exists)
+             668 LOAD_DEREF           (log_file)
+             670 CALL                 (1 positional)
+             678 TO_BOOL
+             686 POP_JUMP_IF_FALSE    (to 860)
+
+208:         690 LOAD_FAST            (filepath)
+             692 LOAD_FAST            (log_file)
+             694 LOAD_FAST            (shutil)
+             696 BUILD_TUPLE          3
+             698 LOAD_CONST           (<Code311 code object copy_file at 0x221f1917050, file src\server.py>, line 208)
+             700 MAKE_FUNCTION
+             702 SET_FUNCTION_ATTRIBUTE 8
+             704 STORE_FAST           (copy_file)
+
+210:         706 LOAD_FAST            (loop)
+             708 LOAD_ATTR            (NULL|self + run_in_executor)
+             728 LOAD_CONST           (None)
+             730 LOAD_FAST            (copy_file)
+             732 CALL                 (2 positional)
+             740 GET_AWAITABLE        0
+             742 LOAD_CONST           (None)
+             744 SEND                 (to 752)
+             748 YIELD_VALUE          1
+             750 RESUME               3
+             752 JUMP_BACKWARD_NO_INTERRUPT (to 744)
+         >>  754 END_SEND
+             756 POP_TOP
+
+211:         758 LOAD_GLOBAL          (logger)
+             768 LOAD_ATTR            (info)
+             788 PUSH_NULL
+             790 LOAD_CONST           ("Logs erfolgreich nach ")
+             792 LOAD_DEREF           (filepath)
+             794 FORMAT_SIMPLE
+             796 LOAD_CONST           (" exportiert.")
+             798 BUILD_STRING         3
+             800 CALL                 (1 positional)
+             808 POP_TOP
+
+212:         810 LOAD_GLOBAL          (web)
+             820 LOAD_ATTR            (json_response)
+             840 PUSH_NULL
+             842 LOAD_CONST           (True)
+             844 LOAD_DEREF           (filepath)
+             846 LOAD_CONST           (('success', 'path'))
+             848 BUILD_CONST_KEY_MAP  2
+             850 CALL                 (1 positional)
+             858 RETURN_VALUE
+
+214:     >>  860 LOAD_GLOBAL          (web)
+             870 LOAD_ATTR            (json_response)
+             890 PUSH_NULL
+             892 LOAD_CONST           (False)
+             894 LOAD_CONST           ("Logdatei existiert nicht.")
+             896 LOAD_CONST           (('success', 'error'))
+             898 BUILD_CONST_KEY_MAP  2
+             900 CALL                 (1 positional)
+             908 RETURN_VALUE
+
+192:         910 CLEANUP_THROW
+             912 EXTENDED_ARG         (256)
+             914 JUMP_BACKWARD_NO_INTERRUPT (to 258)
+
+210:         916 CLEANUP_THROW
+             918 JUMP_BACKWARD_NO_INTERRUPT (to 754)
+             920 PUSH_EXC_INFO
+
+215:         922 LOAD_GLOBAL          (Exception)
+             932 CHECK_EXC_MATCH
+             934 POP_JUMP_IF_FALSE    (to 1076)
+             938 STORE_FAST           (e)
+
+216:         940 LOAD_GLOBAL          (logger)
+             950 LOAD_ATTR            (error)
+             970 PUSH_NULL
+             972 LOAD_CONST           ("Fehler beim Exportieren der Logs: ")
+             974 LOAD_FAST            (e)
+             976 FORMAT_SIMPLE
+             978 BUILD_STRING         2
+             980 CALL                 (1 positional)
+             988 POP_TOP
+
+217:         990 LOAD_GLOBAL          (web)
+            1000 LOAD_ATTR            (json_response)
+            1020 PUSH_NULL
+            1022 LOAD_CONST           (False)
+            1024 LOAD_GLOBAL          (NULL + str)
+            1034 LOAD_FAST            (e)
+            1036 CALL                 (1 positional)
+            1044 LOAD_CONST           (('success', 'error'))
+            1046 BUILD_CONST_KEY_MAP  2
+            1048 CALL                 (1 positional)
+            1056 SWAP                 (TOS <-> TOS1)
+            1058 POP_EXCEPT
+            1060 LOAD_CONST           (None)
+            1062 STORE_FAST           (e)
+            1064 DELETE_FAST          (e)
+            1066 RETURN_VALUE
+            1068 LOAD_CONST           (None)
+            1070 STORE_FAST           (e)
+            1072 DELETE_FAST          (e)
+            1074 RERAISE              1
+
+215:     >> 1076 RERAISE              0
+            1078 COPY                 3
+            1080 POP_EXCEPT
+            1082 RERAISE              1
+            1084 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+         >> 1086 RERAISE              1
+
+ExceptionTable:
+  14 to 126 -> 1084 [0] lasti
+  130 to 250 -> 920 [0]
+  252 to 252 -> 910 [2]
+  254 to 322 -> 920 [0]
+  324 to 324 -> 1084 [0] lasti
+  326 to 468 -> 920 [0]
+  470 to 470 -> 1084 [0] lasti
+  472 to 746 -> 920 [0]
+  748 to 748 -> 916 [2]
+  750 to 856 -> 920 [0]
+  858 to 858 -> 1084 [0] lasti
+  860 to 906 -> 920 [0]
+  908 to 908 -> 1084 [0] lasti
+  910 to 910 -> 920 [0]
+  916 to 916 -> 920 [0]
+  920 to 938 -> 1078 [1] lasti
+  940 to 1054 -> 1068 [1] lasti
+  1056 to 1056 -> 1078 [1] lasti
+  1058 to 1066 -> 1084 [0] lasti
+  1068 to 1076 -> 1078 [1] lasti
+  1078 to 1082 -> 1084 [0] lasti
+
+# Method Name:       restart_flow
+# Filename:          src\server.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        3
+# Flags:             0x00000093 (COROUTINE | NESTED | NEWLOCALS | OPTIMIZED)
+# First Line:        65
+# Constants:
+#    0: None
+#    1: 1
+# Names:
+#    0: engine
+#    1: stop
+#    2: asyncio
+#    3: sleep
+#    4: start
+# Free variables:
+#    0: self
+               0 COPY_FREE_VARS       1
+
+ 65:           2 RETURN_GENERATOR
+               4 POP_TOP
+               6 RESUME               0
+
+ 66:           8 LOAD_DEREF           (self)
+              10 LOAD_ATTR            (engine)
+              30 LOAD_ATTR            (NULL|self + stop)
+              50 CALL                 (0 positional)
+              58 GET_AWAITABLE        0
+              60 LOAD_CONST           (None)
+              62 SEND                 (to 70)
+              66 YIELD_VALUE          1
+              68 RESUME               3
+              70 JUMP_BACKWARD_NO_INTERRUPT (to 62)
+         >>   72 END_SEND
+              74 POP_TOP
+
+ 67:          76 LOAD_GLOBAL          (asyncio)
+              86 LOAD_ATTR            (sleep)
+             106 PUSH_NULL
+             108 LOAD_CONST           (1)
+             110 CALL                 (1 positional)
+             118 GET_AWAITABLE        0
+             120 LOAD_CONST           (None)
+             122 SEND                 (to 130)
+             126 YIELD_VALUE          1
+             128 RESUME               3
+             130 JUMP_BACKWARD_NO_INTERRUPT (to 122)
+         >>  132 END_SEND
+             134 POP_TOP
+
+ 68:         136 LOAD_DEREF           (self)
+             138 LOAD_ATTR            (engine)
+             158 LOAD_ATTR            (NULL|self + start)
+             178 CALL                 (0 positional)
+             186 GET_AWAITABLE        0
+             188 LOAD_CONST           (None)
+             190 SEND                 (to 198)
+             194 YIELD_VALUE          1
+             196 RESUME               3
+             198 JUMP_BACKWARD_NO_INTERRUPT (to 190)
+         >>  200 END_SEND
+             202 POP_TOP
+             204 RETURN_CONST         (None)
+
+ 66:         206 CLEANUP_THROW
+             208 JUMP_BACKWARD_NO_INTERRUPT (to 72)
+
+ 67:     >>  210 CLEANUP_THROW
+             212 JUMP_BACKWARD_NO_INTERRUPT (to 132)
+
+ 68:         214 CLEANUP_THROW
+             216 JUMP_BACKWARD_NO_INTERRUPT (to 200)
+             218 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+             220 RERAISE              1
+
+ExceptionTable:
+  6 to 64 -> 218 [0] lasti
+  66 to 66 -> 206 [2]
+  68 to 124 -> 218 [0] lasti
+  126 to 126 -> 210 [2]
+  128 to 192 -> 218 [0] lasti
+  194 to 194 -> 214 [2]
+  196 to 206 -> 218 [0] lasti
+  210 to 210 -> 218 [0] lasti
+  214 to 214 -> 218 [0] lasti
+
+# Method Name:       refresh_flow
+# Filename:          src\server.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        3
+# Flags:             0x00000093 (COROUTINE | NESTED | NEWLOCALS | OPTIMIZED)
+# First Line:        93
+# Constants:
+#    0: None
+# Names:
+#    0: engine
+#    1: sync_subscriptions
+#    2: run_stats_sync
+# Free variables:
+#    0: self
+               0 COPY_FREE_VARS       1
+
+ 93:           2 RETURN_GENERATOR
+               4 POP_TOP
+               6 RESUME               0
+
+ 94:           8 LOAD_DEREF           (self)
+              10 LOAD_ATTR            (engine)
+              30 LOAD_ATTR            (NULL|self + sync_subscriptions)
+              50 CALL                 (0 positional)
+              58 GET_AWAITABLE        0
+              60 LOAD_CONST           (None)
+              62 SEND                 (to 70)
+              66 YIELD_VALUE          1
+              68 RESUME               3
+              70 JUMP_BACKWARD_NO_INTERRUPT (to 62)
+         >>   72 END_SEND
+              74 POP_TOP
+
+ 95:          76 LOAD_DEREF           (self)
+              78 LOAD_ATTR            (engine)
+              98 LOAD_ATTR            (NULL|self + run_stats_sync)
+             118 CALL                 (0 positional)
+             126 GET_AWAITABLE        0
+             128 LOAD_CONST           (None)
+             130 SEND                 (to 138)
+             134 YIELD_VALUE          1
+             136 RESUME               3
+             138 JUMP_BACKWARD_NO_INTERRUPT (to 130)
+         >>  140 END_SEND
+             142 POP_TOP
+             144 RETURN_CONST         (None)
+
+ 94:         146 CLEANUP_THROW
+             148 JUMP_BACKWARD_NO_INTERRUPT (to 72)
+
+ 95:     >>  150 CLEANUP_THROW
+             152 JUMP_BACKWARD_NO_INTERRUPT (to 140)
+             154 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+             156 RERAISE              1
+
+ExceptionTable:
+  6 to 64 -> 154 [0] lasti
+  66 to 66 -> 146 [2]
+  68 to 132 -> 154 [0] lasti
+  134 to 134 -> 150 [2]
+  136 to 146 -> 154 [0] lasti
+  150 to 150 -> 154 [0] lasti
+
+# Method Name:       open_dialog
+# Filename:          src\server.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        6
+# Flags:             0x00000013 (NESTED | NEWLOCALS | OPTIMIZED)
+# First Line:        185
+# Constants:
+#    0: None
+#    1: ('Textdateien (*.txt)', '*.txt')
+#    2: 'twitchbot_log.txt'
+#    3: ('file_types', 'save_filename')
+# Names:
+#    0: create_file_dialog
+#    1: SAVE_DIALOG
+# Free variables:
+#    0: webview
+#    1: window
+               0 COPY_FREE_VARS       2
+
+185:           2 RESUME               0
+
+186:           4 LOAD_DEREF           (window)
+               6 LOAD_ATTR            (NULL|self + create_file_dialog)
+
+187:          26 LOAD_DEREF           (webview)
+              28 LOAD_ATTR            (SAVE_DIALOG)
+
+188:          48 LOAD_CONST           (('Textdateien (*.txt)', '*.txt'))
+
+189:          50 LOAD_CONST           ("twitchbot_log.txt")
+
+186:          52 LOAD_CONST           (('file_types', 'save_filename'))
+              54 CALL_KW              3
+              56 RETURN_VALUE
+
+
+# Method Name:       copy_file
+# Filename:          src\server.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        4
+# Flags:             0x00000013 (NESTED | NEWLOCALS | OPTIMIZED)
+# First Line:        208
+# Constants:
+#    0: None
+# Names:
+#    0: copy
+# Free variables:
+#    0: filepath
+#    1: log_file
+#    2: shutil
+               0 COPY_FREE_VARS       3
+
+208:           2 RESUME               0
+
+209:           4 LOAD_DEREF           (shutil)
+               6 LOAD_ATTR            (NULL|self + copy)
+              26 LOAD_DEREF           (log_file)
+              28 LOAD_DEREF           (filepath)
+              30 CALL                 (2 positional)
+              38 POP_TOP
+              40 RETURN_CONST         (None)
+

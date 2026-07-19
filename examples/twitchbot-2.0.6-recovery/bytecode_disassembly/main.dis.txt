@@ -1,0 +1,992 @@
+﻿# pydisasm version 6.3.0
+# CPython Python bytecode 3.13.0 (3571)
+#   Disassembled from CPython Python 3.12.13 (main, Mar  3 2026, 15:01:35) [MSC v.1944 64 bit (AMD64)]
+# Timestamp in code: 0 (1970-01-01 01:00:00)
+# Source code size mod 2**32: 0 bytes
+# Method Name:       <module>
+# Filename:          src\main.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        9
+# Flags:             0x00000000 (0x0)
+# First Line:        1
+# Constants:
+#    0: 0
+#    1: None
+#    2: ('TwitchBotEngine',)
+#    3: ('ApiServer',)
+#    4: ('logger',)
+#    5: ('PLAYWRIGHT_BROWSERS_PATH', 'CUSTOM_FIREFOX_PATH')
+#    6: <Code311 code object start_background_loop at 0x1652096f680, file src\main.py>, line 14
+#    7: '__main__'
+#    8: '===== NEUER START ====='
+#    9: 'BUILD: UNENCRYPTED-V8-2026-06-19'
+#   10: 'Benutzerdefinierter Firefox-Pfad konfiguriert: '
+#   11: '. �berspringe automatischen Playwright-Download.'
+#   12: 'PLAYWRIGHT_BROWSERS_PATH'
+#   13: ('compute_driver_executable', 'get_driver_env')
+#   14: 'win32'
+#   15: 134217728
+#   16: 'install'
+#   17: 'firefox'
+#   18: 'ffmpeg'
+#   19: 'winldd'
+#   20: '--dry-run'
+#   21: True
+#   22: ('env', 'text', 'creationflags')
+#   23: 'Konnte Playwright --dry-run nicht ausf�hren ('
+#   24: '). F�hre Fallback-Pr�fung aus.'
+#   25: ''
+#   26: 'firefox\\s+v?(\\d+)'
+#   27: 'winldd\\s+v?(\\d+)'
+#   28: 'firefox-'
+#   29: 1
+#   30: 'winldd-'
+#   31: False
+#   32: 'firefox.exe'
+#   33: 'Playwright Browser ('
+#   34: ') und Utilities ('
+#   35: ') bereits vorhanden. �berspringe automatischen Download.'
+#   36: 'Ben�tigte Playwright Browser oder Utilities fehlen oder sind veraltet. Starte automatische Installation...'
+#   37: 'Ein Konsolenfenster wird ge�ffnet, um den Download-Fortschritt anzuzeigen. Bitte warten...'
+#   38: ('taskkill', '/F', '/IM', 'node.exe')
+#   39: ('stdout', 'stderr', 'creationflags')
+#   40: '__dirlock'
+#   41: 'Entferne veraltete Playwright-Sperrdatei: '
+#   42: ('ignore_errors',)
+#   43: 'Konnte Sperrdatei nicht l�schen: '
+#   44: 16
+#   45: ('env', 'check', 'creationflags')
+#   46: 'Playwright-Installation beendet mit Exit-Code: '
+#   47: 'Playwright-Installation fehlgeschlagen mit Exit-Code '
+#   48: 'Fehler bei Playwright-Pr�fung: '
+#   49: 'Starte Applikation...'
+#   50: ('target', 'args', 'daemon')
+#   51: '--headless'
+#   52: '0.0.0.0'
+#   53: 'localhost'
+#   54: 'TwitchBot 2.0'
+#   55: 'http://localhost:8080/index.html'
+#   56: 1200
+#   57: 800
+#   58: '#18181b'
+#   59: ('width', 'height', 'background_color', 'frameless')
+#   60: ('window', 'host')
+#   61: 'Running in HEADLESS mode. Access dashboard at http://<pi-ip>:8080/'
+#   62: 'Headless server stopping...'
+#   63: 'Applikation beendet.'
+#   64: 3
+#   65: ('timeout',)
+# Names:
+#    0: os
+#    1: sys
+#    2: path
+#    3: append
+#    4: dirname
+#    5: abspath
+#    6: __file__
+#    7: asyncio
+#    8: webview
+#    9: threading
+#   10: src.bot_engine
+#   11: TwitchBotEngine
+#   12: src.server
+#   13: ApiServer
+#   14: src.logger
+#   15: logger
+#   16: src.paths
+#   17: PLAYWRIGHT_BROWSERS_PATH
+#   18: CUSTOM_FIREFOX_PATH
+#   19: start_background_loop
+#   20: __name__
+#   21: info
+#   22: glob
+#   23: shutil
+#   24: subprocess
+#   25: re
+#   26: environ
+#   27: playwright._impl._driver
+#   28: compute_driver_executable
+#   29: get_driver_env
+#   30: driver_executable
+#   31: driver_cli
+#   32: env
+#   33: creationflags_dry
+#   34: platform
+#   35: check_output
+#   36: dry_run_out
+#   37: Exception
+#   38: dre
+#   39: warning
+#   40: search
+#   41: firefox_match
+#   42: winldd_match
+#   43: group
+#   44: firefox_ver
+#   45: winldd_ver
+#   46: has_browsers
+#   47: join
+#   48: firefox_path
+#   49: winldd_path
+#   50: exists
+#   51: run
+#   52: DEVNULL
+#   53: lockfile
+#   54: isdir
+#   55: rmtree
+#   56: remove
+#   57: le
+#   58: creationflags_install
+#   59: result
+#   60: returncode
+#   61: error
+#   62: e
+#   63: new_event_loop
+#   64: loop
+#   65: Thread
+#   66: t
+#   67: start
+#   68: argv
+#   69: headless
+#   70: host
+#   71: window
+#   72: create_window
+#   73: engine
+#   74: server
+#   75: run_coroutine_threadsafe
+#   76: time
+#   77: sleep
+#   78: KeyboardInterrupt
+#   79: is_running
+#   80: stop
+#   81: call_soon_threadsafe
+
+  0:           0 RESUME               0
+
+  1:           2 LOAD_CONST           (0)
+               4 LOAD_CONST           (None)
+               6 IMPORT_NAME          (os)
+               8 STORE_NAME           (os)
+
+  2:          10 LOAD_CONST           (0)
+              12 LOAD_CONST           (None)
+              14 IMPORT_NAME          (sys)
+              16 STORE_NAME           (sys)
+
+  4:          18 LOAD_NAME            (sys)
+              20 LOAD_ATTR            (path)
+              40 LOAD_ATTR            (NULL|self + append)
+              60 LOAD_NAME            (os)
+              62 LOAD_ATTR            (path)
+              82 LOAD_ATTR            (NULL|self + dirname)
+             102 LOAD_NAME            (os)
+             104 LOAD_ATTR            (path)
+             124 LOAD_ATTR            (NULL|self + dirname)
+             144 LOAD_NAME            (os)
+             146 LOAD_ATTR            (path)
+             166 LOAD_ATTR            (NULL|self + abspath)
+             186 LOAD_NAME            (__file__)
+             188 CALL                 (1 positional)
+             196 CALL                 (1 positional)
+             204 CALL                 (1 positional)
+             212 CALL                 (1 positional)
+             220 POP_TOP
+
+  6:         222 LOAD_CONST           (0)
+             224 LOAD_CONST           (None)
+             226 IMPORT_NAME          (asyncio)
+             228 STORE_NAME           (asyncio)
+
+  7:         230 LOAD_CONST           (0)
+             232 LOAD_CONST           (None)
+             234 IMPORT_NAME          (webview)
+             236 STORE_NAME           (webview)
+
+  8:         238 LOAD_CONST           (0)
+             240 LOAD_CONST           (None)
+             242 IMPORT_NAME          (threading)
+             244 STORE_NAME           (threading)
+
+  9:         246 LOAD_CONST           (0)
+             248 LOAD_CONST           (('TwitchBotEngine',))
+             250 IMPORT_NAME          (src.bot_engine)
+             252 IMPORT_FROM          (TwitchBotEngine)
+             254 STORE_NAME           (TwitchBotEngine)
+             256 POP_TOP
+
+ 10:         258 LOAD_CONST           (0)
+             260 LOAD_CONST           (('ApiServer',))
+             262 IMPORT_NAME          (src.server)
+             264 IMPORT_FROM          (ApiServer)
+             266 STORE_NAME           (ApiServer)
+             268 POP_TOP
+
+ 11:         270 LOAD_CONST           (0)
+             272 LOAD_CONST           (('logger',))
+             274 IMPORT_NAME          (src.logger)
+             276 IMPORT_FROM          (logger)
+             278 STORE_NAME           (logger)
+             280 POP_TOP
+
+ 12:         282 LOAD_CONST           (0)
+             284 LOAD_CONST           (('PLAYWRIGHT_BROWSERS_PATH', 'CUSTOM_FIREFOX_PATH'))
+             286 IMPORT_NAME          (src.paths)
+             288 IMPORT_FROM          (PLAYWRIGHT_BROWSERS_PATH)
+             290 STORE_NAME           (PLAYWRIGHT_BROWSERS_PATH)
+             292 IMPORT_FROM          (CUSTOM_FIREFOX_PATH)
+             294 STORE_NAME           (CUSTOM_FIREFOX_PATH)
+             296 POP_TOP
+
+ 14:         298 LOAD_CONST           (<Code311 code object start_background_loop at 0x1652096f680, file src\main.py>, line 14)
+             300 MAKE_FUNCTION
+             302 STORE_NAME           (start_background_loop)
+
+ 18:         304 LOAD_NAME            (__name__)
+             306 LOAD_CONST           ("__main__")
+             308 COMPARE_OP           (==)
+             312 EXTENDED_ARG         (1024)
+             314 POP_JUMP_IF_FALSE    (to 2642)
+
+ 19:         318 LOAD_NAME            (logger)
+             320 LOAD_ATTR            (info)
+             340 PUSH_NULL
+             342 LOAD_CONST           ("===== NEUER START =====")
+             344 CALL                 (1 positional)
+             352 POP_TOP
+
+ 20:         354 LOAD_NAME            (logger)
+             356 LOAD_ATTR            (info)
+             376 PUSH_NULL
+             378 LOAD_CONST           ("BUILD: UNENCRYPTED-V8-2026-06-19")
+             380 CALL                 (1 positional)
+             388 POP_TOP
+
+ 23:         390 LOAD_NAME            (CUSTOM_FIREFOX_PATH)
+             392 TO_BOOL
+             400 POP_JUMP_IF_FALSE    (to 452)
+
+ 24:         404 LOAD_NAME            (logger)
+             406 LOAD_ATTR            (info)
+             426 PUSH_NULL
+             428 LOAD_CONST           ("Benutzerdefinierter Firefox-Pfad konfiguriert: ")
+             430 LOAD_NAME            (CUSTOM_FIREFOX_PATH)
+             432 FORMAT_SIMPLE
+             434 LOAD_CONST           (". �berspringe automatischen Playwright-Download.")
+             436 BUILD_STRING         3
+             438 CALL                 (1 positional)
+             446 POP_TOP
+             448 EXTENDED_ARG         (512)
+             450 JUMP_FORWARD         (to 1936)
+
+ 26:     >>  452 NOP
+
+ 27:         454 LOAD_CONST           (0)
+             456 LOAD_CONST           (None)
+             458 IMPORT_NAME          (glob)
+             460 STORE_NAME           (glob)
+
+ 28:         462 LOAD_CONST           (0)
+             464 LOAD_CONST           (None)
+             466 IMPORT_NAME          (shutil)
+             468 STORE_NAME           (shutil)
+
+ 29:         470 LOAD_CONST           (0)
+             472 LOAD_CONST           (None)
+             474 IMPORT_NAME          (subprocess)
+             476 STORE_NAME           (subprocess)
+
+ 30:         478 LOAD_CONST           (0)
+             480 LOAD_CONST           (None)
+             482 IMPORT_NAME          (re)
+             484 STORE_NAME           (re)
+
+ 33:         486 LOAD_NAME            (PLAYWRIGHT_BROWSERS_PATH)
+             488 LOAD_NAME            (os)
+             490 LOAD_ATTR            (environ)
+             510 LOAD_CONST           ("PLAYWRIGHT_BROWSERS_PATH")
+             512 STORE_SUBSCR
+
+ 34:         516 LOAD_CONST           (0)
+             518 LOAD_CONST           (('compute_driver_executable', 'get_driver_env'))
+             520 IMPORT_NAME          (playwright._impl._driver)
+             522 IMPORT_FROM          (compute_driver_executable)
+             524 STORE_NAME           (compute_driver_executable)
+             526 IMPORT_FROM          (get_driver_env)
+             528 STORE_NAME           (get_driver_env)
+             530 POP_TOP
+
+ 35:         532 LOAD_NAME            (compute_driver_executable)
+             534 PUSH_NULL
+             536 CALL                 (0 positional)
+             544 UNPACK_SEQUENCE      2
+             548 STORE_NAME           (driver_executable)
+             550 STORE_NAME           (driver_cli)
+
+ 36:         552 LOAD_NAME            (get_driver_env)
+             554 PUSH_NULL
+             556 CALL                 (0 positional)
+             564 STORE_NAME           (env)
+
+ 38:         566 LOAD_CONST           (0)
+             568 STORE_NAME           (creationflags_dry)
+
+ 39:         570 LOAD_NAME            (sys)
+             572 LOAD_ATTR            (platform)
+             592 LOAD_CONST           ("win32")
+             594 COMPARE_OP           (==)
+             598 POP_JUMP_IF_FALSE    (to 606)
+
+ 40:         602 LOAD_CONST           (134217728)
+             604 STORE_NAME           (creationflags_dry)
+
+ 42:     >>  606 NOP
+
+ 43:         608 LOAD_NAME            (subprocess)
+             610 LOAD_ATTR            (check_output)
+             630 PUSH_NULL
+
+ 44:         632 LOAD_NAME            (driver_executable)
+             634 LOAD_NAME            (driver_cli)
+             636 LOAD_CONST           ("install")
+             638 LOAD_CONST           ("firefox")
+             640 LOAD_CONST           ("ffmpeg")
+             642 LOAD_CONST           ("winldd")
+             644 LOAD_CONST           ("--dry-run")
+             646 BUILD_LIST           7
+
+ 45:         648 LOAD_NAME            (env)
+
+ 46:         650 LOAD_CONST           (True)
+
+ 47:         652 LOAD_NAME            (creationflags_dry)
+
+ 43:         654 LOAD_CONST           (('env', 'text', 'creationflags'))
+             656 CALL_KW              4
+             658 STORE_NAME           (dry_run_out)
+
+ 54:         660 LOAD_NAME            (re)
+             662 LOAD_ATTR            (search)
+             682 PUSH_NULL
+             684 LOAD_CONST           ("firefox\\s+v?(\\d+)")
+             686 LOAD_NAME            (dry_run_out)
+             688 CALL                 (2 positional)
+             696 STORE_NAME           (firefox_match)
+
+ 55:         698 LOAD_NAME            (re)
+             700 LOAD_ATTR            (search)
+             720 PUSH_NULL
+             722 LOAD_CONST           ("winldd\\s+v?(\\d+)")
+             724 LOAD_NAME            (dry_run_out)
+             726 CALL                 (2 positional)
+             734 STORE_NAME           (winldd_match)
+
+ 57:         736 LOAD_NAME            (firefox_match)
+             738 TO_BOOL
+             746 POP_JUMP_IF_FALSE    (to 790)
+             750 LOAD_CONST           ("firefox-")
+             752 LOAD_NAME            (firefox_match)
+             754 LOAD_ATTR            (NULL|self + group)
+             774 LOAD_CONST           (1)
+             776 CALL                 (1 positional)
+             784 FORMAT_SIMPLE
+             786 BUILD_STRING         2
+             788 JUMP_FORWARD         (to 792)
+         >>  790 LOAD_CONST           (None)
+         >>  792 STORE_NAME           (firefox_ver)
+
+ 58:         794 LOAD_NAME            (winldd_match)
+             796 TO_BOOL
+             804 POP_JUMP_IF_FALSE    (to 848)
+             808 LOAD_CONST           ("winldd-")
+             810 LOAD_NAME            (winldd_match)
+             812 LOAD_ATTR            (NULL|self + group)
+             832 LOAD_CONST           (1)
+             834 CALL                 (1 positional)
+             842 FORMAT_SIMPLE
+             844 BUILD_STRING         2
+             846 JUMP_FORWARD         (to 850)
+         >>  848 LOAD_CONST           (None)
+         >>  850 STORE_NAME           (winldd_ver)
+
+ 61:         852 LOAD_CONST           (False)
+             854 STORE_NAME           (has_browsers)
+
+ 62:         856 LOAD_NAME            (firefox_ver)
+             858 TO_BOOL
+             866 POP_JUMP_IF_FALSE    (to 1132)
+             870 LOAD_NAME            (winldd_ver)
+             872 TO_BOOL
+             880 POP_JUMP_IF_FALSE    (to 1132)
+
+ 63:         884 LOAD_NAME            (os)
+             886 LOAD_ATTR            (path)
+             906 LOAD_ATTR            (NULL|self + join)
+             926 LOAD_NAME            (PLAYWRIGHT_BROWSERS_PATH)
+             928 LOAD_NAME            (firefox_ver)
+             930 LOAD_CONST           ("firefox")
+             932 LOAD_CONST           ("firefox.exe")
+             934 CALL                 (4 positional)
+             942 STORE_NAME           (firefox_path)
+
+ 64:         944 LOAD_NAME            (os)
+             946 LOAD_ATTR            (path)
+             966 LOAD_ATTR            (NULL|self + join)
+             986 LOAD_NAME            (PLAYWRIGHT_BROWSERS_PATH)
+             988 LOAD_NAME            (winldd_ver)
+             990 CALL                 (2 positional)
+             998 STORE_NAME           (winldd_path)
+
+ 65:        1000 LOAD_NAME            (os)
+            1002 LOAD_ATTR            (path)
+            1022 LOAD_ATTR            (NULL|self + exists)
+            1042 LOAD_NAME            (firefox_path)
+            1044 CALL                 (1 positional)
+            1052 TO_BOOL
+            1060 POP_JUMP_IF_FALSE    (to 1132)
+            1064 LOAD_NAME            (os)
+            1066 LOAD_ATTR            (path)
+            1086 LOAD_ATTR            (NULL|self + exists)
+            1106 LOAD_NAME            (winldd_path)
+            1108 CALL                 (1 positional)
+            1116 TO_BOOL
+            1124 POP_JUMP_IF_FALSE    (to 1132)
+
+ 66:        1128 LOAD_CONST           (True)
+            1130 STORE_NAME           (has_browsers)
+
+ 68:     >> 1132 LOAD_NAME            (has_browsers)
+            1134 TO_BOOL
+            1142 POP_JUMP_IF_FALSE    (to 1200)
+
+ 69:        1146 LOAD_NAME            (logger)
+            1148 LOAD_ATTR            (info)
+            1168 PUSH_NULL
+            1170 LOAD_CONST           ("Playwright Browser (")
+            1172 LOAD_NAME            (firefox_ver)
+            1174 FORMAT_SIMPLE
+            1176 LOAD_CONST           (") und Utilities (")
+            1178 LOAD_NAME            (winldd_ver)
+            1180 FORMAT_SIMPLE
+            1182 LOAD_CONST           (") bereits vorhanden. �berspringe automatischen Download.")
+            1184 BUILD_STRING         5
+            1186 CALL                 (1 positional)
+            1194 POP_TOP
+            1196 EXTENDED_ARG         (256)
+            1198 JUMP_FORWARD         (to 1936)
+
+ 71:     >> 1200 LOAD_NAME            (logger)
+            1202 LOAD_ATTR            (info)
+            1222 PUSH_NULL
+            1224 LOAD_CONST           ("Ben�tigte Playwright Browser oder Utilities fehlen oder sind veraltet. Starte automatische Installation...")
+            1226 CALL                 (1 positional)
+            1234 POP_TOP
+
+ 72:        1236 LOAD_NAME            (logger)
+            1238 LOAD_ATTR            (info)
+            1258 PUSH_NULL
+            1260 LOAD_CONST           ("Ein Konsolenfenster wird ge�ffnet, um den Download-Fortschritt anzuzeigen. Bitte warten...")
+            1262 CALL                 (1 positional)
+            1270 POP_TOP
+
+ 75:        1272 LOAD_NAME            (sys)
+            1274 LOAD_ATTR            (platform)
+            1294 LOAD_CONST           ("win32")
+            1296 COMPARE_OP           (==)
+            1300 POP_JUMP_IF_FALSE    (to 1388)
+
+ 76:        1304 NOP
+
+ 77:        1306 LOAD_NAME            (subprocess)
+            1308 LOAD_ATTR            (run)
+            1328 PUSH_NULL
+            1330 BUILD_LIST           0
+            1332 LOAD_CONST           (('taskkill', '/F', '/IM', 'node.exe'))
+            1334 LIST_EXTEND          1
+            1336 LOAD_NAME            (subprocess)
+            1338 LOAD_ATTR            (DEVNULL)
+            1358 LOAD_NAME            (subprocess)
+            1360 LOAD_ATTR            (DEVNULL)
+            1380 LOAD_CONST           (134217728)
+            1382 LOAD_CONST           (('stdout', 'stderr', 'creationflags'))
+            1384 CALL_KW              4
+            1386 POP_TOP
+
+ 81:     >> 1388 LOAD_NAME            (os)
+            1390 LOAD_ATTR            (path)
+            1410 LOAD_ATTR            (NULL|self + join)
+            1430 LOAD_NAME            (PLAYWRIGHT_BROWSERS_PATH)
+            1432 LOAD_CONST           ("__dirlock")
+            1434 CALL                 (2 positional)
+            1442 STORE_NAME           (lockfile)
+
+ 82:        1444 LOAD_NAME            (os)
+            1446 LOAD_ATTR            (path)
+            1466 LOAD_ATTR            (NULL|self + exists)
+            1486 LOAD_NAME            (lockfile)
+            1488 CALL                 (1 positional)
+            1496 TO_BOOL
+            1504 POP_JUMP_IF_FALSE    (to 1690)
+
+ 83:        1508 LOAD_NAME            (logger)
+            1510 LOAD_ATTR            (info)
+            1530 PUSH_NULL
+            1532 LOAD_CONST           ("Entferne veraltete Playwright-Sperrdatei: ")
+            1534 LOAD_NAME            (lockfile)
+            1536 FORMAT_SIMPLE
+            1538 BUILD_STRING         2
+            1540 CALL                 (1 positional)
+            1548 POP_TOP
+
+ 84:        1550 NOP
+
+ 85:        1552 LOAD_NAME            (os)
+            1554 LOAD_ATTR            (path)
+            1574 LOAD_ATTR            (NULL|self + isdir)
+            1594 LOAD_NAME            (lockfile)
+            1596 CALL                 (1 positional)
+            1604 TO_BOOL
+            1612 POP_JUMP_IF_FALSE    (to 1652)
+
+ 86:        1616 LOAD_NAME            (shutil)
+            1618 LOAD_ATTR            (rmtree)
+            1638 PUSH_NULL
+            1640 LOAD_NAME            (lockfile)
+            1642 LOAD_CONST           (True)
+            1644 LOAD_CONST           (('ignore_errors',))
+            1646 CALL_KW              2
+            1648 POP_TOP
+            1650 JUMP_FORWARD         (to 1690)
+
+ 88:     >> 1652 LOAD_NAME            (os)
+            1654 LOAD_ATTR            (remove)
+            1674 PUSH_NULL
+            1676 LOAD_NAME            (lockfile)
+            1678 CALL                 (1 positional)
+            1686 POP_TOP
+            1688 NOP
+
+ 93:     >> 1690 LOAD_CONST           (0)
+            1692 STORE_NAME           (creationflags_install)
+
+ 94:        1694 LOAD_NAME            (sys)
+            1696 LOAD_ATTR            (platform)
+            1716 LOAD_CONST           ("win32")
+            1718 COMPARE_OP           (==)
+            1722 POP_JUMP_IF_FALSE    (to 1730)
+
+ 95:        1726 LOAD_CONST           (16)
+            1728 STORE_NAME           (creationflags_install)
+
+ 97:     >> 1730 LOAD_NAME            (subprocess)
+            1732 LOAD_ATTR            (run)
+            1752 PUSH_NULL
+
+ 98:        1754 LOAD_NAME            (driver_executable)
+            1756 LOAD_NAME            (driver_cli)
+            1758 LOAD_CONST           ("install")
+            1760 LOAD_CONST           ("firefox")
+            1762 LOAD_CONST           ("ffmpeg")
+            1764 LOAD_CONST           ("winldd")
+            1766 BUILD_LIST           6
+
+ 99:        1768 LOAD_NAME            (env)
+
+100:        1770 LOAD_CONST           (False)
+
+101:        1772 LOAD_NAME            (creationflags_install)
+
+ 97:        1774 LOAD_CONST           (('env', 'check', 'creationflags'))
+            1776 CALL_KW              4
+            1778 STORE_NAME           (result)
+
+103:        1780 LOAD_NAME            (logger)
+            1782 LOAD_ATTR            (info)
+            1802 PUSH_NULL
+            1804 LOAD_CONST           ("Playwright-Installation beendet mit Exit-Code: ")
+            1806 LOAD_NAME            (result)
+            1808 LOAD_ATTR            (returncode)
+            1828 FORMAT_SIMPLE
+            1830 BUILD_STRING         2
+            1832 CALL                 (1 positional)
+            1840 POP_TOP
+
+104:        1842 LOAD_NAME            (result)
+            1844 LOAD_ATTR            (returncode)
+            1864 LOAD_CONST           (0)
+            1866 COMPARE_OP           (!=)
+            1870 POP_JUMP_IF_FALSE    (to 1936)
+
+105:        1874 LOAD_NAME            (logger)
+            1876 LOAD_ATTR            (error)
+            1896 PUSH_NULL
+            1898 LOAD_CONST           ("Playwright-Installation fehlgeschlagen mit Exit-Code ")
+            1900 LOAD_NAME            (result)
+            1902 LOAD_ATTR            (returncode)
+            1922 FORMAT_SIMPLE
+            1924 BUILD_STRING         2
+            1926 CALL                 (1 positional)
+            1934 POP_TOP
+
+109:     >> 1936 LOAD_NAME            (logger)
+            1938 LOAD_ATTR            (info)
+            1958 PUSH_NULL
+            1960 LOAD_CONST           ("Starte Applikation...")
+            1962 CALL                 (1 positional)
+            1970 POP_TOP
+
+112:        1972 LOAD_NAME            (asyncio)
+            1974 LOAD_ATTR            (new_event_loop)
+            1994 PUSH_NULL
+            1996 CALL                 (0 positional)
+            2004 STORE_NAME           (loop)
+
+113:        2006 LOAD_NAME            (threading)
+            2008 LOAD_ATTR            (Thread)
+            2028 PUSH_NULL
+            2030 LOAD_NAME            (start_background_loop)
+            2032 LOAD_NAME            (loop)
+            2034 BUILD_TUPLE          1
+            2036 LOAD_CONST           (True)
+            2038 LOAD_CONST           (('target', 'args', 'daemon'))
+            2040 CALL_KW              3
+            2042 STORE_NAME           (t)
+
+114:        2044 LOAD_NAME            (t)
+            2046 LOAD_ATTR            (NULL|self + start)
+            2066 CALL                 (0 positional)
+            2074 POP_TOP
+
+116:        2076 LOAD_CONST           ("--headless")
+            2078 LOAD_NAME            (sys)
+            2080 LOAD_ATTR            (argv)
+            2100 CONTAINS_OP          (in)
+            2104 STORE_NAME           (headless)
+
+117:        2106 LOAD_NAME            (headless)
+            2108 TO_BOOL
+            2116 POP_JUMP_IF_FALSE    (to 2124)
+            2120 LOAD_CONST           ("0.0.0.0")
+            2122 JUMP_FORWARD         (to 2126)
+         >> 2124 LOAD_CONST           ("localhost")
+         >> 2126 STORE_NAME           (host)
+
+118:        2128 LOAD_CONST           (None)
+            2130 STORE_NAME           (window)
+
+120:        2132 LOAD_NAME            (headless)
+            2134 TO_BOOL
+            2142 POP_JUMP_IF_TRUE     (to 2188)
+
+122:        2146 LOAD_NAME            (webview)
+            2148 LOAD_ATTR            (create_window)
+            2168 PUSH_NULL
+
+123:        2170 LOAD_CONST           ("TwitchBot 2.0")
+
+124:        2172 LOAD_CONST           ("http://localhost:8080/index.html")
+
+125:        2174 LOAD_CONST           (1200)
+
+126:        2176 LOAD_CONST           (800)
+
+127:        2178 LOAD_CONST           ("#18181b")
+
+128:        2180 LOAD_CONST           (False)
+
+122:        2182 LOAD_CONST           (('width', 'height', 'background_color', 'frameless'))
+            2184 CALL_KW              6
+            2186 STORE_NAME           (window)
+
+131:     >> 2188 LOAD_NAME            (TwitchBotEngine)
+            2190 PUSH_NULL
+            2192 CALL                 (0 positional)
+            2200 STORE_NAME           (engine)
+
+132:        2202 LOAD_NAME            (ApiServer)
+            2204 PUSH_NULL
+            2206 LOAD_NAME            (engine)
+            2208 LOAD_NAME            (window)
+            2210 LOAD_NAME            (host)
+            2212 LOAD_CONST           (('window', 'host'))
+            2214 CALL_KW              3
+            2216 STORE_NAME           (server)
+
+135:        2218 LOAD_NAME            (asyncio)
+            2220 LOAD_ATTR            (run_coroutine_threadsafe)
+            2240 PUSH_NULL
+            2242 LOAD_NAME            (server)
+            2244 LOAD_ATTR            (NULL|self + start)
+            2264 CALL                 (0 positional)
+            2272 LOAD_NAME            (loop)
+            2274 CALL                 (2 positional)
+            2282 POP_TOP
+
+137:        2284 LOAD_NAME            (headless)
+            2286 TO_BOOL
+            2294 POP_JUMP_IF_FALSE    (to 2386)
+
+138:        2298 LOAD_NAME            (logger)
+            2300 LOAD_ATTR            (info)
+            2320 PUSH_NULL
+            2322 LOAD_CONST           ("Running in HEADLESS mode. Access dashboard at http://<pi-ip>:8080/")
+            2324 CALL                 (1 positional)
+            2332 POP_TOP
+
+139:        2334 NOP
+
+140:        2336 NOP
+
+141:        2338 LOAD_CONST           (0)
+            2340 LOAD_CONST           (None)
+            2342 IMPORT_NAME          (time)
+            2344 STORE_NAME           (time)
+
+142:        2346 LOAD_NAME            (time)
+            2348 LOAD_ATTR            (sleep)
+            2368 PUSH_NULL
+            2370 LOAD_CONST           (1)
+            2372 CALL                 (1 positional)
+            2380 POP_TOP
+
+140:        2382 JUMP_BACKWARD        (to 2338)
+
+147:     >> 2386 LOAD_NAME            (webview)
+            2388 LOAD_ATTR            (start)
+            2408 PUSH_NULL
+            2410 CALL                 (0 positional)
+            2418 POP_TOP
+
+149:        2420 LOAD_NAME            (logger)
+            2422 LOAD_ATTR            (info)
+            2442 PUSH_NULL
+            2444 LOAD_CONST           ("Applikation beendet.")
+            2446 CALL                 (1 positional)
+            2454 POP_TOP
+
+151:        2456 LOAD_NAME            (engine)
+            2458 LOAD_ATTR            (is_running)
+            2478 TO_BOOL
+            2486 POP_JUMP_IF_FALSE    (to 2556)
+
+152:        2490 LOAD_NAME            (asyncio)
+            2492 LOAD_ATTR            (run_coroutine_threadsafe)
+            2512 PUSH_NULL
+            2514 LOAD_NAME            (engine)
+            2516 LOAD_ATTR            (NULL|self + stop)
+            2536 CALL                 (0 positional)
+            2544 LOAD_NAME            (loop)
+            2546 CALL                 (2 positional)
+            2554 POP_TOP
+
+153:     >> 2556 LOAD_NAME            (loop)
+            2558 LOAD_ATTR            (NULL|self + call_soon_threadsafe)
+            2578 LOAD_NAME            (loop)
+            2580 LOAD_ATTR            (stop)
+            2600 CALL                 (1 positional)
+            2608 POP_TOP
+
+154:        2610 LOAD_NAME            (t)
+            2612 LOAD_ATTR            (NULL|self + join)
+            2632 LOAD_CONST           (3)
+            2634 LOAD_CONST           (('timeout',))
+            2636 CALL_KW              1
+            2638 POP_TOP
+            2640 RETURN_CONST         (None)
+
+ 18:     >> 2642 RETURN_CONST         (None)
+            2644 PUSH_EXC_INFO
+
+ 49:        2646 LOAD_NAME            (Exception)
+            2648 CHECK_EXC_MATCH
+            2650 POP_JUMP_IF_FALSE    (to 2724)
+            2654 STORE_NAME           (dre)
+
+ 50:        2656 LOAD_NAME            (logger)
+            2658 LOAD_ATTR            (warning)
+            2678 PUSH_NULL
+            2680 LOAD_CONST           ("Konnte Playwright --dry-run nicht ausf�hren (")
+            2682 LOAD_NAME            (dre)
+            2684 FORMAT_SIMPLE
+            2686 LOAD_CONST           ("). F�hre Fallback-Pr�fung aus.")
+            2688 BUILD_STRING         3
+            2690 CALL                 (1 positional)
+            2698 POP_TOP
+
+ 51:        2700 LOAD_CONST           ("")
+            2702 STORE_NAME           (dry_run_out)
+            2704 POP_EXCEPT
+            2706 LOAD_CONST           (None)
+            2708 STORE_NAME           (dre)
+            2710 DELETE_NAME          (dre)
+            2712 EXTENDED_ARG         (1024)
+            2714 JUMP_BACKWARD_NO_INTERRUPT (to 660)
+            2716 LOAD_CONST           (None)
+            2718 STORE_NAME           (dre)
+            2720 DELETE_NAME          (dre)
+            2722 RERAISE              1
+
+ 49:     >> 2724 RERAISE              0
+            2726 COPY                 3
+            2728 POP_EXCEPT
+            2730 RERAISE              1
+            2732 PUSH_EXC_INFO
+
+ 78:        2734 POP_TOP
+
+ 79:        2736 POP_EXCEPT
+            2738 EXTENDED_ARG         (512)
+            2740 JUMP_BACKWARD_NO_INTERRUPT (to 1388)
+            2742 COPY                 3
+            2744 POP_EXCEPT
+            2746 RERAISE              1
+            2748 PUSH_EXC_INFO
+
+ 89:        2750 LOAD_NAME            (Exception)
+            2752 CHECK_EXC_MATCH
+            2754 POP_JUMP_IF_FALSE    (to 2822)
+            2758 STORE_NAME           (le)
+
+ 90:        2760 LOAD_NAME            (logger)
+            2762 LOAD_ATTR            (warning)
+            2782 PUSH_NULL
+            2784 LOAD_CONST           ("Konnte Sperrdatei nicht l�schen: ")
+            2786 LOAD_NAME            (le)
+            2788 FORMAT_SIMPLE
+            2790 BUILD_STRING         2
+            2792 CALL                 (1 positional)
+            2800 POP_TOP
+            2802 POP_EXCEPT
+            2804 LOAD_CONST           (None)
+            2806 STORE_NAME           (le)
+            2808 DELETE_NAME          (le)
+            2810 EXTENDED_ARG         (512)
+            2812 JUMP_BACKWARD_NO_INTERRUPT (to 1690)
+            2814 LOAD_CONST           (None)
+            2816 STORE_NAME           (le)
+            2818 DELETE_NAME          (le)
+            2820 RERAISE              1
+
+ 89:     >> 2822 RERAISE              0
+            2824 COPY                 3
+            2826 POP_EXCEPT
+            2828 RERAISE              1
+            2830 PUSH_EXC_INFO
+
+106:        2832 LOAD_NAME            (Exception)
+            2834 CHECK_EXC_MATCH
+            2836 POP_JUMP_IF_FALSE    (to 2904)
+            2840 STORE_NAME           (e)
+
+107:        2842 LOAD_NAME            (logger)
+            2844 LOAD_ATTR            (error)
+            2864 PUSH_NULL
+            2866 LOAD_CONST           ("Fehler bei Playwright-Pr�fung: ")
+            2868 LOAD_NAME            (e)
+            2870 FORMAT_SIMPLE
+            2872 BUILD_STRING         2
+            2874 CALL                 (1 positional)
+            2882 POP_TOP
+            2884 POP_EXCEPT
+            2886 LOAD_CONST           (None)
+            2888 STORE_NAME           (e)
+            2890 DELETE_NAME          (e)
+            2892 EXTENDED_ARG         (256)
+            2894 JUMP_BACKWARD_NO_INTERRUPT (to 1936)
+            2896 LOAD_CONST           (None)
+            2898 STORE_NAME           (e)
+            2900 DELETE_NAME          (e)
+            2902 RERAISE              1
+
+106:     >> 2904 RERAISE              0
+            2906 COPY                 3
+            2908 POP_EXCEPT
+            2910 RERAISE              1
+            2912 PUSH_EXC_INFO
+
+143:        2914 LOAD_NAME            (KeyboardInterrupt)
+            2916 CHECK_EXC_MATCH
+            2918 POP_JUMP_IF_FALSE    (to 2966)
+            2922 POP_TOP
+
+144:        2924 LOAD_NAME            (logger)
+            2926 LOAD_ATTR            (info)
+            2946 PUSH_NULL
+            2948 LOAD_CONST           ("Headless server stopping...")
+            2950 CALL                 (1 positional)
+            2958 POP_TOP
+            2960 POP_EXCEPT
+            2962 EXTENDED_ARG         (256)
+            2964 JUMP_BACKWARD_NO_INTERRUPT (to 2420)
+
+143:     >> 2966 RERAISE              0
+            2968 COPY                 3
+            2970 POP_EXCEPT
+            2972 RERAISE              1
+
+ExceptionTable:
+  454 to 604 -> 2830 [0]
+  608 to 658 -> 2644 [0]
+  660 to 1194 -> 2830 [0]
+  1200 to 1302 -> 2830 [0]
+  1306 to 1386 -> 2732 [0]
+  1388 to 1548 -> 2830 [0]
+  1552 to 1648 -> 2748 [0]
+  1650 to 1650 -> 2830 [0]
+  1652 to 1686 -> 2748 [0]
+  1688 to 1934 -> 2830 [0]
+  2336 to 2384 -> 2912 [0]
+  2644 to 2654 -> 2726 [1] lasti
+  2656 to 2702 -> 2716 [1] lasti
+  2704 to 2714 -> 2830 [0]
+  2716 to 2724 -> 2726 [1] lasti
+  2726 to 2730 -> 2830 [0]
+  2732 to 2734 -> 2742 [1] lasti
+  2736 to 2746 -> 2830 [0]
+  2748 to 2758 -> 2824 [1] lasti
+  2760 to 2800 -> 2814 [1] lasti
+  2802 to 2812 -> 2830 [0]
+  2814 to 2822 -> 2824 [1] lasti
+  2824 to 2828 -> 2830 [0]
+  2830 to 2840 -> 2906 [1] lasti
+  2842 to 2882 -> 2896 [1] lasti
+  2896 to 2904 -> 2906 [1] lasti
+  2912 to 2958 -> 2968 [1] lasti
+  2966 to 2966 -> 2968 [1] lasti
+
+# Method Name:       start_background_loop
+# Filename:          src\main.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  1
+# Stack size:        3
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        14
+# Constants:
+#    0: None
+# Names:
+#    0: asyncio
+#    1: set_event_loop
+#    2: run_forever
+# Varnames:
+#	loop
+# Positional arguments:
+#	loop
+
+ 14:           0 RESUME               0
+
+ 15:           2 LOAD_GLOBAL          (asyncio)
+              12 LOAD_ATTR            (set_event_loop)
+              32 PUSH_NULL
+              34 LOAD_FAST            (loop)
+              36 CALL                 (1 positional)
+              44 POP_TOP
+
+ 16:          46 LOAD_FAST            (loop)
+              48 LOAD_ATTR            (NULL|self + run_forever)
+              68 CALL                 (0 positional)
+              76 POP_TOP
+              78 RETURN_CONST         (None)
+

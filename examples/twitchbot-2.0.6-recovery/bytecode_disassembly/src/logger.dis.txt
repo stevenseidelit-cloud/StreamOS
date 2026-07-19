@@ -1,0 +1,271 @@
+﻿# pydisasm version 6.3.0
+# CPython Python bytecode 3.13.0 (3571)
+#   Disassembled from CPython Python 3.12.13 (main, Mar  3 2026, 15:01:35) [MSC v.1944 64 bit (AMD64)]
+# Timestamp in code: 0 (1970-01-01 01:00:00)
+# Source code size mod 2**32: 0 bytes
+# Method Name:       <module>
+# Filename:          src\logger.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        7
+# Flags:             0x00000000 (0x0)
+# First Line:        1
+# Constants:
+#    0: 0
+#    1: None
+#    2: ('RotatingFileHandler',)
+#    3: ('LOGS_DIR',)
+#    4: '%(asctime)s - %(levelname)s - %(message)s'
+#    5: 'twitchbot.log'
+#    6: 5242880
+#    7: 5
+#    8: 'utf-8'
+#    9: ('maxBytes', 'backupCount', 'encoding')
+#   10: 'TwitchBot'
+#   11: <Code311 code object get_recent_logs at 0x1a06184ecf0, file src\logger.py>, line 24
+#   12: (100,)
+# Names:
+#    0: logging
+#    1: os
+#    2: logging.handlers
+#    3: RotatingFileHandler
+#    4: src.paths
+#    5: LOGS_DIR
+#    6: Formatter
+#    7: log_formatter
+#    8: path
+#    9: join
+#   10: log_file
+#   11: file_handler
+#   12: setFormatter
+#   13: setLevel
+#   14: INFO
+#   15: StreamHandler
+#   16: console_handler
+#   17: getLogger
+#   18: logger
+#   19: addHandler
+#   20: get_recent_logs
+
+  0:           0 RESUME               0
+
+  1:           2 LOAD_CONST           (0)
+               4 LOAD_CONST           (None)
+               6 IMPORT_NAME          (logging)
+               8 STORE_NAME           (logging)
+
+  2:          10 LOAD_CONST           (0)
+              12 LOAD_CONST           (None)
+              14 IMPORT_NAME          (os)
+              16 STORE_NAME           (os)
+
+  3:          18 LOAD_CONST           (0)
+              20 LOAD_CONST           (('RotatingFileHandler',))
+              22 IMPORT_NAME          (logging.handlers)
+              24 IMPORT_FROM          (RotatingFileHandler)
+              26 STORE_NAME           (RotatingFileHandler)
+              28 POP_TOP
+
+  4:          30 LOAD_CONST           (0)
+              32 LOAD_CONST           (('LOGS_DIR',))
+              34 IMPORT_NAME          (src.paths)
+              36 IMPORT_FROM          (LOGS_DIR)
+              38 STORE_NAME           (LOGS_DIR)
+              40 POP_TOP
+
+  6:          42 LOAD_NAME            (logging)
+              44 LOAD_ATTR            (Formatter)
+              64 PUSH_NULL
+              66 LOAD_CONST           ("%(asctime)s - %(levelname)s - %(message)s")
+              68 CALL                 (1 positional)
+              76 STORE_NAME           (log_formatter)
+
+  8:          78 LOAD_NAME            (os)
+              80 LOAD_ATTR            (path)
+             100 LOAD_ATTR            (NULL|self + join)
+             120 LOAD_NAME            (LOGS_DIR)
+             122 LOAD_CONST           ("twitchbot.log")
+             124 CALL                 (2 positional)
+             132 STORE_NAME           (log_file)
+
+ 11:         134 LOAD_NAME            (RotatingFileHandler)
+             136 PUSH_NULL
+             138 LOAD_NAME            (log_file)
+             140 LOAD_CONST           (5242880)
+             142 LOAD_CONST           (5)
+             144 LOAD_CONST           ("utf-8")
+             146 LOAD_CONST           (('maxBytes', 'backupCount', 'encoding'))
+             148 CALL_KW              4
+             150 STORE_NAME           (file_handler)
+
+ 12:         152 LOAD_NAME            (file_handler)
+             154 LOAD_ATTR            (NULL|self + setFormatter)
+             174 LOAD_NAME            (log_formatter)
+             176 CALL                 (1 positional)
+             184 POP_TOP
+
+ 13:         186 LOAD_NAME            (file_handler)
+             188 LOAD_ATTR            (NULL|self + setLevel)
+             208 LOAD_NAME            (logging)
+             210 LOAD_ATTR            (INFO)
+             230 CALL                 (1 positional)
+             238 POP_TOP
+
+ 15:         240 LOAD_NAME            (logging)
+             242 LOAD_ATTR            (StreamHandler)
+             262 PUSH_NULL
+             264 CALL                 (0 positional)
+             272 STORE_NAME           (console_handler)
+
+ 16:         274 LOAD_NAME            (console_handler)
+             276 LOAD_ATTR            (NULL|self + setFormatter)
+             296 LOAD_NAME            (log_formatter)
+             298 CALL                 (1 positional)
+             306 POP_TOP
+
+ 17:         308 LOAD_NAME            (console_handler)
+             310 LOAD_ATTR            (NULL|self + setLevel)
+             330 LOAD_NAME            (logging)
+             332 LOAD_ATTR            (INFO)
+             352 CALL                 (1 positional)
+             360 POP_TOP
+
+ 19:         362 LOAD_NAME            (logging)
+             364 LOAD_ATTR            (getLogger)
+             384 PUSH_NULL
+             386 LOAD_CONST           ("TwitchBot")
+             388 CALL                 (1 positional)
+             396 STORE_NAME           (logger)
+
+ 20:         398 LOAD_NAME            (logger)
+             400 LOAD_ATTR            (NULL|self + setLevel)
+             420 LOAD_NAME            (logging)
+             422 LOAD_ATTR            (INFO)
+             442 CALL                 (1 positional)
+             450 POP_TOP
+
+ 21:         452 LOAD_NAME            (logger)
+             454 LOAD_ATTR            (NULL|self + addHandler)
+             474 LOAD_NAME            (file_handler)
+             476 CALL                 (1 positional)
+             484 POP_TOP
+
+ 22:         486 LOAD_NAME            (logger)
+             488 LOAD_ATTR            (NULL|self + addHandler)
+             508 LOAD_NAME            (console_handler)
+             510 CALL                 (1 positional)
+             518 POP_TOP
+
+ 24:         520 LOAD_CONST           ((100,))
+             522 LOAD_CONST           (<Code311 code object get_recent_logs at 0x1a06184ecf0, file src\logger.py>, line 24)
+             524 MAKE_FUNCTION
+             526 SET_FUNCTION_ATTRIBUTE 1
+             528 STORE_NAME           (get_recent_logs)
+             530 RETURN_CONST         (None)
+
+
+# Method Name:       get_recent_logs
+# Filename:          src\logger.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  3
+# Stack size:        6
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        24
+# Constants:
+#    0: None
+#    1: 'r'
+#    2: 'utf-8'
+#    3: ('encoding',)
+# Names:
+#    0: os
+#    1: path
+#    2: exists
+#    3: log_file
+#    4: open
+#    5: readlines
+# Varnames:
+#	limit, f, lines
+# Positional arguments:
+#	limit
+# Local variables:
+#    1: f
+#    2: lines
+
+ 24:           0 RESUME               0
+
+ 25:           2 LOAD_GLOBAL          (os)
+              12 LOAD_ATTR            (path)
+              32 LOAD_ATTR            (NULL|self + exists)
+              52 LOAD_GLOBAL          (log_file)
+              62 CALL                 (1 positional)
+              70 TO_BOOL
+              78 POP_JUMP_IF_TRUE     (to 86)
+
+ 26:          82 BUILD_LIST           0
+              84 RETURN_VALUE
+
+ 27:     >>   86 NOP
+
+ 28:          88 LOAD_GLOBAL          (NULL + open)
+              98 LOAD_GLOBAL          (log_file)
+             108 LOAD_CONST           ("r")
+             110 LOAD_CONST           ("utf-8")
+             112 LOAD_CONST           (('encoding',))
+             114 CALL_KW              3
+             116 BEFORE_WITH
+             118 STORE_FAST           (f)
+
+ 29:         120 LOAD_FAST            (f)
+             122 LOAD_ATTR            (NULL|self + readlines)
+             142 CALL                 (0 positional)
+             150 STORE_FAST           (lines)
+
+ 30:         152 LOAD_FAST_LOAD_FAST  (lines, limit)
+             154 UNARY_NEGATIVE
+             156 LOAD_CONST           (None)
+             158 BINARY_SLICE
+
+ 28:         160 SWAP                 (TOS <-> TOS1)
+             162 LOAD_CONST           (None)
+             164 LOAD_CONST           (None)
+             166 LOAD_CONST           (None)
+             168 CALL                 (2 positional)
+             176 POP_TOP
+             178 RETURN_VALUE
+             180 PUSH_EXC_INFO
+             182 WITH_EXCEPT_START    0
+             184 TO_BOOL
+             192 POP_JUMP_IF_TRUE     (to 198)
+             196 RERAISE              2
+         >>  198 POP_TOP
+             200 POP_EXCEPT
+             202 POP_TOP
+             204 POP_TOP
+             206 RETURN_CONST         (None)
+             208 COPY                 3
+             210 POP_EXCEPT
+             212 RERAISE              1
+             214 PUSH_EXC_INFO
+
+ 31:         216 POP_TOP
+
+ 32:         218 BUILD_LIST           0
+             220 SWAP                 (TOS <-> TOS1)
+             222 POP_EXCEPT
+             224 RETURN_VALUE
+             226 COPY                 3
+             228 POP_EXCEPT
+             230 RERAISE              1
+
+ExceptionTable:
+  88 to 116 -> 214 [0]
+  118 to 158 -> 180 [1] lasti
+  160 to 176 -> 214 [0]
+  180 to 198 -> 208 [3] lasti
+  200 to 204 -> 214 [0]
+  208 to 212 -> 214 [0]
+  214 to 220 -> 226 [1] lasti

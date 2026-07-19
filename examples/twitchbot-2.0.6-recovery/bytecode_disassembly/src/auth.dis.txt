@@ -1,0 +1,758 @@
+﻿# pydisasm version 6.3.0
+# CPython Python bytecode 3.13.0 (3571)
+#   Disassembled from CPython Python 3.12.13 (main, Mar  3 2026, 15:01:35) [MSC v.1944 64 bit (AMD64)]
+# Timestamp in code: 0 (1970-01-01 01:00:00)
+# Source code size mod 2**32: 0 bytes
+# Method Name:       <module>
+# Filename:          src\auth.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        2
+# Flags:             0x00000000 (0x0)
+# First Line:        1
+# Constants:
+#    0: 0
+#    1: None
+#    2: ('TOKEN_PATH',)
+#    3: ('logger',)
+#    4: <Code311 code object validate_token at 0x16d11d0ecf0, file src\auth.py>, line 6
+#    5: <Code311 code object save_token at 0x16d136a62a0, file src\auth.py>, line 31
+#    6: <Code311 code object load_token at 0x16d136a6420, file src\auth.py>, line 46
+# Names:
+#    0: os
+#    1: aiohttp
+#    2: src.paths
+#    3: TOKEN_PATH
+#    4: src.logger
+#    5: logger
+#    6: validate_token
+#    7: save_token
+#    8: load_token
+
+  0:           0 RESUME               0
+
+  1:           2 LOAD_CONST           (0)
+               4 LOAD_CONST           (None)
+               6 IMPORT_NAME          (os)
+               8 STORE_NAME           (os)
+
+  2:          10 LOAD_CONST           (0)
+              12 LOAD_CONST           (None)
+              14 IMPORT_NAME          (aiohttp)
+              16 STORE_NAME           (aiohttp)
+
+  3:          18 LOAD_CONST           (0)
+              20 LOAD_CONST           (('TOKEN_PATH',))
+              22 IMPORT_NAME          (src.paths)
+              24 IMPORT_FROM          (TOKEN_PATH)
+              26 STORE_NAME           (TOKEN_PATH)
+              28 POP_TOP
+
+  4:          30 LOAD_CONST           (0)
+              32 LOAD_CONST           (('logger',))
+              34 IMPORT_NAME          (src.logger)
+              36 IMPORT_FROM          (logger)
+              38 STORE_NAME           (logger)
+              40 POP_TOP
+
+  6:          42 LOAD_CONST           (<Code311 code object validate_token at 0x16d11d0ecf0, file src\auth.py>, line 6)
+              44 MAKE_FUNCTION
+              46 STORE_NAME           (validate_token)
+
+ 31:          48 LOAD_CONST           (<Code311 code object save_token at 0x16d136a62a0, file src\auth.py>, line 31)
+              50 MAKE_FUNCTION
+              52 STORE_NAME           (save_token)
+
+ 46:          54 LOAD_CONST           (<Code311 code object load_token at 0x16d136a6420, file src\auth.py>, line 46)
+              56 MAKE_FUNCTION
+              58 STORE_NAME           (load_token)
+              60 RETURN_CONST         (None)
+
+
+# Method Name:       validate_token
+# Filename:          src\auth.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  8
+# Stack size:        8
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        6
+# Constants:
+#    0: None
+#    1: 'AUTH: Token-Validierung abgebrochen: Kein Token uebergeben.'
+#    2: False
+#    3: 'oauth:'
+#    4: ''
+#    5: 'Authorization'
+#    6: 'OAuth '
+#    7: 'https://id.twitch.tv/oauth2/validate'
+#    8: ('headers',)
+#    9: 200
+#   10: 'AUTH: Token-Validierung erfolgreich.'
+#   11: True
+#   12: 'AUTH: Token-Validierung fehlgeschlagen (Status '
+#   13: '): '
+#   14: 'AUTH: Fehler bei Token-Validierungs-Anfrage: '
+# Names:
+#    0: str
+#    1: strip
+#    2: logger
+#    3: error
+#    4: replace
+#    5: aiohttp
+#    6: ClientSession
+#    7: get
+#    8: status
+#    9: info
+#   10: text
+#   11: Exception
+#   12: exception
+# Varnames:
+#	token, token_str, clean_token, headers, session, response, error_data, e
+# Positional arguments:
+#	token
+# Local variables:
+#    1: token_str
+#    2: clean_token
+#    3: headers
+#    4: session
+#    5: response
+#    6: error_data
+#    7: e
+
+  6:           0 RETURN_GENERATOR
+               2 POP_TOP
+               4 RESUME               0
+
+  7:           6 LOAD_FAST            (token)
+               8 TO_BOOL
+              16 POP_JUMP_IF_FALSE    (to 80)
+              20 LOAD_GLOBAL          (NULL + str)
+              30 LOAD_FAST            (token)
+              32 CALL                 (1 positional)
+              40 LOAD_ATTR            (NULL|self + strip)
+              60 CALL                 (0 positional)
+              68 TO_BOOL
+              76 POP_JUMP_IF_TRUE     (to 126)
+
+  8:     >>   80 LOAD_GLOBAL          (logger)
+              90 LOAD_ATTR            (error)
+             110 PUSH_NULL
+             112 LOAD_CONST           ("AUTH: Token-Validierung abgebrochen: Kein Token uebergeben.")
+             114 CALL                 (1 positional)
+             122 POP_TOP
+
+  9:         124 RETURN_CONST         (False)
+
+ 11:     >>  126 LOAD_GLOBAL          (NULL + str)
+             136 LOAD_FAST            (token)
+             138 CALL                 (1 positional)
+             146 LOAD_ATTR            (NULL|self + strip)
+             166 CALL                 (0 positional)
+             174 STORE_FAST           (token_str)
+
+ 13:         176 LOAD_FAST            (token_str)
+             178 LOAD_ATTR            (NULL|self + replace)
+             198 LOAD_CONST           ("oauth:")
+             200 LOAD_CONST           ("")
+             202 CALL                 (2 positional)
+             210 STORE_FAST           (clean_token)
+
+ 15:         212 LOAD_CONST           ("Authorization")
+             214 LOAD_CONST           ("OAuth ")
+             216 LOAD_FAST            (clean_token)
+             218 FORMAT_SIMPLE
+             220 BUILD_STRING         2
+
+ 14:         222 BUILD_MAP            1
+             224 STORE_FAST           (headers)
+
+ 17:         226 NOP
+
+ 18:         228 LOAD_GLOBAL          (aiohttp)
+             238 LOAD_ATTR            (ClientSession)
+             258 PUSH_NULL
+             260 CALL                 (0 positional)
+             268 BEFORE_ASYNC_WITH
+             270 GET_AWAITABLE        1
+             272 LOAD_CONST           (None)
+             274 SEND                 (to 282)
+             278 YIELD_VALUE          1
+             280 RESUME               3
+             282 JUMP_BACKWARD_NO_INTERRUPT (to 274)
+         >>  284 END_SEND
+             286 STORE_FAST           (session)
+
+ 19:         288 LOAD_FAST            (session)
+             290 LOAD_ATTR            (NULL|self + get)
+             310 LOAD_CONST           ("https://id.twitch.tv/oauth2/validate")
+             312 LOAD_FAST            (headers)
+             314 LOAD_CONST           (('headers',))
+             316 CALL_KW              2
+             318 BEFORE_ASYNC_WITH
+             320 GET_AWAITABLE        1
+             322 LOAD_CONST           (None)
+             324 SEND                 (to 332)
+             328 YIELD_VALUE          1
+             330 RESUME               3
+             332 JUMP_BACKWARD_NO_INTERRUPT (to 324)
+         >>  334 END_SEND
+             336 STORE_FAST           (response)
+
+ 20:         338 LOAD_FAST            (response)
+             340 LOAD_ATTR            (status)
+             360 LOAD_CONST           (200)
+             362 COMPARE_OP           (==)
+             366 POP_JUMP_IF_FALSE    (to 482)
+
+ 21:         370 LOAD_GLOBAL          (logger)
+             380 LOAD_ATTR            (info)
+             400 PUSH_NULL
+             402 LOAD_CONST           ("AUTH: Token-Validierung erfolgreich.")
+             404 CALL                 (1 positional)
+             412 POP_TOP
+
+ 22:         414 NOP
+
+ 19:         416 LOAD_CONST           (None)
+             418 LOAD_CONST           (None)
+             420 LOAD_CONST           (None)
+             422 CALL                 (2 positional)
+             430 GET_AWAITABLE        2
+             432 LOAD_CONST           (None)
+             434 SEND                 (to 442)
+             438 YIELD_VALUE          1
+             440 RESUME               3
+             442 JUMP_BACKWARD_NO_INTERRUPT (to 434)
+         >>  444 END_SEND
+             446 POP_TOP
+
+ 18:         448 LOAD_CONST           (None)
+             450 LOAD_CONST           (None)
+             452 LOAD_CONST           (None)
+         >>  454 CALL                 (2 positional)
+             462 GET_AWAITABLE        2
+             464 LOAD_CONST           (None)
+             466 SEND                 (to 474)
+             470 YIELD_VALUE          1
+             472 RESUME               3
+             474 JUMP_BACKWARD_NO_INTERRUPT (to 466)
+         >>  476 END_SEND
+             478 POP_TOP
+             480 RETURN_CONST         (True)
+
+ 24:     >>  482 LOAD_FAST            (response)
+             484 LOAD_ATTR            (NULL|self + text)
+             504 CALL                 (0 positional)
+             512 GET_AWAITABLE        0
+             514 LOAD_CONST           (None)
+             516 SEND                 (to 524)
+             520 YIELD_VALUE          1
+             522 RESUME               3
+             524 JUMP_BACKWARD_NO_INTERRUPT (to 516)
+         >>  526 END_SEND
+             528 STORE_FAST           (error_data)
+
+ 25:         530 LOAD_GLOBAL          (logger)
+             540 LOAD_ATTR            (error)
+             560 PUSH_NULL
+             562 LOAD_CONST           ("AUTH: Token-Validierung fehlgeschlagen (Status ")
+             564 LOAD_FAST            (response)
+             566 LOAD_ATTR            (status)
+             586 FORMAT_SIMPLE
+             588 LOAD_CONST           ("): ")
+             590 LOAD_FAST            (error_data)
+             592 FORMAT_SIMPLE
+             594 BUILD_STRING         4
+             596 CALL                 (1 positional)
+             604 POP_TOP
+
+ 26:         606 NOP
+
+ 19:         608 LOAD_CONST           (None)
+             610 LOAD_CONST           (None)
+             612 LOAD_CONST           (None)
+             614 CALL                 (2 positional)
+             622 GET_AWAITABLE        2
+             624 LOAD_CONST           (None)
+             626 SEND                 (to 634)
+             630 YIELD_VALUE          1
+             632 RESUME               3
+             634 JUMP_BACKWARD_NO_INTERRUPT (to 626)
+         >>  636 END_SEND
+             638 POP_TOP
+
+ 18:         640 LOAD_CONST           (None)
+             642 LOAD_CONST           (None)
+             644 LOAD_CONST           (None)
+         >>  646 CALL                 (2 positional)
+             654 GET_AWAITABLE        2
+             656 LOAD_CONST           (None)
+             658 SEND                 (to 666)
+             662 YIELD_VALUE          1
+             664 RESUME               3
+             666 JUMP_BACKWARD_NO_INTERRUPT (to 658)
+         >>  668 END_SEND
+             670 POP_TOP
+             672 RETURN_CONST         (False)
+             674 CLEANUP_THROW
+             676 JUMP_BACKWARD_NO_INTERRUPT (to 284)
+
+ 19:     >>  678 CLEANUP_THROW
+             680 JUMP_BACKWARD_NO_INTERRUPT (to 334)
+             682 CLEANUP_THROW
+             684 JUMP_BACKWARD_NO_INTERRUPT (to 444)
+
+ 18:         686 CLEANUP_THROW
+             688 JUMP_BACKWARD_NO_INTERRUPT (to 476)
+
+ 24:         690 CLEANUP_THROW
+             692 JUMP_BACKWARD_NO_INTERRUPT (to 526)
+
+ 19:         694 CLEANUP_THROW
+             696 JUMP_BACKWARD_NO_INTERRUPT (to 636)
+
+ 18:         698 CLEANUP_THROW
+             700 JUMP_BACKWARD_NO_INTERRUPT (to 668)
+
+ 19:         702 PUSH_EXC_INFO
+             704 WITH_EXCEPT_START    0
+             706 GET_AWAITABLE        2
+             708 LOAD_CONST           (None)
+             710 SEND                 (to 720)
+             714 YIELD_VALUE          1
+             716 RESUME               3
+             718 JUMP_BACKWARD_NO_INTERRUPT (to 710)
+             720 CLEANUP_THROW
+         >>  722 END_SEND
+             724 TO_BOOL
+             732 POP_JUMP_IF_TRUE     (to 738)
+         >>  736 RERAISE              2
+         >>  738 POP_TOP
+             740 POP_EXCEPT
+             742 POP_TOP
+             744 POP_TOP
+             746 JUMP_FORWARD         (to 754)
+             748 COPY                 3
+             750 POP_EXCEPT
+             752 RERAISE              1
+
+ 18:     >>  754 LOAD_CONST           (None)
+             756 LOAD_CONST           (None)
+             758 LOAD_CONST           (None)
+         >>  760 CALL                 (2 positional)
+             768 GET_AWAITABLE        2
+             770 LOAD_CONST           (None)
+             772 SEND                 (to 782)
+             776 YIELD_VALUE          1
+             778 RESUME               3
+             780 JUMP_BACKWARD_NO_INTERRUPT (to 772)
+             782 CLEANUP_THROW
+         >>  784 END_SEND
+             786 POP_TOP
+             788 RETURN_CONST         (None)
+             790 PUSH_EXC_INFO
+         >>  792 WITH_EXCEPT_START    0
+             794 GET_AWAITABLE        2
+             796 LOAD_CONST           (None)
+             798 SEND                 (to 808)
+             802 YIELD_VALUE          1
+             804 RESUME               3
+             806 JUMP_BACKWARD_NO_INTERRUPT (to 798)
+             808 CLEANUP_THROW
+         >>  810 END_SEND
+             812 TO_BOOL
+             820 POP_JUMP_IF_TRUE     (to 826)
+             824 RERAISE              2
+         >>  826 POP_TOP
+             828 POP_EXCEPT
+             830 POP_TOP
+             832 POP_TOP
+             834 RETURN_CONST         (None)
+             836 COPY                 3
+             838 POP_EXCEPT
+             840 RERAISE              1
+             842 PUSH_EXC_INFO
+
+ 27:         844 LOAD_GLOBAL          (Exception)
+             854 CHECK_EXC_MATCH
+             856 POP_JUMP_IF_FALSE    (to 930)
+             860 STORE_FAST           (e)
+
+ 28:     >>  862 LOAD_GLOBAL          (logger)
+             872 LOAD_ATTR            (exception)
+             892 PUSH_NULL
+             894 LOAD_CONST           ("AUTH: Fehler bei Token-Validierungs-Anfrage: ")
+             896 LOAD_FAST            (e)
+             898 FORMAT_SIMPLE
+             900 BUILD_STRING         2
+             902 CALL                 (1 positional)
+             910 POP_TOP
+
+ 29:         912 POP_EXCEPT
+             914 LOAD_CONST           (None)
+             916 STORE_FAST           (e)
+             918 DELETE_FAST          (e)
+             920 RETURN_CONST         (False)
+             922 LOAD_CONST           (None)
+             924 STORE_FAST           (e)
+             926 DELETE_FAST          (e)
+         >>  928 RERAISE              1
+
+ 27:     >>  930 RERAISE              0
+             932 COPY                 3
+             934 POP_EXCEPT
+             936 RERAISE              1
+             938 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+             940 RERAISE              1
+
+ExceptionTable:
+  4 to 224 -> 938 [0] lasti
+  228 to 276 -> 842 [0]
+  278 to 278 -> 674 [3]
+  280 to 284 -> 842 [0]
+  286 to 326 -> 790 [1] lasti
+  328 to 328 -> 678 [4]
+  330 to 334 -> 790 [1] lasti
+  336 to 414 -> 702 [2] lasti
+  416 to 436 -> 790 [1] lasti
+  438 to 438 -> 682 [3]
+  440 to 446 -> 790 [1] lasti
+  448 to 468 -> 842 [0]
+  470 to 470 -> 686 [2]
+  472 to 478 -> 842 [0]
+  480 to 480 -> 938 [0] lasti
+  482 to 518 -> 702 [2] lasti
+  520 to 520 -> 690 [4]
+  522 to 606 -> 702 [2] lasti
+  608 to 628 -> 790 [1] lasti
+  630 to 630 -> 694 [3]
+  632 to 638 -> 790 [1] lasti
+  640 to 660 -> 842 [0]
+  662 to 662 -> 698 [2]
+  664 to 670 -> 842 [0]
+  672 to 672 -> 938 [0] lasti
+  674 to 674 -> 842 [0]
+  678 to 678 -> 790 [1] lasti
+  682 to 682 -> 790 [1] lasti
+  686 to 686 -> 842 [0]
+  690 to 690 -> 702 [2] lasti
+  694 to 694 -> 790 [1] lasti
+  698 to 698 -> 842 [0]
+  702 to 712 -> 748 [4] lasti
+  714 to 714 -> 720 [7]
+  716 to 738 -> 748 [4] lasti
+  740 to 752 -> 790 [1] lasti
+  754 to 774 -> 842 [0]
+  776 to 776 -> 782 [2]
+  778 to 786 -> 842 [0]
+  788 to 788 -> 938 [0] lasti
+  790 to 800 -> 836 [3] lasti
+  802 to 802 -> 808 [6]
+  804 to 826 -> 836 [3] lasti
+  828 to 832 -> 842 [0]
+  834 to 834 -> 938 [0] lasti
+  836 to 840 -> 842 [0]
+  842 to 860 -> 932 [1] lasti
+  862 to 910 -> 922 [1] lasti
+  912 to 920 -> 938 [0] lasti
+  922 to 930 -> 932 [1] lasti
+  932 to 936 -> 938 [0] lasti
+
+# Method Name:       save_token
+# Filename:          src\auth.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  3
+# Stack size:        6
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        31
+# Constants:
+#    0: None
+#    1: 'AUTH: Kein Token uebergeben. Speichern abgebrochen.'
+#    2: False
+#    3: 'w'
+#    4: 'utf-8'
+#    5: ('encoding',)
+#    6: 'Auth-Token erfolgreich (UNVERSCHL�SSELT) gespeichert.'
+#    7: True
+#    8: 'Fehler beim Speichern des Tokens: '
+# Names:
+#    0: str
+#    1: strip
+#    2: logger
+#    3: error
+#    4: open
+#    5: TOKEN_PATH
+#    6: write
+#    7: info
+#    8: Exception
+#    9: exception
+# Varnames:
+#	token, f, e
+# Positional arguments:
+#	token
+# Local variables:
+#    1: f
+#    2: e
+
+ 31:           0 RESUME               0
+
+ 32:           2 NOP
+
+ 33:           4 LOAD_FAST            (token)
+               6 TO_BOOL
+              14 POP_JUMP_IF_FALSE    (to 78)
+              18 LOAD_GLOBAL          (NULL + str)
+              28 LOAD_FAST            (token)
+              30 CALL                 (1 positional)
+              38 LOAD_ATTR            (NULL|self + strip)
+              58 CALL                 (0 positional)
+              66 TO_BOOL
+              74 POP_JUMP_IF_TRUE     (to 124)
+
+ 34:     >>   78 LOAD_GLOBAL          (logger)
+              88 LOAD_ATTR            (error)
+             108 PUSH_NULL
+             110 LOAD_CONST           ("AUTH: Kein Token uebergeben. Speichern abgebrochen.")
+             112 CALL                 (1 positional)
+             120 POP_TOP
+
+ 35:         122 RETURN_CONST         (False)
+
+ 37:     >>  124 LOAD_GLOBAL          (NULL + open)
+             134 LOAD_GLOBAL          (TOKEN_PATH)
+             144 LOAD_CONST           ("w")
+             146 LOAD_CONST           ("utf-8")
+             148 LOAD_CONST           (('encoding',))
+             150 CALL_KW              3
+             152 BEFORE_WITH
+             154 STORE_FAST           (f)
+
+ 38:         156 LOAD_FAST            (f)
+             158 LOAD_ATTR            (NULL|self + write)
+             178 LOAD_GLOBAL          (NULL + str)
+             188 LOAD_FAST            (token)
+             190 CALL                 (1 positional)
+             198 LOAD_ATTR            (NULL|self + strip)
+             218 CALL                 (0 positional)
+             226 CALL                 (1 positional)
+             234 POP_TOP
+
+ 37:         236 LOAD_CONST           (None)
+             238 LOAD_CONST           (None)
+             240 LOAD_CONST           (None)
+             242 CALL                 (2 positional)
+             250 POP_TOP
+
+ 40:         252 LOAD_GLOBAL          (logger)
+             262 LOAD_ATTR            (info)
+             282 PUSH_NULL
+             284 LOAD_CONST           ("Auth-Token erfolgreich (UNVERSCHL�SSELT) gespeichert.")
+             286 CALL                 (1 positional)
+             294 POP_TOP
+
+ 41:         296 RETURN_CONST         (True)
+
+ 37:         298 PUSH_EXC_INFO
+             300 WITH_EXCEPT_START    0
+             302 TO_BOOL
+             310 POP_JUMP_IF_TRUE     (to 316)
+             314 RERAISE              2
+         >>  316 POP_TOP
+             318 POP_EXCEPT
+             320 POP_TOP
+             322 POP_TOP
+             324 JUMP_BACKWARD_NO_INTERRUPT (to 252)
+             326 COPY                 3
+             328 POP_EXCEPT
+             330 RERAISE              1
+             332 PUSH_EXC_INFO
+
+ 42:         334 LOAD_GLOBAL          (Exception)
+             344 CHECK_EXC_MATCH
+             346 POP_JUMP_IF_FALSE    (to 420)
+             350 STORE_FAST           (e)
+
+ 43:         352 LOAD_GLOBAL          (logger)
+             362 LOAD_ATTR            (exception)
+             382 PUSH_NULL
+             384 LOAD_CONST           ("Fehler beim Speichern des Tokens: ")
+             386 LOAD_FAST            (e)
+             388 FORMAT_SIMPLE
+             390 BUILD_STRING         2
+             392 CALL                 (1 positional)
+         >>  400 POP_TOP
+
+ 44:         402 POP_EXCEPT
+             404 LOAD_CONST           (None)
+             406 STORE_FAST           (e)
+             408 DELETE_FAST          (e)
+             410 RETURN_CONST         (False)
+             412 LOAD_CONST           (None)
+             414 STORE_FAST           (e)
+             416 DELETE_FAST          (e)
+             418 RERAISE              1
+
+ 42:     >>  420 RERAISE              0
+             422 COPY                 3
+             424 POP_EXCEPT
+             426 RERAISE              1
+
+ExceptionTable:
+  4 to 120 -> 332 [0]
+  124 to 152 -> 332 [0]
+  154 to 234 -> 298 [1] lasti
+  236 to 294 -> 332 [0]
+  298 to 316 -> 326 [3] lasti
+  318 to 330 -> 332 [0]
+  332 to 350 -> 422 [1] lasti
+  352 to 400 -> 412 [1] lasti
+  412 to 420 -> 422 [1] lasti
+
+# Method Name:       load_token
+# Filename:          src\auth.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  3
+# Stack size:        6
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        46
+# Constants:
+#    0: None
+#    1: 'r'
+#    2: 'utf-8'
+#    3: ('encoding',)
+#    4: 'AUTH: Token-Datei ist leer. Datei wird ignoriert.'
+#    5: 'Fehler beim Laden des Tokens: '
+# Names:
+#    0: os
+#    1: path
+#    2: exists
+#    3: TOKEN_PATH
+#    4: open
+#    5: read
+#    6: strip
+#    7: logger
+#    8: warning
+#    9: Exception
+#   10: exception
+# Varnames:
+#	f, token, e
+# Local variables:
+#    0: f
+#    1: token
+#    2: e
+
+ 46:           0 RESUME               0
+
+ 47:           2 LOAD_GLOBAL          (os)
+              12 LOAD_ATTR            (path)
+              32 LOAD_ATTR            (NULL|self + exists)
+              52 LOAD_GLOBAL          (TOKEN_PATH)
+              62 CALL                 (1 positional)
+              70 TO_BOOL
+              78 POP_JUMP_IF_TRUE     (to 84)
+
+ 48:          82 RETURN_CONST         (None)
+
+ 50:     >>   84 NOP
+
+ 51:          86 LOAD_GLOBAL          (NULL + open)
+              96 LOAD_GLOBAL          (TOKEN_PATH)
+             106 LOAD_CONST           ("r")
+             108 LOAD_CONST           ("utf-8")
+             110 LOAD_CONST           (('encoding',))
+             112 CALL_KW              3
+             114 BEFORE_WITH
+             116 STORE_FAST           (f)
+
+ 52:         118 LOAD_FAST            (f)
+             120 LOAD_ATTR            (NULL|self + read)
+             140 CALL                 (0 positional)
+             148 LOAD_ATTR            (NULL|self + strip)
+             168 CALL                 (0 positional)
+             176 STORE_FAST           (token)
+
+ 51:         178 LOAD_CONST           (None)
+             180 LOAD_CONST           (None)
+             182 LOAD_CONST           (None)
+             184 CALL                 (2 positional)
+             192 POP_TOP
+
+ 54:         194 LOAD_FAST_CHECK      (token)
+             196 TO_BOOL
+             204 POP_JUMP_IF_TRUE     (to 254)
+
+ 55:         208 LOAD_GLOBAL          (logger)
+             218 LOAD_ATTR            (warning)
+             238 PUSH_NULL
+             240 LOAD_CONST           ("AUTH: Token-Datei ist leer. Datei wird ignoriert.")
+             242 CALL                 (1 positional)
+             250 POP_TOP
+
+ 56:         252 RETURN_CONST         (None)
+
+ 58:     >>  254 LOAD_FAST            (token)
+             256 RETURN_VALUE
+
+ 51:         258 PUSH_EXC_INFO
+             260 WITH_EXCEPT_START    0
+             262 TO_BOOL
+             270 POP_JUMP_IF_TRUE     (to 276)
+             274 RERAISE              2
+         >>  276 POP_TOP
+             278 POP_EXCEPT
+             280 POP_TOP
+             282 POP_TOP
+             284 JUMP_BACKWARD_NO_INTERRUPT (to 194)
+             286 COPY                 3
+             288 POP_EXCEPT
+             290 RERAISE              1
+             292 PUSH_EXC_INFO
+
+ 59:         294 LOAD_GLOBAL          (Exception)
+             304 CHECK_EXC_MATCH
+             306 POP_JUMP_IF_FALSE    (to 380)
+             310 STORE_FAST           (e)
+
+ 60:         312 LOAD_GLOBAL          (logger)
+             322 LOAD_ATTR            (exception)
+             342 PUSH_NULL
+             344 LOAD_CONST           ("Fehler beim Laden des Tokens: ")
+             346 LOAD_FAST            (e)
+             348 FORMAT_SIMPLE
+             350 BUILD_STRING         2
+             352 CALL                 (1 positional)
+             360 POP_TOP
+
+ 61:         362 POP_EXCEPT
+             364 LOAD_CONST           (None)
+             366 STORE_FAST           (e)
+             368 DELETE_FAST          (e)
+             370 RETURN_CONST         (None)
+             372 LOAD_CONST           (None)
+             374 STORE_FAST           (e)
+             376 DELETE_FAST          (e)
+         >>  378 RERAISE              1
+
+ 59:     >>  380 RERAISE              0
+             382 COPY                 3
+             384 POP_EXCEPT
+             386 RERAISE              1
+
+ExceptionTable:
+  86 to 114 -> 292 [0]
+  116 to 176 -> 258 [1] lasti
+  178 to 250 -> 292 [0]
+  254 to 254 -> 292 [0]
+  258 to 276 -> 286 [3] lasti
+  278 to 290 -> 292 [0]
+  292 to 310 -> 382 [1] lasti
+  312 to 360 -> 372 [1] lasti
+  372 to 380 -> 382 [1] lasti
