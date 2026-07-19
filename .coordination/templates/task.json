@@ -1,0 +1,18 @@
+{
+  "task_id": "example-001",
+  "title": "Kurze Aufgabenbeschreibung",
+  "agent": "chatgpt-pc1",
+  "branch": "agent/chatgpt-pc1/example-001",
+  "status": "queued",
+  "issue": null,
+  "pull_request": null,
+  "exclusive_paths": [
+    "example"
+  ],
+  "updated_at": "2026-07-19T00:00:00Z",
+  "handoff": {
+    "summary": "",
+    "tests": [],
+    "open_questions": []
+  }
+}

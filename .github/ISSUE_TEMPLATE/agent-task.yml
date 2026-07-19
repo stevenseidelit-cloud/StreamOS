@@ -1,0 +1,56 @@
+name: Agenten-Aufgabe
+description: Abgegrenzte Aufgabe für einen ChatGPT- oder Gemini-Agenten
+title: "[TASK] "
+labels:
+  - agent-task
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Ziel
+      description: Welches überprüfbare Ergebnis soll entstehen?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Abnahmekriterien
+      description: Welche Tests und sichtbaren Ergebnisse müssen erfüllt sein?
+    validations:
+      required: true
+  - type: textarea
+    id: paths
+    attributes:
+      label: Vorgesehene exklusive Pfade
+      description: Repository-relative Präfixe, ein Pfad pro Zeile
+      placeholder: |
+        src/auth.py
+        tests/auth
+    validations:
+      required: true
+  - type: dropdown
+    id: risk
+    attributes:
+      label: Risiko
+      options:
+        - niedrig
+        - mittel
+        - hoch
+    validations:
+      required: true
+  - type: textarea
+    id: forbidden
+    attributes:
+      label: Verbotene oder nur lesbare Bereiche
+      description: Zugangsdaten, Recovery-Artefakte oder fremde Arbeitsbereiche
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Arbeitsregeln
+      options:
+        - label: Ich arbeite in einem eigenen Branch und nicht direkt auf main.
+          required: true
+        - label: Ich lege vor Arbeitsbeginn eine Task-Datei an.
+          required: true
+        - label: Ich committe keine Tokens, Datenbanken, Logs oder EXE-Dateien.
+          required: true
