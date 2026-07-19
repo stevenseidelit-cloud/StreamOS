@@ -1,0 +1,6 @@
+# Changes to the coordination guard require explicit repository-owner review.
+/.github/workflows/coordination.yml @stevenseidelit-cloud
+/.github/CODEOWNERS @stevenseidelit-cloud
+/scripts/validate_coordination.py @stevenseidelit-cloud
+/scripts/tests/ @stevenseidelit-cloud
+/.coordination/ @stevenseidelit-cloud

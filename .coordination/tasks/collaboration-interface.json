@@ -1,0 +1,25 @@
+{
+  "task_id": "collaboration-interface",
+  "title": "GitHub-Koordinationsschnittstelle einführen",
+  "agent": "chatgpt-pc1",
+  "branch": "agent/collaboration-interface",
+  "status": "review",
+  "issue": null,
+  "pull_request": null,
+  "exclusive_paths": [
+    ".coordination",
+    ".github",
+    "scripts"
+  ],
+  "updated_at": "2026-07-19T18:00:00Z",
+  "handoff": {
+    "summary": "Koordinationsformat, Validator, Tests und GitHub Action ergänzt.",
+    "tests": [
+      "python -m unittest discover -s scripts/tests -v",
+      "python scripts/validate_coordination.py"
+    ],
+    "open_questions": [
+      "Branch-Schutz und Merge Queue für main aktivieren?"
+    ]
+  }
+}
