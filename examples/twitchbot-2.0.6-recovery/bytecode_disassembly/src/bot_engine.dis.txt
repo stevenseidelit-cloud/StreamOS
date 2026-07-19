@@ -1,0 +1,3806 @@
+﻿# pydisasm version 6.3.0
+# CPython Python bytecode 3.13.0 (3571)
+#   Disassembled from CPython Python 3.12.13 (main, Mar  3 2026, 15:01:35) [MSC v.1944 64 bit (AMD64)]
+# Timestamp in code: 0 (1970-01-01 01:00:00)
+# Source code size mod 2**32: 0 bytes
+# Method Name:       <module>
+# Filename:          src\bot_engine.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        4
+# Flags:             0x00000000 (0x0)
+# First Line:        1
+# Constants:
+#    0: 0
+#    1: None
+#    2: ('async_playwright',)
+#    3: ('db',)
+#    4: ('logger',)
+#    5: ('load_token',)
+#    6: ('PLAYWRIGHT_BROWSERS_PATH', 'CUSTOM_FIREFOX_PATH')
+#    7: <Code311 code object parse_points at 0x1aaa246f890, file src\bot_engine.py>, line 11
+#    8: <Code311 code object TwitchBotEngine at 0x1aaa2486bd0, file src\bot_engine.py>, line 52
+#    9: 'TwitchBotEngine'
+# Names:
+#    0: asyncio
+#    1: time
+#    2: re
+#    3: datetime
+#    4: playwright.async_api
+#    5: async_playwright
+#    6: src.db
+#    7: db
+#    8: src.logger
+#    9: logger
+#   10: src.auth
+#   11: load_token
+#   12: src.paths
+#   13: PLAYWRIGHT_BROWSERS_PATH
+#   14: CUSTOM_FIREFOX_PATH
+#   15: parse_points
+#   16: TwitchBotEngine
+
+  0:           0 RESUME               0
+
+  1:           2 LOAD_CONST           (0)
+               4 LOAD_CONST           (None)
+               6 IMPORT_NAME          (asyncio)
+               8 STORE_NAME           (asyncio)
+
+  2:          10 LOAD_CONST           (0)
+              12 LOAD_CONST           (None)
+              14 IMPORT_NAME          (time)
+              16 STORE_NAME           (time)
+
+  3:          18 LOAD_CONST           (0)
+              20 LOAD_CONST           (None)
+              22 IMPORT_NAME          (re)
+              24 STORE_NAME           (re)
+
+  4:          26 LOAD_CONST           (0)
+              28 LOAD_CONST           (None)
+              30 IMPORT_NAME          (datetime)
+              32 STORE_NAME           (datetime)
+
+  5:          34 LOAD_CONST           (0)
+              36 LOAD_CONST           (('async_playwright',))
+              38 IMPORT_NAME          (playwright.async_api)
+              40 IMPORT_FROM          (async_playwright)
+              42 STORE_NAME           (async_playwright)
+              44 POP_TOP
+
+  6:          46 LOAD_CONST           (0)
+              48 LOAD_CONST           (('db',))
+              50 IMPORT_NAME          (src.db)
+              52 IMPORT_FROM          (db)
+              54 STORE_NAME           (db)
+              56 POP_TOP
+
+  7:          58 LOAD_CONST           (0)
+              60 LOAD_CONST           (('logger',))
+              62 IMPORT_NAME          (src.logger)
+              64 IMPORT_FROM          (logger)
+              66 STORE_NAME           (logger)
+              68 POP_TOP
+
+  8:          70 LOAD_CONST           (0)
+              72 LOAD_CONST           (('load_token',))
+              74 IMPORT_NAME          (src.auth)
+              76 IMPORT_FROM          (load_token)
+              78 STORE_NAME           (load_token)
+              80 POP_TOP
+
+  9:          82 LOAD_CONST           (0)
+              84 LOAD_CONST           (('PLAYWRIGHT_BROWSERS_PATH', 'CUSTOM_FIREFOX_PATH'))
+              86 IMPORT_NAME          (src.paths)
+              88 IMPORT_FROM          (PLAYWRIGHT_BROWSERS_PATH)
+              90 STORE_NAME           (PLAYWRIGHT_BROWSERS_PATH)
+              92 IMPORT_FROM          (CUSTOM_FIREFOX_PATH)
+              94 STORE_NAME           (CUSTOM_FIREFOX_PATH)
+              96 POP_TOP
+
+ 11:          98 LOAD_CONST           (<Code311 code object parse_points at 0x1aaa246f890, file src\bot_engine.py>, line 11)
+             100 MAKE_FUNCTION
+             102 STORE_NAME           (parse_points)
+
+ 52:         104 LOAD_BUILD_CLASS
+             106 PUSH_NULL
+             108 LOAD_CONST           (<Code311 code object TwitchBotEngine at 0x1aaa2486bd0, file src\bot_engine.py>, line 52)
+             110 MAKE_FUNCTION
+             112 LOAD_CONST           ("TwitchBotEngine")
+             114 CALL                 (2 positional)
+             122 STORE_NAME           (TwitchBotEngine)
+             124 RETURN_CONST         (None)
+
+
+# Method Name:       parse_points
+# Filename:          src\bot_engine.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  8
+# Stack size:        6
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        11
+# Constants:
+#    0: None
+#    1: 0
+#    2: '\n'
+#    3: ' '
+#    4: 1
+#    5: -1
+#    6: ''
+#    7: ('k', 'm', '.', ',')
+#    8: 'k'
+#    9: 'm'
+#   10: ','
+#   11: '.'
+#   12: 1000
+#   13: 1000000
+# Names:
+#    0: replace
+#    1: strip
+#    2: lower
+#    3: split
+#    4: len
+#    5: isdigit
+#    6: join
+#    7: float
+#    8: int
+#    9: ValueError
+# Varnames:
+#	text, parts, clean, char, is_k, is_m, val, mult
+# Positional arguments:
+#	text
+# Local variables:
+#    1: parts
+#    2: clean
+#    3: char
+#    4: is_k
+#    5: is_m
+#    6: val
+#    7: mult
+
+ 11:           0 RESUME               0
+
+ 12:           2 LOAD_FAST            (text)
+               4 TO_BOOL
+              12 POP_JUMP_IF_TRUE     (to 18)
+
+ 13:          16 RETURN_CONST         (0)
+
+ 15:     >>   18 LOAD_FAST            (text)
+              20 LOAD_ATTR            (NULL|self + replace)
+              40 LOAD_CONST           ("\n")
+              42 LOAD_CONST           (" ")
+              44 CALL                 (2 positional)
+              52 LOAD_ATTR            (NULL|self + strip)
+              72 CALL                 (0 positional)
+              80 LOAD_ATTR            (NULL|self + lower)
+             100 CALL                 (0 positional)
+             108 STORE_FAST           (text)
+
+ 16:         110 LOAD_FAST            (text)
+             112 LOAD_ATTR            (NULL|self + split)
+             132 CALL                 (0 positional)
+             140 STORE_FAST           (parts)
+
+ 17:         142 LOAD_GLOBAL          (NULL + len)
+             152 LOAD_FAST            (parts)
+             154 CALL                 (1 positional)
+             162 LOAD_CONST           (1)
+             164 COMPARE_OP           (>)
+             168 POP_JUMP_IF_FALSE    (to 184)
+
+ 18:         172 LOAD_FAST            (parts)
+             174 LOAD_CONST           (-1)
+             176 BINARY_SUBSCR
+             180 STORE_FAST           (text)
+             182 JUMP_FORWARD         (to 228)
+
+ 19:     >>  184 LOAD_GLOBAL          (NULL + len)
+             194 LOAD_FAST            (parts)
+             196 CALL                 (1 positional)
+             204 LOAD_CONST           (1)
+             206 COMPARE_OP           (==)
+             210 POP_JUMP_IF_FALSE    (to 226)
+
+ 20:         214 LOAD_FAST            (parts)
+             216 LOAD_CONST           (0)
+             218 BINARY_SUBSCR
+             222 STORE_FAST           (text)
+             224 JUMP_FORWARD         (to 228)
+
+ 22:     >>  226 RETURN_CONST         (0)
+
+ 24:     >>  228 LOAD_CONST           ("")
+             230 STORE_FAST           (clean)
+
+ 25:         232 LOAD_FAST            (text)
+             234 GET_ITER
+             236 FOR_ITER             (to 312)
+             240 STORE_FAST           (char)
+
+ 26:         242 LOAD_FAST            (char)
+             244 LOAD_ATTR            (NULL|self + isdigit)
+             264 CALL                 (0 positional)
+             272 TO_BOOL
+             280 POP_JUMP_IF_TRUE     (to 300)
+             284 LOAD_FAST            (char)
+             286 LOAD_CONST           (('k', 'm', '.', ','))
+             288 CONTAINS_OP          (in)
+             292 POP_JUMP_IF_TRUE     (to 300)
+             296 JUMP_BACKWARD        (to 236)
+
+ 27:     >>  300 LOAD_FAST_LOAD_FAST  (clean, char)
+             302 BINARY_OP            (+=)
+             306 STORE_FAST           (clean)
+             308 JUMP_BACKWARD        (to 236)
+
+ 25:     >>  312 END_FOR
+             314 POP_TOP
+
+ 29:         316 LOAD_CONST           ("k")
+             318 LOAD_FAST            (clean)
+             320 CONTAINS_OP          (in)
+             324 STORE_FAST           (is_k)
+
+ 30:         326 LOAD_CONST           ("m")
+             328 LOAD_FAST            (clean)
+             330 CONTAINS_OP          (in)
+             334 STORE_FAST           (is_m)
+
+ 32:         336 LOAD_FAST            (clean)
+             338 LOAD_ATTR            (NULL|self + replace)
+             358 LOAD_CONST           ("k")
+             360 LOAD_CONST           ("")
+             362 CALL                 (2 positional)
+             370 LOAD_ATTR            (NULL|self + replace)
+             390 LOAD_CONST           ("m")
+             392 LOAD_CONST           ("")
+             394 CALL                 (2 positional)
+             402 STORE_FAST           (clean)
+
+ 34:         404 LOAD_FAST            (is_k)
+             406 TO_BOOL
+             414 POP_JUMP_IF_TRUE     (to 432)
+             418 LOAD_FAST            (is_m)
+             420 TO_BOOL
+             428 POP_JUMP_IF_FALSE    (to 662)
+
+ 35:     >>  432 LOAD_FAST            (clean)
+             434 LOAD_ATTR            (NULL|self + replace)
+             454 LOAD_CONST           (",")
+             456 LOAD_CONST           (".")
+             458 CALL                 (2 positional)
+             466 STORE_FAST           (clean)
+
+ 36:         468 LOAD_FAST            (clean)
+             470 LOAD_ATTR            (NULL|self + split)
+             490 LOAD_CONST           (".")
+             492 CALL                 (1 positional)
+             500 STORE_FAST           (parts)
+
+ 37:         502 LOAD_GLOBAL          (NULL + len)
+             512 LOAD_FAST            (parts)
+             514 CALL                 (1 positional)
+             522 LOAD_CONST           (1)
+             524 COMPARE_OP           (>)
+             528 POP_JUMP_IF_FALSE    (to 590)
+
+ 38:         532 LOAD_FAST            (parts)
+             534 LOAD_CONST           (0)
+             536 BINARY_SUBSCR
+             540 LOAD_CONST           (".")
+             542 BINARY_OP            (+)
+             546 LOAD_CONST           ("")
+             548 LOAD_ATTR            (NULL|self + join)
+             568 LOAD_FAST            (parts)
+             570 LOAD_CONST           (1)
+             572 LOAD_CONST           (None)
+             574 BINARY_SLICE
+             576 CALL                 (1 positional)
+             584 BINARY_OP            (+)
+             588 STORE_FAST           (clean)
+
+ 39:     >>  590 NOP
+
+ 40:         592 LOAD_GLOBAL          (NULL + float)
+             602 LOAD_FAST            (clean)
+             604 CALL                 (1 positional)
+             612 STORE_FAST           (val)
+
+ 41:         614 LOAD_FAST            (is_k)
+             616 TO_BOOL
+             624 POP_JUMP_IF_FALSE    (to 632)
+             628 LOAD_CONST           (1000)
+             630 JUMP_FORWARD         (to 634)
+         >>  632 LOAD_CONST           (1000000)
+         >>  634 STORE_FAST           (mult)
+
+ 42:         636 LOAD_GLOBAL          (NULL + int)
+             646 LOAD_FAST_LOAD_FAST  (val, mult)
+             648 BINARY_OP            (*)
+             652 CALL                 (1 positional)
+             660 RETURN_VALUE
+
+ 46:     >>  662 LOAD_FAST            (clean)
+             664 LOAD_ATTR            (NULL|self + replace)
+             684 LOAD_CONST           (",")
+             686 LOAD_CONST           ("")
+             688 CALL                 (2 positional)
+             696 LOAD_ATTR            (NULL|self + replace)
+             716 LOAD_CONST           (".")
+             718 LOAD_CONST           ("")
+             720 CALL                 (2 positional)
+             728 STORE_FAST           (clean)
+
+ 47:         730 NOP
+
+ 48:         732 LOAD_GLOBAL          (NULL + int)
+             742 LOAD_FAST            (clean)
+             744 CALL                 (1 positional)
+             752 RETURN_VALUE
+             754 PUSH_EXC_INFO
+
+ 43:         756 LOAD_GLOBAL          (ValueError)
+             766 CHECK_EXC_MATCH
+             768 POP_JUMP_IF_FALSE    (to 778)
+             772 POP_TOP
+
+ 44:         774 POP_EXCEPT
+             776 RETURN_CONST         (0)
+
+ 43:     >>  778 RERAISE              0
+             780 COPY                 3
+             782 POP_EXCEPT
+             784 RERAISE              1
+             786 PUSH_EXC_INFO
+
+ 49:         788 LOAD_GLOBAL          (ValueError)
+             798 CHECK_EXC_MATCH
+             800 POP_JUMP_IF_FALSE    (to 810)
+             804 POP_TOP
+
+ 50:         806 POP_EXCEPT
+             808 RETURN_CONST         (0)
+
+ 49:     >>  810 RERAISE              0
+             812 COPY                 3
+             814 POP_EXCEPT
+             816 RERAISE              1
+
+ExceptionTable:
+  592 to 658 -> 754 [0]
+  732 to 750 -> 786 [0]
+  754 to 772 -> 780 [1] lasti
+  778 to 778 -> 780 [1] lasti
+  786 to 804 -> 812 [1] lasti
+  810 to 810 -> 812 [1] lasti
+
+# Method Name:       TwitchBotEngine
+# Filename:          src\bot_engine.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        2
+# Flags:             0x00000000 (0x0)
+# First Line:        52
+# Constants:
+#    0: 'TwitchBotEngine'
+#    1: 52
+#    2: <Code311 code object __init__ at 0x1aaa24864e0, file src\bot_engine.py>, line 53
+#    3: <Code311 code object start at 0x1aaa2486ba0, file src\bot_engine.py>, line 61
+#    4: <Code311 code object stop at 0x1aaa2486cf0, file src\bot_engine.py>, line 148
+#    5: <Code311 code object create_diagnosis_backup at 0x1aaa2486de0, file src\bot_engine.py>, line 176
+#    6: <Code311 code object _main_loop at 0x1aaa2487050, file src\bot_engine.py>, line 198
+#    7: <Code311 code object _worker_manager_loop at 0x1aaa2487110, file src\bot_engine.py>, line 222
+#    8: <Code311 code object _click_banners at 0x1aaa2487380, file src\bot_engine.py>, line 233
+#    9: <Code311 code object _fetch_followers at 0x1aaa24875f0, file src\bot_engine.py>, line 266
+#   10: <Code311 code object run_sync_standalone at 0x1aaa2487650, file src\bot_engine.py>, line 314
+#   11: <Code311 code object _sync_single_channel at 0x1aaa2487410, file src\bot_engine.py>, line 359
+#   12: <Code311 code object _sync_mode at 0x1aaa2487a10, file src\bot_engine.py>, line 434
+#   13: <Code311 code object _radar_mode at 0x1aaa246f980, file src\bot_engine.py>, line 472
+#   14: <Code311 code object _pre_check_channel at 0x1aaa2487b90, file src\bot_engine.py>, line 555
+#   15: <Code311 code object _manage_workers at 0x1aaa2487d10, file src\bot_engine.py>, line 655
+#   16: <Code311 code object _worker_task at 0x1aaa24bc290, file src\bot_engine.py>, line 733
+#   17: <Code311 code object sync_subscriptions at 0x1aaa24bc6b0, file src\bot_engine.py>, line 956
+#   18: <Code311 code object run_stats_sync at 0x1aaa24bcb60, file src\bot_engine.py>, line 1050
+#   19: ('active_workers', 'browser', 'browser_headless', 'context', 'context_headless', 'current_activities', 'is_running', 'playwright', 'tasks')
+#   20: None
+#   21: (False,)
+# Names:
+#    0: __name__
+#    1: __module__
+#    2: __qualname__
+#    3: __firstlineno__
+#    4: __init__
+#    5: start
+#    6: stop
+#    7: create_diagnosis_backup
+#    8: _main_loop
+#    9: _worker_manager_loop
+#   10: _click_banners
+#   11: _fetch_followers
+#   12: run_sync_standalone
+#   13: _sync_single_channel
+#   14: _sync_mode
+#   15: _radar_mode
+#   16: _pre_check_channel
+#   17: _manage_workers
+#   18: _worker_task
+#   19: sync_subscriptions
+#   20: run_stats_sync
+#   21: __static_attributes__
+
+ 52:           0 RESUME               0
+               2 LOAD_NAME            (__name__)
+               4 STORE_NAME           (__module__)
+               6 LOAD_CONST           ("TwitchBotEngine")
+               8 STORE_NAME           (__qualname__)
+              10 LOAD_CONST           (52)
+              12 STORE_NAME           (__firstlineno__)
+
+ 53:          14 LOAD_CONST           (<Code311 code object __init__ at 0x1aaa24864e0, file src\bot_engine.py>, line 53)
+              16 MAKE_FUNCTION
+              18 STORE_NAME           (__init__)
+
+ 61:          20 LOAD_CONST           (<Code311 code object start at 0x1aaa2486ba0, file src\bot_engine.py>, line 61)
+              22 MAKE_FUNCTION
+              24 STORE_NAME           (start)
+
+148:          26 LOAD_CONST           (<Code311 code object stop at 0x1aaa2486cf0, file src\bot_engine.py>, line 148)
+              28 MAKE_FUNCTION
+              30 STORE_NAME           (stop)
+
+176:          32 LOAD_CONST           (<Code311 code object create_diagnosis_backup at 0x1aaa2486de0, file src\bot_engine.py>, line 176)
+              34 MAKE_FUNCTION
+              36 STORE_NAME           (create_diagnosis_backup)
+
+198:          38 LOAD_CONST           (<Code311 code object _main_loop at 0x1aaa2487050, file src\bot_engine.py>, line 198)
+              40 MAKE_FUNCTION
+              42 STORE_NAME           (_main_loop)
+
+222:          44 LOAD_CONST           (<Code311 code object _worker_manager_loop at 0x1aaa2487110, file src\bot_engine.py>, line 222)
+              46 MAKE_FUNCTION
+              48 STORE_NAME           (_worker_manager_loop)
+
+233:          50 LOAD_CONST           (<Code311 code object _click_banners at 0x1aaa2487380, file src\bot_engine.py>, line 233)
+              52 MAKE_FUNCTION
+              54 STORE_NAME           (_click_banners)
+
+266:          56 LOAD_CONST           (<Code311 code object _fetch_followers at 0x1aaa24875f0, file src\bot_engine.py>, line 266)
+              58 MAKE_FUNCTION
+              60 STORE_NAME           (_fetch_followers)
+
+314:          62 LOAD_CONST           (<Code311 code object run_sync_standalone at 0x1aaa2487650, file src\bot_engine.py>, line 314)
+              64 MAKE_FUNCTION
+              66 STORE_NAME           (run_sync_standalone)
+
+359:          68 LOAD_CONST           (<Code311 code object _sync_single_channel at 0x1aaa2487410, file src\bot_engine.py>, line 359)
+              70 MAKE_FUNCTION
+              72 STORE_NAME           (_sync_single_channel)
+
+434:          74 LOAD_CONST           ((False,))
+              76 LOAD_CONST           (<Code311 code object _sync_mode at 0x1aaa2487a10, file src\bot_engine.py>, line 434)
+              78 MAKE_FUNCTION
+              80 SET_FUNCTION_ATTRIBUTE 1
+              82 STORE_NAME           (_sync_mode)
+
+472:          84 LOAD_CONST           (<Code311 code object _radar_mode at 0x1aaa246f980, file src\bot_engine.py>, line 472)
+              86 MAKE_FUNCTION
+              88 STORE_NAME           (_radar_mode)
+
+555:          90 LOAD_CONST           (<Code311 code object _pre_check_channel at 0x1aaa2487b90, file src\bot_engine.py>, line 555)
+              92 MAKE_FUNCTION
+              94 STORE_NAME           (_pre_check_channel)
+
+655:          96 LOAD_CONST           (<Code311 code object _manage_workers at 0x1aaa2487d10, file src\bot_engine.py>, line 655)
+              98 MAKE_FUNCTION
+             100 STORE_NAME           (_manage_workers)
+
+733:         102 LOAD_CONST           (<Code311 code object _worker_task at 0x1aaa24bc290, file src\bot_engine.py>, line 733)
+             104 MAKE_FUNCTION
+             106 STORE_NAME           (_worker_task)
+
+956:         108 LOAD_CONST           (<Code311 code object sync_subscriptions at 0x1aaa24bc6b0, file src\bot_engine.py>, line 956)
+             110 MAKE_FUNCTION
+             112 STORE_NAME           (sync_subscriptions)
+
+1050:         114 LOAD_CONST           (<Code311 code object run_stats_sync at 0x1aaa24bcb60, file src\bot_engine.py>, line 1050)
+             116 MAKE_FUNCTION
+             118 STORE_NAME           (run_stats_sync)
+             120 LOAD_CONST           (('active_workers', 'browser', 'browser_headless', 'context', 'context_headless', 'current_activities', 'is_running', 'playwright', 'tasks'))
+             122 STORE_NAME           (__static_attributes__)
+             124 RETURN_CONST         (None)
+
+
+# Method Name:       __init__
+# Filename:          src\bot_engine.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  1
+# Stack size:        2
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        53
+# Constants:
+#    0: None
+#    1: False
+# Names:
+#    0: is_running
+#    1: tasks
+#    2: active_workers
+#    3: current_activities
+#    4: browser
+#    5: context
+# Varnames:
+#	self
+# Positional arguments:
+#	self
+
+ 53:           0 RESUME               0
+
+ 54:           2 LOAD_CONST           (False)
+               4 LOAD_FAST            (self)
+               6 STORE_ATTR           (is_running)
+
+ 55:          16 BUILD_LIST           0
+              18 LOAD_FAST            (self)
+              20 STORE_ATTR           (tasks)
+
+ 56:          30 BUILD_MAP            0
+              32 LOAD_FAST            (self)
+              34 STORE_ATTR           (active_workers)
+
+ 57:          44 BUILD_MAP            0
+              46 LOAD_FAST            (self)
+              48 STORE_ATTR           (current_activities)
+
+ 58:          58 LOAD_CONST           (None)
+              60 LOAD_FAST            (self)
+              62 STORE_ATTR           (browser)
+
+ 59:          72 LOAD_CONST           (None)
+              74 LOAD_FAST            (self)
+              76 STORE_ATTR           (context)
+              86 RETURN_CONST         (None)
+
+
+# Method Name:       start
+# Filename:          src\bot_engine.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  14
+# Stack size:        7
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        61
+# Constants:
+#    0: None
+#    1: True
+#    2: 'Starte TwitchBot 2.0 Engine...'
+#    3: 'status'
+#    4: ('Live: �berwachung l�uft', 'Vorab-Check l�uft')
+#    5: 'Bereit'
+#    6: ('status',)
+#    7: 'Fehler beim Zur�cksetzen der Kan�le beim Start: '
+#    8: 'Kein Token gefunden. Bitte im Dashboard eintragen.'
+#    9: False
+#   10: 0
+#   11: 'PLAYWRIGHT_BROWSERS_PATH'
+#   12: 'headless_mode'
+#   13: '1'
+#   14: ('headless', 'args')
+#   15: 'executable_path'
+#   16: 1280
+#   17: 720
+#   18: ('width', 'height')
+#   19: ('viewport',)
+#   20: 'mute_audio'
+#   21: '0.0'
+#   22: '1.0'
+#   23: 'true'
+#   24: 'false'
+#   25: "\n                window.localStorage.setItem('volume', '"
+#   26: "');\n                window.localStorage.setItem('muted', '"
+#   27: "');\n            "
+#   28: 'auth-token'
+#   29: '.twitch.tv'
+#   30: '/'
+#   31: ('name', 'value', 'domain', 'path')
+#   32: "\n                window.localStorage.setItem('volume', '0.0');\n                window.localStorage.setItem('muted', 'true');\n            "
+#   33: 'Fehler beim Starten der Engine: '
+#   34: 'context_headless'
+#   35: 'browser_headless'
+#   36: 'playwright'
+#   37: ()
+# Names:
+#    0: is_running
+#    1: logger
+#    2: info
+#    3: db
+#    4: backup_database
+#    5: get_all_channels
+#    6: items
+#    7: upsert_channel
+#    8: Exception
+#    9: warning
+#   10: load_token
+#   11: error
+#   12: os
+#   13: PLAYWRIGHT_BROWSERS_PATH
+#   14: environ
+#   15: async_playwright
+#   16: start
+#   17: playwright
+#   18: get_setting
+#   19: CUSTOM_FIREFOX_PATH
+#   20: firefox
+#   21: launch
+#   22: browser
+#   23: new_context
+#   24: context
+#   25: add_init_script
+#   26: add_cookies
+#   27: browser_headless
+#   28: context_headless
+#   29: tasks
+#   30: append
+#   31: asyncio
+#   32: create_task
+#   33: _main_loop
+#   34: _worker_manager_loop
+#   35: close
+#   36: hasattr
+#   37: stop
+#   38: delattr
+# Varnames:
+#	self, all_channels, c, data, e, token, os, headless, args, launch_kwargs, mute_audio, volume_val, muted_val, launch_headless_kwargs
+# Positional arguments:
+#	self
+# Local variables:
+#    1: all_channels
+#    2: c
+#    3: data
+#    4: e
+#    5: token
+#    6: os
+#    7: headless
+#    8: args
+#    9: launch_kwargs
+#   10: mute_audio
+#   11: volume_val
+#   12: muted_val
+#   13: launch_headless_kwargs
+
+ 61:           0 RETURN_GENERATOR
+               2 POP_TOP
+               4 RESUME               0
+
+ 62:           6 LOAD_FAST            (self)
+               8 LOAD_ATTR            (is_running)
+              28 TO_BOOL
+              36 POP_JUMP_IF_FALSE    (to 42)
+              40 RETURN_CONST         (None)
+
+ 63:     >>   42 LOAD_CONST           (True)
+              44 LOAD_FAST            (self)
+              46 STORE_ATTR           (is_running)
+
+ 64:          56 LOAD_GLOBAL          (logger)
+              66 LOAD_ATTR            (info)
+              86 PUSH_NULL
+              88 LOAD_CONST           ("Starte TwitchBot 2.0 Engine...")
+              90 CALL                 (1 positional)
+              98 POP_TOP
+
+ 65:         100 LOAD_GLOBAL          (db)
+             110 LOAD_ATTR            (backup_database)
+             130 PUSH_NULL
+             132 CALL                 (0 positional)
+             140 POP_TOP
+
+ 68:         142 NOP
+
+ 69:         144 LOAD_GLOBAL          (db)
+             154 LOAD_ATTR            (get_all_channels)
+             174 PUSH_NULL
+             176 CALL                 (0 positional)
+             184 STORE_FAST           (all_channels)
+
+ 70:         186 LOAD_FAST            (all_channels)
+             188 LOAD_ATTR            (NULL|self + items)
+             208 CALL                 (0 positional)
+             216 GET_ITER
+             218 FOR_ITER             (to 296)
+             222 UNPACK_SEQUENCE      2
+             226 STORE_FAST_STORE_FAST (c, data)
+
+ 71:         228 LOAD_FAST            (data)
+             230 LOAD_CONST           ("status")
+             232 BINARY_SUBSCR
+             236 LOAD_CONST           (('Live: �berwachung l�uft', 'Vorab-Check l�uft'))
+             238 CONTAINS_OP          (in)
+             242 POP_JUMP_IF_TRUE     (to 250)
+             246 JUMP_BACKWARD        (to 218)
+
+ 72:     >>  250 LOAD_GLOBAL          (db)
+             260 LOAD_ATTR            (upsert_channel)
+             280 PUSH_NULL
+         >>  282 LOAD_FAST            (c)
+             284 LOAD_CONST           ("Bereit")
+             286 LOAD_CONST           (('status',))
+             288 CALL_KW              2
+             290 POP_TOP
+             292 JUMP_BACKWARD        (to 218)
+
+ 70:     >>  296 END_FOR
+             298 POP_TOP
+
+ 76:         300 LOAD_GLOBAL          (NULL + load_token)
+             310 CALL                 (0 positional)
+             318 STORE_FAST           (token)
+
+ 77:         320 LOAD_FAST            (token)
+             322 TO_BOOL
+             330 POP_JUMP_IF_TRUE     (to 394)
+
+ 78:         334 LOAD_GLOBAL          (logger)
+             344 LOAD_ATTR            (error)
+             364 PUSH_NULL
+             366 LOAD_CONST           ("Kein Token gefunden. Bitte im Dashboard eintragen.")
+             368 CALL                 (1 positional)
+             376 POP_TOP
+
+ 79:         378 LOAD_CONST           (False)
+             380 LOAD_FAST            (self)
+             382 STORE_ATTR           (is_running)
+
+ 80:         392 RETURN_CONST         (False)
+
+ 82:     >>  394 NOP
+
+ 83:         396 LOAD_CONST           (0)
+             398 LOAD_CONST           (None)
+             400 IMPORT_NAME          (os)
+             402 STORE_FAST           (os)
+
+ 84:         404 LOAD_GLOBAL          (PLAYWRIGHT_BROWSERS_PATH)
+             414 LOAD_FAST            (os)
+             416 LOAD_ATTR            (environ)
+             436 LOAD_CONST           ("PLAYWRIGHT_BROWSERS_PATH")
+             438 STORE_SUBSCR
+
+ 85:         442 LOAD_GLOBAL          (NULL + async_playwright)
+             452 CALL                 (0 positional)
+             460 LOAD_ATTR            (NULL|self + start)
+             480 CALL                 (0 positional)
+             488 GET_AWAITABLE        0
+             490 LOAD_CONST           (None)
+             492 SEND                 (to 500)
+             496 YIELD_VALUE          1
+             498 RESUME               3
+             500 JUMP_BACKWARD_NO_INTERRUPT (to 492)
+         >>  502 END_SEND
+             504 LOAD_FAST            (self)
+             506 STORE_ATTR           (playwright)
+
+ 86:         516 LOAD_GLOBAL          (db)
+             526 LOAD_ATTR            (get_setting)
+             546 PUSH_NULL
+             548 LOAD_CONST           ("headless_mode")
+             550 LOAD_CONST           ("1")
+             552 CALL                 (2 positional)
+             560 LOAD_CONST           ("1")
+             562 COMPARE_OP           (==)
+             566 STORE_FAST           (headless)
+
+ 87:         568 BUILD_LIST           0
+             570 STORE_FAST           (args)
+
+ 90:         572 LOAD_FAST_LOAD_FAST  (headless, args)
+             574 LOAD_CONST           (('headless', 'args'))
+             576 BUILD_CONST_KEY_MAP  2
+             578 STORE_FAST           (launch_kwargs)
+
+ 91:         580 LOAD_GLOBAL          (CUSTOM_FIREFOX_PATH)
+             590 TO_BOOL
+             598 POP_JUMP_IF_FALSE    (to 620)
+
+ 92:         602 LOAD_GLOBAL          (CUSTOM_FIREFOX_PATH)
+             612 LOAD_FAST            (launch_kwargs)
+             614 LOAD_CONST           ("executable_path")
+             616 STORE_SUBSCR
+
+ 93:     >>  620 LOAD_FAST            (self)
+             622 LOAD_ATTR            (playwright)
+             642 LOAD_ATTR            (firefox)
+             662 LOAD_ATTR            (launch)
+             682 PUSH_NULL
+             684 LOAD_CONST           (())
+             686 BUILD_MAP            0
+             688 LOAD_FAST            (launch_kwargs)
+             690 DICT_MERGE           1
+             692 CALL_FUNCTION_EX     (keyword and positional arguments)
+             694 GET_AWAITABLE        0
+             696 LOAD_CONST           (None)
+             698 SEND                 (to 706)
+             702 YIELD_VALUE          1
+             704 RESUME               3
+             706 JUMP_BACKWARD_NO_INTERRUPT (to 698)
+         >>  708 END_SEND
+             710 LOAD_FAST            (self)
+             712 STORE_ATTR           (browser)
+
+ 94:         722 LOAD_FAST            (self)
+             724 LOAD_ATTR            (browser)
+             744 LOAD_ATTR            (NULL|self + new_context)
+             764 LOAD_CONST           (1280)
+             766 LOAD_CONST           (720)
+             768 LOAD_CONST           (('width', 'height'))
+             770 BUILD_CONST_KEY_MAP  2
+             772 LOAD_CONST           (('viewport',))
+             774 CALL_KW              1
+             776 GET_AWAITABLE        0
+             778 LOAD_CONST           (None)
+             780 SEND                 (to 788)
+             784 YIELD_VALUE          1
+             786 RESUME               3
+             788 JUMP_BACKWARD_NO_INTERRUPT (to 780)
+         >>  790 END_SEND
+             792 LOAD_FAST            (self)
+             794 STORE_ATTR           (context)
+
+ 96:         804 LOAD_GLOBAL          (db)
+             814 LOAD_ATTR            (get_setting)
+             834 PUSH_NULL
+             836 LOAD_CONST           ("mute_audio")
+             838 LOAD_CONST           ("1")
+             840 CALL                 (2 positional)
+             848 LOAD_CONST           ("1")
+             850 COMPARE_OP           (==)
+             854 STORE_FAST           (mute_audio)
+
+ 97:         856 LOAD_FAST            (mute_audio)
+             858 TO_BOOL
+             866 POP_JUMP_IF_FALSE    (to 874)
+             870 LOAD_CONST           ("0.0")
+             872 JUMP_FORWARD         (to 876)
+         >>  874 LOAD_CONST           ("1.0")
+         >>  876 STORE_FAST           (volume_val)
+
+ 98:         878 LOAD_FAST            (mute_audio)
+             880 TO_BOOL
+             888 POP_JUMP_IF_FALSE    (to 896)
+             892 LOAD_CONST           ("true")
+             894 JUMP_FORWARD         (to 898)
+         >>  896 LOAD_CONST           ("false")
+         >>  898 STORE_FAST           (muted_val)
+
+100:         900 LOAD_FAST            (self)
+             902 LOAD_ATTR            (context)
+             922 LOAD_ATTR            (NULL|self + add_init_script)
+             942 LOAD_CONST           ("\n                window.localStorage.setItem('volume', '")
+
+101:         944 LOAD_FAST            (volume_val)
+             946 FORMAT_SIMPLE
+             948 LOAD_CONST           ("');\n                window.localStorage.setItem('muted', '")
+
+102:         950 LOAD_FAST            (muted_val)
+             952 FORMAT_SIMPLE
+             954 LOAD_CONST           ("');\n            ")
+
+100:         956 BUILD_STRING         5
+             958 CALL                 (1 positional)
+             966 GET_AWAITABLE        0
+             968 LOAD_CONST           (None)
+             970 SEND                 (to 978)
+             974 YIELD_VALUE          1
+             976 RESUME               3
+             978 JUMP_BACKWARD_NO_INTERRUPT (to 970)
+         >>  980 END_SEND
+             982 POP_TOP
+
+104:         984 LOAD_FAST            (self)
+             986 LOAD_ATTR            (context)
+            1006 LOAD_ATTR            (NULL|self + add_cookies)
+            1026 LOAD_CONST           ("auth-token")
+            1028 LOAD_FAST            (token)
+            1030 LOAD_CONST           (".twitch.tv")
+            1032 LOAD_CONST           ("/")
+            1034 LOAD_CONST           (('name', 'value', 'domain', 'path'))
+            1036 BUILD_CONST_KEY_MAP  4
+            1038 BUILD_LIST           1
+            1040 CALL                 (1 positional)
+            1048 GET_AWAITABLE        0
+            1050 LOAD_CONST           (None)
+            1052 SEND                 (to 1060)
+            1056 YIELD_VALUE          1
+            1058 RESUME               3
+            1060 JUMP_BACKWARD_NO_INTERRUPT (to 1052)
+         >> 1062 END_SEND
+            1064 POP_TOP
+
+107:        1066 LOAD_CONST           (True)
+            1068 LOAD_FAST            (args)
+            1070 LOAD_CONST           (('headless', 'args'))
+         >> 1072 BUILD_CONST_KEY_MAP  2
+            1074 STORE_FAST           (launch_headless_kwargs)
+
+108:        1076 LOAD_GLOBAL          (CUSTOM_FIREFOX_PATH)
+            1086 TO_BOOL
+            1094 POP_JUMP_IF_FALSE    (to 1116)
+
+109:        1098 LOAD_GLOBAL          (CUSTOM_FIREFOX_PATH)
+            1108 LOAD_FAST            (launch_headless_kwargs)
+            1110 LOAD_CONST           ("executable_path")
+            1112 STORE_SUBSCR
+
+110:     >> 1116 LOAD_FAST            (self)
+            1118 LOAD_ATTR            (playwright)
+            1138 LOAD_ATTR            (firefox)
+            1158 LOAD_ATTR            (launch)
+            1178 PUSH_NULL
+            1180 LOAD_CONST           (())
+            1182 BUILD_MAP            0
+            1184 LOAD_FAST            (launch_headless_kwargs)
+            1186 DICT_MERGE           1
+            1188 CALL_FUNCTION_EX     (keyword and positional arguments)
+            1190 GET_AWAITABLE        0
+            1192 LOAD_CONST           (None)
+            1194 SEND                 (to 1202)
+            1198 YIELD_VALUE          1
+            1200 RESUME               3
+            1202 JUMP_BACKWARD_NO_INTERRUPT (to 1194)
+         >> 1204 END_SEND
+            1206 LOAD_FAST            (self)
+            1208 STORE_ATTR           (browser_headless)
+
+111:        1218 LOAD_FAST            (self)
+            1220 LOAD_ATTR            (browser_headless)
+            1240 LOAD_ATTR            (NULL|self + new_context)
+            1260 LOAD_CONST           (1280)
+            1262 LOAD_CONST           (720)
+            1264 LOAD_CONST           (('width', 'height'))
+            1266 BUILD_CONST_KEY_MAP  2
+            1268 LOAD_CONST           (('viewport',))
+            1270 CALL_KW              1
+            1272 GET_AWAITABLE        0
+            1274 LOAD_CONST           (None)
+            1276 SEND                 (to 1284)
+            1280 YIELD_VALUE          1
+            1282 RESUME               3
+            1284 JUMP_BACKWARD_NO_INTERRUPT (to 1276)
+         >> 1286 END_SEND
+            1288 LOAD_FAST            (self)
+            1290 STORE_ATTR           (context_headless)
+
+113:        1300 LOAD_FAST            (self)
+            1302 LOAD_ATTR            (context_headless)
+            1322 LOAD_ATTR            (NULL|self + add_init_script)
+            1342 LOAD_CONST           ("\n                window.localStorage.setItem('volume', '0.0');\n                window.localStorage.setItem('muted', 'true');\n            ")
+            1344 CALL                 (1 positional)
+            1352 GET_AWAITABLE        0
+            1354 LOAD_CONST           (None)
+            1356 SEND                 (to 1364)
+            1360 YIELD_VALUE          1
+            1362 RESUME               3
+            1364 JUMP_BACKWARD_NO_INTERRUPT (to 1356)
+         >> 1366 END_SEND
+            1368 POP_TOP
+
+117:        1370 LOAD_FAST            (self)
+            1372 LOAD_ATTR            (context_headless)
+            1392 LOAD_ATTR            (NULL|self + add_cookies)
+            1412 LOAD_CONST           ("auth-token")
+            1414 LOAD_FAST            (token)
+            1416 LOAD_CONST           (".twitch.tv")
+            1418 LOAD_CONST           ("/")
+            1420 LOAD_CONST           (('name', 'value', 'domain', 'path'))
+            1422 BUILD_CONST_KEY_MAP  4
+            1424 BUILD_LIST           1
+            1426 CALL                 (1 positional)
+            1434 GET_AWAITABLE        0
+            1436 LOAD_CONST           (None)
+            1438 SEND                 (to 1446)
+            1442 YIELD_VALUE          1
+            1444 RESUME               3
+            1446 JUMP_BACKWARD_NO_INTERRUPT (to 1438)
+         >> 1448 END_SEND
+            1450 POP_TOP
+
+120:        1452 LOAD_FAST            (self)
+            1454 LOAD_ATTR            (tasks)
+            1474 LOAD_ATTR            (NULL|self + append)
+            1494 LOAD_GLOBAL          (asyncio)
+            1504 LOAD_ATTR            (create_task)
+            1524 PUSH_NULL
+            1526 LOAD_FAST            (self)
+            1528 LOAD_ATTR            (NULL|self + _main_loop)
+            1548 CALL                 (0 positional)
+            1556 CALL                 (1 positional)
+            1564 CALL                 (1 positional)
+            1572 POP_TOP
+
+121:        1574 LOAD_FAST            (self)
+            1576 LOAD_ATTR            (tasks)
+            1596 LOAD_ATTR            (NULL|self + append)
+            1616 LOAD_GLOBAL          (asyncio)
+            1626 LOAD_ATTR            (create_task)
+            1646 PUSH_NULL
+            1648 LOAD_FAST            (self)
+            1650 LOAD_ATTR            (NULL|self + _worker_manager_loop)
+            1670 CALL                 (0 positional)
+            1678 CALL                 (1 positional)
+            1686 CALL                 (1 positional)
+            1694 POP_TOP
+
+122:        1696 RETURN_CONST         (True)
+            1698 PUSH_EXC_INFO
+
+ 73:        1700 LOAD_GLOBAL          (Exception)
+            1710 CHECK_EXC_MATCH
+            1712 POP_JUMP_IF_FALSE    (to 1788)
+            1716 STORE_FAST           (e)
+
+ 74:        1718 LOAD_GLOBAL          (logger)
+            1728 LOAD_ATTR            (warning)
+            1748 PUSH_NULL
+            1750 LOAD_CONST           ("Fehler beim Zur�cksetzen der Kan�le beim Start: ")
+            1752 LOAD_FAST            (e)
+            1754 FORMAT_SIMPLE
+            1756 BUILD_STRING         2
+            1758 CALL                 (1 positional)
+            1766 POP_TOP
+            1768 POP_EXCEPT
+            1770 LOAD_CONST           (None)
+            1772 STORE_FAST           (e)
+            1774 DELETE_FAST          (e)
+            1776 EXTENDED_ARG         (512)
+            1778 JUMP_BACKWARD_NO_INTERRUPT (to 300)
+            1780 LOAD_CONST           (None)
+            1782 STORE_FAST           (e)
+            1784 DELETE_FAST          (e)
+            1786 RERAISE              1
+
+ 73:     >> 1788 RERAISE              0
+            1790 COPY                 3
+            1792 POP_EXCEPT
+            1794 RERAISE              1
+
+ 85:        1796 CLEANUP_THROW
+            1798 EXTENDED_ARG         (512)
+            1800 JUMP_BACKWARD_NO_INTERRUPT (to 502)
+
+ 93:        1802 CLEANUP_THROW
+            1804 EXTENDED_ARG         (512)
+            1806 JUMP_BACKWARD_NO_INTERRUPT (to 708)
+
+ 94:        1808 CLEANUP_THROW
+            1810 EXTENDED_ARG         (512)
+            1812 JUMP_BACKWARD_NO_INTERRUPT (to 790)
+
+100:        1814 CLEANUP_THROW
+            1816 EXTENDED_ARG         (256)
+            1818 JUMP_BACKWARD_NO_INTERRUPT (to 980)
+
+104:        1820 CLEANUP_THROW
+            1822 EXTENDED_ARG         (256)
+            1824 JUMP_BACKWARD_NO_INTERRUPT (to 1062)
+
+110:        1826 CLEANUP_THROW
+            1828 EXTENDED_ARG         (256)
+            1830 JUMP_BACKWARD_NO_INTERRUPT (to 1204)
+
+111:        1832 CLEANUP_THROW
+            1834 EXTENDED_ARG         (256)
+            1836 JUMP_BACKWARD_NO_INTERRUPT (to 1286)
+
+113:        1838 CLEANUP_THROW
+            1840 JUMP_BACKWARD_NO_INTERRUPT (to 1366)
+
+117:        1842 CLEANUP_THROW
+            1844 JUMP_BACKWARD_NO_INTERRUPT (to 1448)
+            1846 PUSH_EXC_INFO
+
+123:        1848 LOAD_GLOBAL          (Exception)
+            1858 CHECK_EXC_MATCH
+            1860 EXTENDED_ARG         (256)
+            1862 POP_JUMP_IF_FALSE    (to 2742)
+            1866 STORE_FAST           (e)
+
+124:        1868 LOAD_GLOBAL          (logger)
+            1878 LOAD_ATTR            (error)
+            1898 PUSH_NULL
+            1900 LOAD_CONST           ("Fehler beim Starten der Engine: ")
+            1902 LOAD_FAST            (e)
+            1904 FORMAT_SIMPLE
+            1906 BUILD_STRING         2
+            1908 CALL                 (1 positional)
+            1916 POP_TOP
+
+125:        1918 LOAD_CONST           (False)
+            1920 LOAD_FAST            (self)
+            1922 STORE_ATTR           (is_running)
+
+126:        1932 NOP
+
+127:        1934 LOAD_FAST            (self)
+            1936 LOAD_ATTR            (context)
+            1956 TO_BOOL
+            1964 POP_JUMP_IF_FALSE    (to 2038)
+            1968 LOAD_FAST            (self)
+            1970 LOAD_ATTR            (context)
+            1990 LOAD_ATTR            (NULL|self + close)
+            2010 CALL                 (0 positional)
+            2018 GET_AWAITABLE        0
+            2020 LOAD_CONST           (None)
+            2022 SEND                 (to 2032)
+            2026 YIELD_VALUE          1
+            2028 RESUME               3
+            2030 JUMP_BACKWARD_NO_INTERRUPT (to 2022)
+            2032 CLEANUP_THROW
+         >> 2034 END_SEND
+            2036 POP_TOP
+         >> 2038 JUMP_FORWARD         (to 2054)
+            2040 PUSH_EXC_INFO
+
+128:     >> 2042 POP_TOP
+            2044 POP_EXCEPT
+            2046 JUMP_FORWARD         (to 2054)
+            2048 COPY                 3
+            2050 POP_EXCEPT
+            2052 RERAISE              1
+
+129:     >> 2054 NOP
+
+130:        2056 LOAD_FAST            (self)
+            2058 LOAD_ATTR            (browser)
+            2078 TO_BOOL
+            2086 POP_JUMP_IF_FALSE    (to 2160)
+            2090 LOAD_FAST            (self)
+            2092 LOAD_ATTR            (browser)
+            2112 LOAD_ATTR            (NULL|self + close)
+            2132 CALL                 (0 positional)
+            2140 GET_AWAITABLE        0
+            2142 LOAD_CONST           (None)
+            2144 SEND                 (to 2154)
+            2148 YIELD_VALUE          1
+            2150 RESUME               3
+            2152 JUMP_BACKWARD_NO_INTERRUPT (to 2144)
+            2154 CLEANUP_THROW
+         >> 2156 END_SEND
+            2158 POP_TOP
+         >> 2160 JUMP_FORWARD         (to 2176)
+            2162 PUSH_EXC_INFO
+
+131:     >> 2164 POP_TOP
+            2166 POP_EXCEPT
+            2168 JUMP_FORWARD         (to 2176)
+            2170 COPY                 3
+            2172 POP_EXCEPT
+            2174 RERAISE              1
+
+132:     >> 2176 NOP
+
+133:        2178 LOAD_GLOBAL          (NULL + hasattr)
+            2188 LOAD_FAST            (self)
+            2190 LOAD_CONST           ("context_headless")
+            2192 CALL                 (2 positional)
+            2200 TO_BOOL
+            2208 POP_JUMP_IF_FALSE    (to 2316)
+            2212 LOAD_FAST            (self)
+            2214 LOAD_ATTR            (context_headless)
+            2234 TO_BOOL
+            2242 POP_JUMP_IF_FALSE    (to 2316)
+            2246 LOAD_FAST            (self)
+            2248 LOAD_ATTR            (context_headless)
+            2268 LOAD_ATTR            (NULL|self + close)
+            2288 CALL                 (0 positional)
+            2296 GET_AWAITABLE        0
+            2298 LOAD_CONST           (None)
+            2300 SEND                 (to 2310)
+            2304 YIELD_VALUE          1
+            2306 RESUME               3
+            2308 JUMP_BACKWARD_NO_INTERRUPT (to 2300)
+            2310 CLEANUP_THROW
+         >> 2312 END_SEND
+            2314 POP_TOP
+         >> 2316 JUMP_FORWARD         (to 2332)
+         >> 2318 PUSH_EXC_INFO
+
+134:     >> 2320 POP_TOP
+            2322 POP_EXCEPT
+            2324 JUMP_FORWARD         (to 2332)
+            2326 COPY                 3
+            2328 POP_EXCEPT
+            2330 RERAISE              1
+
+135:     >> 2332 NOP
+
+136:        2334 LOAD_GLOBAL          (NULL + hasattr)
+            2344 LOAD_FAST            (self)
+            2346 LOAD_CONST           ("browser_headless")
+            2348 CALL                 (2 positional)
+            2356 TO_BOOL
+            2364 POP_JUMP_IF_FALSE    (to 2472)
+            2368 LOAD_FAST            (self)
+            2370 LOAD_ATTR            (browser_headless)
+         >> 2390 TO_BOOL
+            2398 POP_JUMP_IF_FALSE    (to 2472)
+            2402 LOAD_FAST            (self)
+            2404 LOAD_ATTR            (browser_headless)
+            2424 LOAD_ATTR            (NULL|self + close)
+            2444 CALL                 (0 positional)
+            2452 GET_AWAITABLE        0
+            2454 LOAD_CONST           (None)
+            2456 SEND                 (to 2466)
+         >> 2460 YIELD_VALUE          1
+            2462 RESUME               3
+            2464 JUMP_BACKWARD_NO_INTERRUPT (to 2456)
+            2466 CLEANUP_THROW
+         >> 2468 END_SEND
+            2470 POP_TOP
+         >> 2472 JUMP_FORWARD         (to 2488)
+            2474 PUSH_EXC_INFO
+
+137:     >> 2476 POP_TOP
+            2478 POP_EXCEPT
+            2480 JUMP_FORWARD         (to 2488)
+            2482 COPY                 3
+            2484 POP_EXCEPT
+            2486 RERAISE              1
+
+138:     >> 2488 NOP
+
+139:        2490 LOAD_GLOBAL          (NULL + hasattr)
+            2500 LOAD_FAST            (self)
+            2502 LOAD_CONST           ("playwright")
+            2504 CALL                 (2 positional)
+            2512 TO_BOOL
+            2520 POP_JUMP_IF_FALSE    (to 2594)
+            2524 LOAD_FAST            (self)
+            2526 LOAD_ATTR            (playwright)
+            2546 LOAD_ATTR            (NULL|self + stop)
+            2566 CALL                 (0 positional)
+            2574 GET_AWAITABLE        0
+            2576 LOAD_CONST           (None)
+            2578 SEND                 (to 2588)
+            2582 YIELD_VALUE          1
+            2584 RESUME               3
+            2586 JUMP_BACKWARD_NO_INTERRUPT (to 2578)
+            2588 CLEANUP_THROW
+         >> 2590 END_SEND
+            2592 POP_TOP
+         >> 2594 JUMP_FORWARD         (to 2610)
+            2596 PUSH_EXC_INFO
+
+140:     >> 2598 POP_TOP
+            2600 POP_EXCEPT
+            2602 JUMP_FORWARD         (to 2610)
+            2604 COPY                 3
+            2606 POP_EXCEPT
+            2608 RERAISE              1
+
+141:     >> 2610 LOAD_CONST           (None)
+            2612 LOAD_FAST            (self)
+            2614 STORE_ATTR           (context)
+
+142:        2624 LOAD_CONST           (None)
+            2626 LOAD_FAST            (self)
+            2628 STORE_ATTR           (browser)
+
+143:        2638 LOAD_CONST           (None)
+            2640 LOAD_FAST            (self)
+            2642 STORE_ATTR           (context_headless)
+
+144:        2652 LOAD_CONST           (None)
+            2654 LOAD_FAST            (self)
+            2656 STORE_ATTR           (browser_headless)
+
+145:        2666 LOAD_GLOBAL          (NULL + hasattr)
+            2676 LOAD_FAST            (self)
+            2678 LOAD_CONST           ("playwright")
+            2680 CALL                 (2 positional)
+            2688 TO_BOOL
+            2696 POP_JUMP_IF_FALSE    (to 2724)
+            2700 LOAD_GLOBAL          (NULL + delattr)
+            2710 LOAD_FAST            (self)
+            2712 LOAD_CONST           ("playwright")
+            2714 CALL                 (2 positional)
+            2722 POP_TOP
+
+146:     >> 2724 POP_EXCEPT
+            2726 LOAD_CONST           (None)
+            2728 STORE_FAST           (e)
+            2730 DELETE_FAST          (e)
+            2732 RETURN_CONST         (False)
+            2734 LOAD_CONST           (None)
+            2736 STORE_FAST           (e)
+            2738 DELETE_FAST          (e)
+            2740 RERAISE              1
+
+123:     >> 2742 RERAISE              0
+            2744 COPY                 3
+            2746 POP_EXCEPT
+            2748 RERAISE              1
+            2750 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+            2752 RERAISE              1
+
+ExceptionTable:
+  4 to 140 -> 2750 [0] lasti
+  144 to 240 -> 1698 [0]
+  250 to 298 -> 1698 [0]
+  300 to 392 -> 2750 [0] lasti
+  396 to 494 -> 1846 [0]
+  496 to 496 -> 1796 [2]
+  498 to 700 -> 1846 [0]
+  702 to 702 -> 1802 [2]
+  704 to 782 -> 1846 [0]
+  784 to 784 -> 1808 [2]
+  786 to 972 -> 1846 [0]
+  974 to 974 -> 1814 [2]
+  976 to 1054 -> 1846 [0]
+  1056 to 1056 -> 1820 [2]
+  1058 to 1196 -> 1846 [0]
+  1198 to 1198 -> 1826 [2]
+  1200 to 1278 -> 1846 [0]
+  1280 to 1280 -> 1832 [2]
+  1282 to 1358 -> 1846 [0]
+  1360 to 1360 -> 1838 [2]
+  1362 to 1440 -> 1846 [0]
+  1442 to 1442 -> 1842 [2]
+  1444 to 1694 -> 1846 [0]
+  1696 to 1696 -> 2750 [0] lasti
+  1698 to 1716 -> 1790 [1] lasti
+  1718 to 1766 -> 1780 [1] lasti
+  1768 to 1778 -> 2750 [0] lasti
+  1780 to 1788 -> 1790 [1] lasti
+  1790 to 1794 -> 2750 [0] lasti
+  1796 to 1796 -> 1846 [0]
+  1802 to 1802 -> 1846 [0]
+  1808 to 1808 -> 1846 [0]
+  1814 to 1814 -> 1846 [0]
+  1820 to 1820 -> 1846 [0]
+  1826 to 1826 -> 1846 [0]
+  1832 to 1832 -> 1846 [0]
+  1838 to 1838 -> 1846 [0]
+  1842 to 1842 -> 1846 [0]
+  1846 to 1866 -> 2744 [1] lasti
+  1868 to 1930 -> 2734 [1] lasti
+  1934 to 2024 -> 2040 [1]
+  2026 to 2026 -> 2032 [3]
+  2028 to 2036 -> 2040 [1]
+  2038 to 2038 -> 2734 [1] lasti
+  2040 to 2042 -> 2048 [2] lasti
+  2044 to 2052 -> 2734 [1] lasti
+  2056 to 2146 -> 2162 [1]
+  2148 to 2148 -> 2154 [3]
+  2150 to 2158 -> 2162 [1]
+  2160 to 2160 -> 2734 [1] lasti
+  2162 to 2164 -> 2170 [2] lasti
+  2166 to 2174 -> 2734 [1] lasti
+  2178 to 2302 -> 2318 [1]
+  2304 to 2304 -> 2310 [3]
+  2306 to 2314 -> 2318 [1]
+  2316 to 2316 -> 2734 [1] lasti
+  2318 to 2320 -> 2326 [2] lasti
+  2322 to 2330 -> 2734 [1] lasti
+  2334 to 2458 -> 2474 [1]
+  2460 to 2460 -> 2466 [3]
+  2462 to 2470 -> 2474 [1]
+  2472 to 2472 -> 2734 [1] lasti
+  2474 to 2476 -> 2482 [2] lasti
+  2478 to 2486 -> 2734 [1] lasti
+  2490 to 2580 -> 2596 [1]
+  2582 to 2582 -> 2588 [3]
+  2584 to 2592 -> 2596 [1]
+  2594 to 2594 -> 2734 [1] lasti
+  2596 to 2598 -> 2604 [2] lasti
+  2600 to 2722 -> 2734 [1] lasti
+  2724 to 2732 -> 2750 [0] lasti
+  2734 to 2742 -> 2744 [1] lasti
+  2744 to 2748 -> 2750 [0] lasti
+
+# Method Name:       stop
+# Filename:          src\bot_engine.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  7
+# Stack size:        6
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        148
+# Constants:
+#    0: None
+#    1: False
+#    2: 'Stoppe Engine...'
+#    3: 'context_headless'
+#    4: 'browser_headless'
+#    5: 'playwright'
+#    6: 'status'
+#    7: 'Live: �berwachung l�uft'
+#    8: 'Bereit'
+#    9: ('status',)
+#   10: 'Fehler beim Zur�cksetzen der Kan�le beim Stoppen: '
+#   11: 'Engine gestoppt.'
+# Names:
+#    0: is_running
+#    1: logger
+#    2: info
+#    3: tasks
+#    4: cancel
+#    5: active_workers
+#    6: values
+#    7: context
+#    8: close
+#    9: browser
+#   10: hasattr
+#   11: context_headless
+#   12: browser_headless
+#   13: playwright
+#   14: stop
+#   15: db
+#   16: get_all_channels
+#   17: items
+#   18: upsert_channel
+#   19: Exception
+#   20: warning
+# Varnames:
+#	self, task, worker, all_channels, c, data, e
+# Positional arguments:
+#	self
+# Local variables:
+#    1: task
+#    2: worker
+#    3: all_channels
+#    4: c
+#    5: data
+#    6: e
+
+148:           0 RETURN_GENERATOR
+               2 POP_TOP
+               4 RESUME               0
+
+149:           6 LOAD_CONST           (False)
+               8 LOAD_FAST            (self)
+              10 STORE_ATTR           (is_running)
+
+150:          20 LOAD_GLOBAL          (logger)
+              30 LOAD_ATTR            (info)
+              50 PUSH_NULL
+              52 LOAD_CONST           ("Stoppe Engine...")
+              54 CALL                 (1 positional)
+              62 POP_TOP
+
+151:          64 LOAD_FAST            (self)
+              66 LOAD_ATTR            (tasks)
+              86 GET_ITER
+              88 FOR_ITER             (to 130)
+              92 STORE_FAST           (task)
+
+152:          94 LOAD_FAST            (task)
+              96 LOAD_ATTR            (NULL|self + cancel)
+             116 CALL                 (0 positional)
+             124 POP_TOP
+             126 JUMP_BACKWARD        (to 88)
+
+151:     >>  130 END_FOR
+             132 POP_TOP
+
+153:         134 LOAD_FAST            (self)
+             136 LOAD_ATTR            (active_workers)
+             156 LOAD_ATTR            (NULL|self + values)
+             176 CALL                 (0 positional)
+             184 GET_ITER
+             186 FOR_ITER             (to 228)
+             190 STORE_FAST           (worker)
+
+154:         192 LOAD_FAST            (worker)
+             194 LOAD_ATTR            (NULL|self + cancel)
+             214 CALL                 (0 positional)
+             222 POP_TOP
+             224 JUMP_BACKWARD        (to 186)
+
+153:     >>  228 END_FOR
+             230 POP_TOP
+
+155:         232 LOAD_FAST            (self)
+             234 LOAD_ATTR            (context)
+             254 TO_BOOL
+             262 POP_JUMP_IF_FALSE    (to 334)
+             266 LOAD_FAST            (self)
+             268 LOAD_ATTR            (context)
+             288 LOAD_ATTR            (NULL|self + close)
+             308 CALL                 (0 positional)
+             316 GET_AWAITABLE        0
+             318 LOAD_CONST           (None)
+             320 SEND                 (to 328)
+             324 YIELD_VALUE          1
+             326 RESUME               3
+             328 JUMP_BACKWARD_NO_INTERRUPT (to 320)
+         >>  330 END_SEND
+             332 POP_TOP
+
+156:     >>  334 LOAD_FAST            (self)
+             336 LOAD_ATTR            (browser)
+             356 TO_BOOL
+             364 POP_JUMP_IF_FALSE    (to 436)
+             368 LOAD_FAST            (self)
+             370 LOAD_ATTR            (browser)
+             390 LOAD_ATTR            (NULL|self + close)
+             410 CALL                 (0 positional)
+             418 GET_AWAITABLE        0
+             420 LOAD_CONST           (None)
+             422 SEND                 (to 430)
+             426 YIELD_VALUE          1
+             428 RESUME               3
+             430 JUMP_BACKWARD_NO_INTERRUPT (to 422)
+         >>  432 END_SEND
+             434 POP_TOP
+
+157:     >>  436 LOAD_GLOBAL          (NULL + hasattr)
+             446 LOAD_FAST            (self)
+             448 LOAD_CONST           ("context_headless")
+             450 CALL                 (2 positional)
+             458 TO_BOOL
+             466 POP_JUMP_IF_FALSE    (to 572)
+             470 LOAD_FAST            (self)
+             472 LOAD_ATTR            (context_headless)
+             492 TO_BOOL
+             500 POP_JUMP_IF_FALSE    (to 572)
+
+158:         504 LOAD_FAST            (self)
+             506 LOAD_ATTR            (context_headless)
+             526 LOAD_ATTR            (NULL|self + close)
+             546 CALL                 (0 positional)
+             554 GET_AWAITABLE        0
+             556 LOAD_CONST           (None)
+             558 SEND                 (to 566)
+             562 YIELD_VALUE          1
+             564 RESUME               3
+             566 JUMP_BACKWARD_NO_INTERRUPT (to 558)
+         >>  568 END_SEND
+             570 POP_TOP
+
+160:     >>  572 LOAD_GLOBAL          (NULL + hasattr)
+             582 LOAD_FAST            (self)
+             584 LOAD_CONST           ("browser_headless")
+             586 CALL                 (2 positional)
+             594 TO_BOOL
+             602 POP_JUMP_IF_FALSE    (to 708)
+             606 LOAD_FAST            (self)
+             608 LOAD_ATTR            (browser_headless)
+             628 TO_BOOL
+             636 POP_JUMP_IF_FALSE    (to 708)
+
+161:         640 LOAD_FAST            (self)
+             642 LOAD_ATTR            (browser_headless)
+             662 LOAD_ATTR            (NULL|self + close)
+             682 CALL                 (0 positional)
+             690 GET_AWAITABLE        0
+             692 LOAD_CONST           (None)
+             694 SEND                 (to 702)
+             698 YIELD_VALUE          1
+             700 RESUME               3
+             702 JUMP_BACKWARD_NO_INTERRUPT (to 694)
+         >>  704 END_SEND
+             706 POP_TOP
+
+163:     >>  708 LOAD_GLOBAL          (NULL + hasattr)
+             718 LOAD_FAST            (self)
+             720 LOAD_CONST           ("playwright")
+             722 CALL                 (2 positional)
+             730 TO_BOOL
+             738 POP_JUMP_IF_FALSE    (to 810)
+             742 LOAD_FAST            (self)
+             744 LOAD_ATTR            (playwright)
+             764 LOAD_ATTR            (NULL|self + stop)
+             784 CALL                 (0 positional)
+             792 GET_AWAITABLE        0
+             794 LOAD_CONST           (None)
+             796 SEND                 (to 804)
+             800 YIELD_VALUE          1
+             802 RESUME               3
+             804 JUMP_BACKWARD_NO_INTERRUPT (to 796)
+         >>  806 END_SEND
+             808 POP_TOP
+
+166:     >>  810 NOP
+
+167:         812 LOAD_GLOBAL          (db)
+             822 LOAD_ATTR            (get_all_channels)
+             842 PUSH_NULL
+             844 CALL                 (0 positional)
+             852 STORE_FAST           (all_channels)
+
+168:         854 LOAD_FAST            (all_channels)
+             856 LOAD_ATTR            (NULL|self + items)
+             876 CALL                 (0 positional)
+             884 GET_ITER
+             886 FOR_ITER             (to 964)
+             890 UNPACK_SEQUENCE      2
+             894 STORE_FAST_STORE_FAST (c, data)
+
+169:         896 LOAD_FAST            (data)
+             898 LOAD_CONST           ("status")
+             900 BINARY_SUBSCR
+             904 LOAD_CONST           ("Live: �berwachung l�uft")
+             906 COMPARE_OP           (==)
+             910 POP_JUMP_IF_TRUE     (to 918)
+             914 JUMP_BACKWARD        (to 886)
+
+170:     >>  918 LOAD_GLOBAL          (db)
+             928 LOAD_ATTR            (upsert_channel)
+             948 PUSH_NULL
+         >>  950 LOAD_FAST            (c)
+             952 LOAD_CONST           ("Bereit")
+             954 LOAD_CONST           (('status',))
+             956 CALL_KW              2
+             958 POP_TOP
+             960 JUMP_BACKWARD        (to 886)
+
+168:     >>  964 END_FOR
+             966 POP_TOP
+
+174:         968 LOAD_GLOBAL          (logger)
+             978 LOAD_ATTR            (info)
+             998 PUSH_NULL
+            1000 LOAD_CONST           ("Engine gestoppt.")
+            1002 CALL                 (1 positional)
+            1010 POP_TOP
+            1012 RETURN_CONST         (None)
+
+155:        1014 CLEANUP_THROW
+            1016 EXTENDED_ARG         (256)
+            1018 JUMP_BACKWARD_NO_INTERRUPT (to 330)
+
+156:        1020 CLEANUP_THROW
+            1022 EXTENDED_ARG         (256)
+            1024 JUMP_BACKWARD_NO_INTERRUPT (to 432)
+
+158:        1026 CLEANUP_THROW
+            1028 JUMP_BACKWARD_NO_INTERRUPT (to 568)
+            1030 PUSH_EXC_INFO
+
+159:        1032 POP_TOP
+            1034 POP_EXCEPT
+            1036 JUMP_BACKWARD_NO_INTERRUPT (to 572)
+            1038 COPY                 3
+            1040 POP_EXCEPT
+         >> 1042 RERAISE              1
+
+161:        1044 CLEANUP_THROW
+            1046 JUMP_BACKWARD_NO_INTERRUPT (to 704)
+            1048 PUSH_EXC_INFO
+
+162:        1050 POP_TOP
+            1052 POP_EXCEPT
+            1054 JUMP_BACKWARD_NO_INTERRUPT (to 708)
+            1056 COPY                 3
+            1058 POP_EXCEPT
+            1060 RERAISE              1
+
+163:        1062 CLEANUP_THROW
+            1064 JUMP_BACKWARD_NO_INTERRUPT (to 806)
+            1066 PUSH_EXC_INFO
+
+171:        1068 LOAD_GLOBAL          (Exception)
+            1078 CHECK_EXC_MATCH
+            1080 POP_JUMP_IF_FALSE    (to 1154)
+            1084 STORE_FAST           (e)
+
+172:        1086 LOAD_GLOBAL          (logger)
+            1096 LOAD_ATTR            (warning)
+            1116 PUSH_NULL
+            1118 LOAD_CONST           ("Fehler beim Zur�cksetzen der Kan�le beim Stoppen: ")
+            1120 LOAD_FAST            (e)
+            1122 FORMAT_SIMPLE
+            1124 BUILD_STRING         2
+            1126 CALL                 (1 positional)
+            1134 POP_TOP
+            1136 POP_EXCEPT
+            1138 LOAD_CONST           (None)
+            1140 STORE_FAST           (e)
+            1142 DELETE_FAST          (e)
+            1144 JUMP_BACKWARD_NO_INTERRUPT (to 968)
+            1146 LOAD_CONST           (None)
+            1148 STORE_FAST           (e)
+            1150 DELETE_FAST          (e)
+            1152 RERAISE              1
+
+171:     >> 1154 RERAISE              0
+            1156 COPY                 3
+            1158 POP_EXCEPT
+            1160 RERAISE              1
+            1162 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+            1164 RERAISE              1
+
+ExceptionTable:
+  4 to 322 -> 1162 [0] lasti
+  324 to 324 -> 1014 [2]
+  326 to 424 -> 1162 [0] lasti
+  426 to 426 -> 1020 [2]
+  428 to 502 -> 1162 [0] lasti
+  504 to 560 -> 1030 [0]
+  562 to 562 -> 1026 [2]
+  564 to 570 -> 1030 [0]
+  572 to 638 -> 1162 [0] lasti
+  640 to 696 -> 1048 [0]
+  698 to 698 -> 1044 [2]
+  700 to 706 -> 1048 [0]
+  708 to 798 -> 1162 [0] lasti
+  800 to 800 -> 1062 [2]
+  802 to 808 -> 1162 [0] lasti
+  812 to 908 -> 1066 [0]
+  918 to 966 -> 1066 [0]
+  968 to 1014 -> 1162 [0] lasti
+  1020 to 1020 -> 1162 [0] lasti
+  1026 to 1026 -> 1030 [0]
+  1030 to 1032 -> 1038 [1] lasti
+  1034 to 1042 -> 1162 [0] lasti
+  1044 to 1044 -> 1048 [0]
+  1048 to 1050 -> 1056 [1] lasti
+  1052 to 1062 -> 1162 [0] lasti
+  1066 to 1084 -> 1156 [1] lasti
+  1086 to 1134 -> 1146 [1] lasti
+  1136 to 1144 -> 1162 [0] lasti
+  1146 to 1154 -> 1156 [1] lasti
+  1156 to 1160 -> 1162 [0] lasti
+
+# Method Name:       create_diagnosis_backup
+# Filename:          src\bot_engine.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  10
+# Stack size:        7
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        176
+# Constants:
+#    0: None
+#    1: 0
+#    2: ('DB_PATH', 'LOGS_DIR', 'BACKUP_DIR')
+#    3: True
+#    4: ('exist_ok',)
+#    5: '%Y%m%d_%H%M%S'
+#    6: 'diagnose_'
+#    7: '.zip'
+#    8: 'w'
+#    9: 'twitchbot.log'
+#   10: 'Diagnose-Backup erfolgreich erstellt: '
+#   11: 'Fehler beim Erstellen des Diagnose-Backups: '
+#   12: False
+# Names:
+#    0: zipfile
+#    1: src.paths
+#    2: DB_PATH
+#    3: LOGS_DIR
+#    4: BACKUP_DIR
+#    5: os
+#    6: makedirs
+#    7: datetime
+#    8: now
+#    9: strftime
+#   10: path
+#   11: join
+#   12: ZipFile
+#   13: ZIP_DEFLATED
+#   14: exists
+#   15: write
+#   16: basename
+#   17: logger
+#   18: info
+#   19: Exception
+#   20: error
+# Varnames:
+#	self, zipfile, DB_PATH, LOGS_DIR, BACKUP_DIR, timestamp, backup_file, zipf, log_file, e
+# Positional arguments:
+#	self
+# Local variables:
+#    1: zipfile
+#    2: DB_PATH
+#    3: LOGS_DIR
+#    4: BACKUP_DIR
+#    5: timestamp
+#    6: backup_file
+#    7: zipf
+#    8: log_file
+#    9: e
+
+176:           0 RESUME               0
+
+177:           2 NOP
+
+178:           4 LOAD_CONST           (0)
+               6 LOAD_CONST           (None)
+               8 IMPORT_NAME          (zipfile)
+              10 STORE_FAST           (zipfile)
+
+179:          12 LOAD_CONST           (0)
+              14 LOAD_CONST           (('DB_PATH', 'LOGS_DIR', 'BACKUP_DIR'))
+              16 IMPORT_NAME          (src.paths)
+              18 IMPORT_FROM          (DB_PATH)
+              20 STORE_FAST           (DB_PATH)
+              22 IMPORT_FROM          (LOGS_DIR)
+              24 STORE_FAST           (LOGS_DIR)
+              26 IMPORT_FROM          (BACKUP_DIR)
+              28 STORE_FAST           (BACKUP_DIR)
+              30 POP_TOP
+
+181:          32 LOAD_GLOBAL          (os)
+              42 LOAD_ATTR            (NULL|self + makedirs)
+              62 LOAD_FAST            (BACKUP_DIR)
+              64 LOAD_CONST           (True)
+              66 LOAD_CONST           (('exist_ok',))
+              68 CALL_KW              2
+              70 POP_TOP
+
+182:          72 LOAD_GLOBAL          (datetime)
+              82 LOAD_ATTR            (datetime)
+             102 LOAD_ATTR            (NULL|self + now)
+             122 CALL                 (0 positional)
+             130 LOAD_ATTR            (NULL|self + strftime)
+             150 LOAD_CONST           ("%Y%m%d_%H%M%S")
+             152 CALL                 (1 positional)
+             160 STORE_FAST           (timestamp)
+
+183:         162 LOAD_GLOBAL          (os)
+             172 LOAD_ATTR            (path)
+             192 LOAD_ATTR            (NULL|self + join)
+             212 LOAD_FAST            (BACKUP_DIR)
+             214 LOAD_CONST           ("diagnose_")
+             216 LOAD_FAST            (timestamp)
+             218 FORMAT_SIMPLE
+             220 LOAD_CONST           (".zip")
+             222 BUILD_STRING         3
+             224 CALL                 (2 positional)
+             232 STORE_FAST           (backup_file)
+
+185:         234 LOAD_FAST            (zipfile)
+             236 LOAD_ATTR            (NULL|self + ZipFile)
+             256 LOAD_FAST            (backup_file)
+             258 LOAD_CONST           ("w")
+             260 LOAD_FAST            (zipfile)
+             262 LOAD_ATTR            (ZIP_DEFLATED)
+             282 CALL                 (3 positional)
+             290 BEFORE_WITH
+             292 STORE_FAST           (zipf)
+
+186:         294 LOAD_GLOBAL          (os)
+             304 LOAD_ATTR            (path)
+             324 LOAD_ATTR            (NULL|self + exists)
+             344 LOAD_FAST            (DB_PATH)
+             346 CALL                 (1 positional)
+             354 TO_BOOL
+             362 POP_JUMP_IF_FALSE    (to 460)
+
+187:         366 LOAD_FAST            (zipf)
+             368 LOAD_ATTR            (NULL|self + write)
+             388 LOAD_FAST            (DB_PATH)
+             390 LOAD_GLOBAL          (os)
+             400 LOAD_ATTR            (path)
+             420 LOAD_ATTR            (NULL|self + basename)
+             440 LOAD_FAST            (DB_PATH)
+             442 CALL                 (1 positional)
+             450 CALL                 (2 positional)
+             458 POP_TOP
+
+188:     >>  460 LOAD_GLOBAL          (os)
+             470 LOAD_ATTR            (path)
+             490 LOAD_ATTR            (NULL|self + join)
+             510 LOAD_FAST            (LOGS_DIR)
+             512 LOAD_CONST           ("twitchbot.log")
+             514 CALL                 (2 positional)
+             522 STORE_FAST           (log_file)
+
+189:         524 LOAD_GLOBAL          (os)
+             534 LOAD_ATTR            (path)
+             554 LOAD_ATTR            (NULL|self + exists)
+             574 LOAD_FAST            (log_file)
+             576 CALL                 (1 positional)
+             584 TO_BOOL
+             592 POP_JUMP_IF_FALSE    (to 690)
+
+190:         596 LOAD_FAST            (zipf)
+             598 LOAD_ATTR            (NULL|self + write)
+             618 LOAD_FAST            (log_file)
+             620 LOAD_GLOBAL          (os)
+             630 LOAD_ATTR            (path)
+             650 LOAD_ATTR            (NULL|self + basename)
+             670 LOAD_FAST            (log_file)
+             672 CALL                 (1 positional)
+             680 CALL                 (2 positional)
+             688 POP_TOP
+
+185:     >>  690 LOAD_CONST           (None)
+             692 LOAD_CONST           (None)
+             694 LOAD_CONST           (None)
+             696 CALL                 (2 positional)
+             704 POP_TOP
+
+192:         706 LOAD_GLOBAL          (logger)
+             716 LOAD_ATTR            (info)
+             736 PUSH_NULL
+             738 LOAD_CONST           ("Diagnose-Backup erfolgreich erstellt: ")
+             740 LOAD_FAST            (backup_file)
+             742 FORMAT_SIMPLE
+             744 BUILD_STRING         2
+             746 CALL                 (1 positional)
+             754 POP_TOP
+
+193:         756 RETURN_CONST         (True)
+
+185:         758 PUSH_EXC_INFO
+             760 WITH_EXCEPT_START    0
+             762 TO_BOOL
+             770 POP_JUMP_IF_TRUE     (to 776)
+             774 RERAISE              2
+         >>  776 POP_TOP
+             778 POP_EXCEPT
+             780 POP_TOP
+             782 POP_TOP
+             784 JUMP_BACKWARD_NO_INTERRUPT (to 706)
+             786 COPY                 3
+             788 POP_EXCEPT
+             790 RERAISE              1
+             792 PUSH_EXC_INFO
+
+194:         794 LOAD_GLOBAL          (Exception)
+             804 CHECK_EXC_MATCH
+             806 POP_JUMP_IF_FALSE    (to 880)
+             810 STORE_FAST           (e)
+
+195:         812 LOAD_GLOBAL          (logger)
+             822 LOAD_ATTR            (error)
+             842 PUSH_NULL
+             844 LOAD_CONST           ("Fehler beim Erstellen des Diagnose-Backups: ")
+             846 LOAD_FAST            (e)
+             848 FORMAT_SIMPLE
+             850 BUILD_STRING         2
+             852 CALL                 (1 positional)
+             860 POP_TOP
+
+196:         862 POP_EXCEPT
+             864 LOAD_CONST           (None)
+         >>  866 STORE_FAST           (e)
+             868 DELETE_FAST          (e)
+             870 RETURN_CONST         (False)
+             872 LOAD_CONST           (None)
+             874 STORE_FAST           (e)
+             876 DELETE_FAST          (e)
+             878 RERAISE              1
+
+194:     >>  880 RERAISE              0
+             882 COPY                 3
+             884 POP_EXCEPT
+             886 RERAISE              1
+
+ExceptionTable:
+  4 to 290 -> 792 [0]
+  292 to 688 -> 758 [1] lasti
+  690 to 754 -> 792 [0]
+  758 to 776 -> 786 [3] lasti
+  778 to 790 -> 792 [0]
+  792 to 810 -> 882 [1] lasti
+  812 to 860 -> 872 [1] lasti
+  872 to 880 -> 882 [1] lasti
+
+# Method Name:       _main_loop
+# Filename:          src\bot_engine.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  5
+# Stack size:        6
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        198
+# Constants:
+#    0: None
+#    1: 'initial_setup_done'
+#    2: '0'
+#    3: '1'
+#    4: 'Erster App-Start: F�hre initialen Sync aus...'
+#    5: 'Initialer Sync �bersprungen (Bereits eingerichtet). Starte direkt mit Live-Radar.'
+#    6: 'radar_interval_minutes'
+#    7: '15'
+#    8: 60
+#    9: 0
+#   10: 'N�chster Scan in '
+#   11: ' Min...'
+#   12: 'System: Standby'
+#   13: 'N�chster Scan in K�rze...'
+#   14: 1
+# Names:
+#    0: db
+#    1: get_setting
+#    2: logger
+#    3: info
+#    4: _sync_mode
+#    5: is_running
+#    6: _radar_mode
+#    7: int
+#    8: range
+#    9: current_activities
+#   10: asyncio
+#   11: sleep
+#   12: pop
+# Varnames:
+#	self, setup_done, radar_interval, seconds, remaining_min
+# Positional arguments:
+#	self
+# Local variables:
+#    1: setup_done
+#    2: radar_interval
+#    3: seconds
+#    4: remaining_min
+
+198:           0 RETURN_GENERATOR
+               2 POP_TOP
+               4 RESUME               0
+
+200:           6 LOAD_GLOBAL          (db)
+              16 LOAD_ATTR            (get_setting)
+              36 PUSH_NULL
+              38 LOAD_CONST           ("initial_setup_done")
+              40 LOAD_CONST           ("0")
+              42 CALL                 (2 positional)
+              50 LOAD_CONST           ("1")
+              52 COMPARE_OP           (==)
+              56 STORE_FAST           (setup_done)
+
+201:          58 LOAD_FAST            (setup_done)
+              60 TO_BOOL
+              68 POP_JUMP_IF_TRUE     (to 166)
+
+202:          72 LOAD_GLOBAL          (logger)
+              82 LOAD_ATTR            (info)
+             102 PUSH_NULL
+             104 LOAD_CONST           ("Erster App-Start: F�hre initialen Sync aus...")
+             106 CALL                 (1 positional)
+             114 POP_TOP
+
+203:         116 LOAD_FAST            (self)
+             118 LOAD_ATTR            (NULL|self + _sync_mode)
+             138 CALL                 (0 positional)
+             146 GET_AWAITABLE        0
+             148 LOAD_CONST           (None)
+             150 SEND                 (to 158)
+             154 YIELD_VALUE          1
+             156 RESUME               3
+             158 JUMP_BACKWARD_NO_INTERRUPT (to 150)
+         >>  160 END_SEND
+             162 POP_TOP
+             164 JUMP_FORWARD         (to 210)
+
+205:     >>  166 LOAD_GLOBAL          (logger)
+             176 LOAD_ATTR            (info)
+             196 PUSH_NULL
+             198 LOAD_CONST           ("Initialer Sync �bersprungen (Bereits eingerichtet). Starte direkt mit Live-Radar.")
+             200 CALL                 (1 positional)
+             208 POP_TOP
+
+208:     >>  210 LOAD_FAST            (self)
+             212 LOAD_ATTR            (is_running)
+             232 TO_BOOL
+             240 POP_JUMP_IF_FALSE    (to 696)
+
+209:         244 LOAD_FAST            (self)
+             246 LOAD_ATTR            (NULL|self + _radar_mode)
+             266 CALL                 (0 positional)
+             274 GET_AWAITABLE        0
+             276 LOAD_CONST           (None)
+             278 SEND                 (to 286)
+             282 YIELD_VALUE          1
+             284 RESUME               3
+             286 JUMP_BACKWARD_NO_INTERRUPT (to 278)
+         >>  288 END_SEND
+             290 POP_TOP
+
+211:         292 LOAD_GLOBAL          (NULL + int)
+             302 LOAD_GLOBAL          (db)
+             312 LOAD_ATTR            (get_setting)
+             332 PUSH_NULL
+             334 LOAD_CONST           ("radar_interval_minutes")
+             336 LOAD_CONST           ("15")
+             338 CALL                 (2 positional)
+             346 CALL                 (1 positional)
+             354 STORE_FAST           (radar_interval)
+
+212:         356 LOAD_GLOBAL          (NULL + range)
+             366 LOAD_FAST            (radar_interval)
+             368 LOAD_CONST           (60)
+             370 BINARY_OP            (*)
+             374 CALL                 (1 positional)
+             382 GET_ITER
+             384 FOR_ITER             (to 596)
+             388 STORE_FAST           (seconds)
+
+213:         390 LOAD_FAST            (self)
+             392 LOAD_ATTR            (is_running)
+             412 TO_BOOL
+             420 POP_JUMP_IF_TRUE     (to 428)
+             424 POP_TOP
+             426 JUMP_FORWARD         (to 600)
+
+214:     >>  428 LOAD_FAST            (radar_interval)
+             430 LOAD_CONST           (60)
+             432 BINARY_OP            (*)
+             436 LOAD_FAST            (seconds)
+             438 BINARY_OP            (-)
+             442 LOAD_CONST           (60)
+             444 BINARY_OP            (//)
+             448 STORE_FAST           (remaining_min)
+
+215:         450 LOAD_FAST            (remaining_min)
+             452 LOAD_CONST           (0)
+             454 COMPARE_OP           (>)
+             458 POP_JUMP_IF_FALSE    (to 502)
+
+216:         462 LOAD_CONST           ("N�chster Scan in ")
+             464 LOAD_FAST            (remaining_min)
+             466 FORMAT_SIMPLE
+             468 LOAD_CONST           (" Min...")
+             470 BUILD_STRING         3
+             472 LOAD_FAST            (self)
+             474 LOAD_ATTR            (current_activities)
+             494 LOAD_CONST           ("System: Standby")
+             496 STORE_SUBSCR
+             500 JUMP_FORWARD         (to 532)
+
+218:     >>  502 LOAD_CONST           ("N�chster Scan in K�rze...")
+             504 LOAD_FAST            (self)
+             506 LOAD_ATTR            (current_activities)
+             526 LOAD_CONST           ("System: Standby")
+             528 STORE_SUBSCR
+
+219:     >>  532 LOAD_GLOBAL          (asyncio)
+             542 LOAD_ATTR            (sleep)
+             562 PUSH_NULL
+             564 LOAD_CONST           (1)
+             566 CALL                 (1 positional)
+             574 GET_AWAITABLE        0
+             576 LOAD_CONST           (None)
+             578 SEND                 (to 586)
+             582 YIELD_VALUE          1
+             584 RESUME               3
+             586 JUMP_BACKWARD_NO_INTERRUPT (to 578)
+         >>  588 END_SEND
+             590 POP_TOP
+             592 JUMP_BACKWARD        (to 384)
+
+212:     >>  596 END_FOR
+         >>  598 POP_TOP
+
+220:     >>  600 LOAD_FAST            (self)
+             602 LOAD_ATTR            (current_activities)
+             622 LOAD_ATTR            (NULL|self + pop)
+             642 LOAD_CONST           ("System: Standby")
+             644 LOAD_CONST           (None)
+             646 CALL                 (2 positional)
+             654 POP_TOP
+
+208:         656 LOAD_FAST            (self)
+             658 LOAD_ATTR            (is_running)
+             678 TO_BOOL
+             686 POP_JUMP_IF_FALSE    (to 694)
+             690 JUMP_BACKWARD        (to 244)
+         >>  694 RETURN_CONST         (None)
+         >>  696 RETURN_CONST         (None)
+
+203:         698 CLEANUP_THROW
+             700 EXTENDED_ARG         (256)
+             702 JUMP_BACKWARD_NO_INTERRUPT (to 160)
+
+209:         704 CLEANUP_THROW
+             706 JUMP_BACKWARD_NO_INTERRUPT (to 288)
+
+219:         708 CLEANUP_THROW
+             710 JUMP_BACKWARD_NO_INTERRUPT (to 588)
+             712 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+             714 RERAISE              1
+
+ExceptionTable:
+  4 to 152 -> 712 [0] lasti
+  154 to 154 -> 698 [2]
+  156 to 280 -> 712 [0] lasti
+  282 to 282 -> 704 [2]
+  284 to 580 -> 712 [0] lasti
+  582 to 582 -> 708 [3]
+  584 to 688 -> 712 [0] lasti
+  694 to 698 -> 712 [0] lasti
+  704 to 704 -> 712 [0] lasti
+  708 to 708 -> 712 [0] lasti
+
+# Method Name:       _worker_manager_loop
+# Filename:          src\bot_engine.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  3
+# Stack size:        5
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        222
+# Constants:
+#    0: None
+#    1: 'Worker-Manager-Schleife gestartet.'
+#    2: 'Fehler in Worker-Manager-Schleife: '
+#    3: 5
+#    4: 1
+# Names:
+#    0: logger
+#    1: info
+#    2: is_running
+#    3: _manage_workers
+#    4: Exception
+#    5: error
+#    6: range
+#    7: asyncio
+#    8: sleep
+# Varnames:
+#	self, e, _
+# Positional arguments:
+#	self
+# Local variables:
+#    1: e
+#    2: _
+
+222:           0 RETURN_GENERATOR
+               2 POP_TOP
+               4 RESUME               0
+
+223:           6 LOAD_GLOBAL          (logger)
+              16 LOAD_ATTR            (info)
+              36 PUSH_NULL
+              38 LOAD_CONST           ("Worker-Manager-Schleife gestartet.")
+              40 CALL                 (1 positional)
+              48 POP_TOP
+
+224:          50 LOAD_FAST            (self)
+              52 LOAD_ATTR            (is_running)
+              72 TO_BOOL
+              80 POP_JUMP_IF_FALSE    (to 308)
+
+225:          84 NOP
+
+226:          86 LOAD_FAST            (self)
+              88 LOAD_ATTR            (NULL|self + _manage_workers)
+             108 CALL                 (0 positional)
+             116 GET_AWAITABLE        0
+             118 LOAD_CONST           (None)
+             120 SEND                 (to 128)
+             124 YIELD_VALUE          1
+             126 RESUME               3
+             128 JUMP_BACKWARD_NO_INTERRUPT (to 120)
+         >>  130 END_SEND
+             132 POP_TOP
+
+229:         134 LOAD_GLOBAL          (NULL + range)
+             144 LOAD_CONST           (5)
+             146 CALL                 (1 positional)
+             154 GET_ITER
+             156 FOR_ITER             (to 264)
+             160 STORE_FAST           (_)
+
+230:         162 LOAD_FAST            (self)
+             164 LOAD_ATTR            (is_running)
+             184 TO_BOOL
+             192 POP_JUMP_IF_TRUE     (to 200)
+             196 POP_TOP
+             198 JUMP_FORWARD         (to 268)
+
+231:     >>  200 LOAD_GLOBAL          (asyncio)
+             210 LOAD_ATTR            (sleep)
+             230 PUSH_NULL
+             232 LOAD_CONST           (1)
+             234 CALL                 (1 positional)
+             242 GET_AWAITABLE        0
+             244 LOAD_CONST           (None)
+             246 SEND                 (to 254)
+             250 YIELD_VALUE          1
+             252 RESUME               3
+             254 JUMP_BACKWARD_NO_INTERRUPT (to 246)
+         >>  256 END_SEND
+             258 POP_TOP
+             260 JUMP_BACKWARD        (to 156)
+
+229:     >>  264 END_FOR
+         >>  266 POP_TOP
+
+224:     >>  268 LOAD_FAST            (self)
+             270 LOAD_ATTR            (is_running)
+             290 TO_BOOL
+             298 POP_JUMP_IF_FALSE    (to 306)
+             302 JUMP_BACKWARD        (to 84)
+         >>  306 RETURN_CONST         (None)
+         >>  308 RETURN_CONST         (None)
+
+226:         310 CLEANUP_THROW
+             312 JUMP_BACKWARD_NO_INTERRUPT (to 130)
+             314 PUSH_EXC_INFO
+
+227:         316 LOAD_GLOBAL          (Exception)
+             326 CHECK_EXC_MATCH
+             328 POP_JUMP_IF_FALSE    (to 402)
+             332 STORE_FAST           (e)
+
+228:         334 LOAD_GLOBAL          (logger)
+             344 LOAD_ATTR            (error)
+             364 PUSH_NULL
+             366 LOAD_CONST           ("Fehler in Worker-Manager-Schleife: ")
+             368 LOAD_FAST            (e)
+             370 FORMAT_SIMPLE
+         >>  372 BUILD_STRING         2
+             374 CALL                 (1 positional)
+             382 POP_TOP
+             384 POP_EXCEPT
+             386 LOAD_CONST           (None)
+             388 STORE_FAST           (e)
+             390 DELETE_FAST          (e)
+             392 JUMP_BACKWARD_NO_INTERRUPT (to 134)
+             394 LOAD_CONST           (None)
+             396 STORE_FAST           (e)
+             398 DELETE_FAST          (e)
+             400 RERAISE              1
+
+227:     >>  402 RERAISE              0
+             404 COPY                 3
+             406 POP_EXCEPT
+             408 RERAISE              1
+
+231:         410 CLEANUP_THROW
+             412 JUMP_BACKWARD_NO_INTERRUPT (to 256)
+             414 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+             416 RERAISE              1
+
+ExceptionTable:
+  4 to 82 -> 414 [0] lasti
+  86 to 122 -> 314 [0]
+  124 to 124 -> 310 [2]
+  126 to 132 -> 314 [0]
+  134 to 248 -> 414 [0] lasti
+  250 to 250 -> 410 [3]
+  252 to 300 -> 414 [0] lasti
+  306 to 308 -> 414 [0] lasti
+  310 to 310 -> 314 [0]
+  314 to 332 -> 404 [1] lasti
+  334 to 382 -> 394 [1] lasti
+  384 to 392 -> 414 [0] lasti
+  394 to 402 -> 404 [1] lasti
+  404 to 410 -> 414 [0] lasti
+
+# Method Name:       _click_banners
+# Filename:          src\bot_engine.py
+# Argument count:    2
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  6
+# Stack size:        5
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        233
+# Constants:
+#    0: None
+#    1: 'auto_18plus'
+#    2: '1'
+#    3: 'button[data-a-target="player-overlay-mature-accept"]'
+#    4: 'button:has-text("Anschauen"), button:has-text("Ansehen"), button:has-text("Watch"), button:has-text("Start Watching")'
+#    5: 0
+#    6: True
+#    7: ('force',)
+#    8: 'button[data-a-target="player-overlay-mature-accept"], button:has-text("Anschauen"), button:has-text("Ansehen"), button:has-text("Watch"), button:has-text("Start Watching")'
+#    9: 3000
+#   10: ('timeout',)
+#   11: 'auto_cookie'
+#   12: 'button[data-a-target="consent-banner-accept"]'
+#   13: 'auto_rules'
+#   14: 'button[data-test-selector="chat-rules-ok-button"]'
+#   15: 1000
+# Names:
+#    0: db
+#    1: get_setting
+#    2: locator
+#    3: count
+#    4: first
+#    5: click
+#    6: wait_for_selector
+# Varnames:
+#	self, page, btn_18, btn_18_alt, cookie_btn, btn_rules
+# Positional arguments:
+#	self, page
+# Local variables:
+#    2: btn_18
+#    3: btn_18_alt
+#    4: cookie_btn
+#    5: btn_rules
+
+233:           0 RETURN_GENERATOR
+               2 POP_TOP
+               4 RESUME               0
+
+234:           6 LOAD_GLOBAL          (db)
+              16 LOAD_ATTR            (get_setting)
+              36 PUSH_NULL
+              38 LOAD_CONST           ("auto_18plus")
+              40 LOAD_CONST           ("1")
+              42 CALL                 (2 positional)
+              50 LOAD_CONST           ("1")
+              52 COMPARE_OP           (==)
+              56 EXTENDED_ARG         (256)
+              58 POP_JUMP_IF_FALSE    (to 676)
+
+235:          62 NOP
+
+236:          64 LOAD_FAST            (page)
+              66 LOAD_ATTR            (NULL|self + locator)
+              86 LOAD_CONST           ('button[data-a-target="player-overlay-mature-accept"]')
+              88 CALL                 (1 positional)
+              96 STORE_FAST           (btn_18)
+
+237:          98 LOAD_FAST            (page)
+             100 LOAD_ATTR            (NULL|self + locator)
+             120 LOAD_CONST           ('button:has-text("Anschauen"), button:has-text("Ansehen"), button:has-text("Watch"), button:has-text("Start Watching")')
+             122 CALL                 (1 positional)
+             130 STORE_FAST           (btn_18_alt)
+
+240:         132 LOAD_FAST            (btn_18)
+             134 LOAD_ATTR            (NULL|self + count)
+             154 CALL                 (0 positional)
+             162 GET_AWAITABLE        0
+             164 LOAD_CONST           (None)
+             166 SEND                 (to 174)
+             170 YIELD_VALUE          1
+             172 RESUME               3
+             174 JUMP_BACKWARD_NO_INTERRUPT (to 166)
+         >>  176 END_SEND
+             178 LOAD_CONST           (0)
+             180 COMPARE_OP           (>)
+             184 POP_JUMP_IF_FALSE    (to 256)
+
+241:         188 LOAD_FAST            (btn_18)
+             190 LOAD_ATTR            (first)
+             210 LOAD_ATTR            (NULL|self + click)
+             230 LOAD_CONST           (True)
+             232 LOAD_CONST           (('force',))
+             234 CALL_KW              1
+             236 GET_AWAITABLE        0
+             238 LOAD_CONST           (None)
+             240 SEND                 (to 248)
+             244 YIELD_VALUE          1
+             246 RESUME               3
+             248 JUMP_BACKWARD_NO_INTERRUPT (to 240)
+         >>  250 END_SEND
+             252 POP_TOP
+             254 JUMP_FORWARD         (to 676)
+
+242:     >>  256 LOAD_FAST            (btn_18_alt)
+             258 LOAD_ATTR            (NULL|self + count)
+             278 CALL                 (0 positional)
+             286 GET_AWAITABLE        0
+             288 LOAD_CONST           (None)
+             290 SEND                 (to 298)
+             294 YIELD_VALUE          1
+             296 RESUME               3
+             298 JUMP_BACKWARD_NO_INTERRUPT (to 290)
+         >>  300 END_SEND
+             302 LOAD_CONST           (0)
+             304 COMPARE_OP           (>)
+             308 POP_JUMP_IF_FALSE    (to 380)
+
+243:         312 LOAD_FAST            (btn_18_alt)
+             314 LOAD_ATTR            (first)
+             334 LOAD_ATTR            (NULL|self + click)
+             354 LOAD_CONST           (True)
+             356 LOAD_CONST           (('force',))
+             358 CALL_KW              1
+             360 GET_AWAITABLE        0
+             362 LOAD_CONST           (None)
+             364 SEND                 (to 372)
+             368 YIELD_VALUE          1
+             370 RESUME               3
+             372 JUMP_BACKWARD_NO_INTERRUPT (to 364)
+         >>  374 END_SEND
+             376 POP_TOP
+             378 JUMP_FORWARD         (to 676)
+
+246:     >>  380 NOP
+
+247:         382 LOAD_FAST            (page)
+         >>  384 LOAD_ATTR            (NULL|self + wait_for_selector)
+             404 LOAD_CONST           ('button[data-a-target="player-overlay-mature-accept"], button:has-text("Anschauen"), button:has-text("Ansehen"), button:has-text("Watch"), button:has-text("Start Watching")')
+             406 LOAD_CONST           (3000)
+             408 LOAD_CONST           (('timeout',))
+             410 CALL_KW              2
+             412 GET_AWAITABLE        0
+             414 LOAD_CONST           (None)
+             416 SEND                 (to 424)
+             420 YIELD_VALUE          1
+             422 RESUME               3
+             424 JUMP_BACKWARD_NO_INTERRUPT (to 416)
+         >>  426 END_SEND
+             428 POP_TOP
+
+248:         430 LOAD_FAST            (btn_18)
+             432 LOAD_ATTR            (NULL|self + count)
+             452 CALL                 (0 positional)
+             460 GET_AWAITABLE        0
+             462 LOAD_CONST           (None)
+             464 SEND                 (to 472)
+             468 YIELD_VALUE          1
+             470 RESUME               3
+             472 JUMP_BACKWARD_NO_INTERRUPT (to 464)
+         >>  474 END_SEND
+             476 LOAD_CONST           (0)
+             478 COMPARE_OP           (>)
+             482 POP_JUMP_IF_FALSE    (to 554)
+
+249:         486 LOAD_FAST            (btn_18)
+             488 LOAD_ATTR            (first)
+             508 LOAD_ATTR            (NULL|self + click)
+             528 LOAD_CONST           (True)
+             530 LOAD_CONST           (('force',))
+             532 CALL_KW              1
+             534 GET_AWAITABLE        0
+             536 LOAD_CONST           (None)
+             538 SEND                 (to 546)
+             542 YIELD_VALUE          1
+             544 RESUME               3
+             546 JUMP_BACKWARD_NO_INTERRUPT (to 538)
+         >>  548 END_SEND
+             550 POP_TOP
+             552 JUMP_FORWARD         (to 676)
+
+250:     >>  554 LOAD_FAST            (btn_18_alt)
+             556 LOAD_ATTR            (NULL|self + count)
+             576 CALL                 (0 positional)
+             584 GET_AWAITABLE        0
+             586 LOAD_CONST           (None)
+             588 SEND                 (to 596)
+             592 YIELD_VALUE          1
+             594 RESUME               3
+             596 JUMP_BACKWARD_NO_INTERRUPT (to 588)
+         >>  598 END_SEND
+             600 LOAD_CONST           (0)
+             602 COMPARE_OP           (>)
+             606 POP_JUMP_IF_FALSE    (to 676)
+
+251:         610 LOAD_FAST            (btn_18_alt)
+             612 LOAD_ATTR            (first)
+             632 LOAD_ATTR            (NULL|self + click)
+             652 LOAD_CONST           (True)
+             654 LOAD_CONST           (('force',))
+             656 CALL_KW              1
+             658 GET_AWAITABLE        0
+             660 LOAD_CONST           (None)
+             662 SEND                 (to 670)
+             666 YIELD_VALUE          1
+             668 RESUME               3
+             670 JUMP_BACKWARD_NO_INTERRUPT (to 662)
+         >>  672 END_SEND
+             674 POP_TOP
+
+255:     >>  676 LOAD_GLOBAL          (db)
+             686 LOAD_ATTR            (get_setting)
+             706 PUSH_NULL
+             708 LOAD_CONST           ("auto_cookie")
+             710 LOAD_CONST           ("1")
+             712 CALL                 (2 positional)
+             720 LOAD_CONST           ("1")
+             722 COMPARE_OP           (==)
+             726 POP_JUMP_IF_FALSE    (to 888)
+
+256:         730 NOP
+
+257:         732 LOAD_FAST            (page)
+             734 LOAD_ATTR            (NULL|self + locator)
+             754 LOAD_CONST           ('button[data-a-target="consent-banner-accept"]')
+             756 CALL                 (1 positional)
+             764 STORE_FAST           (cookie_btn)
+
+258:         766 LOAD_FAST            (cookie_btn)
+             768 LOAD_ATTR            (NULL|self + count)
+             788 CALL                 (0 positional)
+             796 GET_AWAITABLE        0
+             798 LOAD_CONST           (None)
+             800 SEND                 (to 808)
+             804 YIELD_VALUE          1
+             806 RESUME               3
+             808 JUMP_BACKWARD_NO_INTERRUPT (to 800)
+         >>  810 END_SEND
+             812 LOAD_CONST           (0)
+             814 COMPARE_OP           (>)
+             818 POP_JUMP_IF_FALSE    (to 888)
+             822 LOAD_FAST            (cookie_btn)
+             824 LOAD_ATTR            (first)
+             844 LOAD_ATTR            (NULL|self + click)
+             864 LOAD_CONST           (True)
+             866 LOAD_CONST           (('force',))
+             868 CALL_KW              1
+             870 GET_AWAITABLE        0
+             872 LOAD_CONST           (None)
+             874 SEND                 (to 882)
+             878 YIELD_VALUE          1
+             880 RESUME               3
+             882 JUMP_BACKWARD_NO_INTERRUPT (to 874)
+         >>  884 END_SEND
+             886 POP_TOP
+
+260:     >>  888 LOAD_GLOBAL          (db)
+             898 LOAD_ATTR            (get_setting)
+             918 PUSH_NULL
+             920 LOAD_CONST           ("auto_rules")
+             922 LOAD_CONST           ("1")
+             924 CALL                 (2 positional)
+             932 LOAD_CONST           ("1")
+             934 COMPARE_OP           (==)
+             938 POP_JUMP_IF_FALSE    (to 1056)
+
+261:         942 NOP
+
+262:         944 LOAD_FAST            (page)
+             946 LOAD_ATTR            (NULL|self + wait_for_selector)
+             966 LOAD_CONST           ('button[data-test-selector="chat-rules-ok-button"]')
+             968 LOAD_CONST           (1000)
+             970 LOAD_CONST           (('timeout',))
+             972 CALL_KW              2
+             974 GET_AWAITABLE        0
+             976 LOAD_CONST           (None)
+             978 SEND                 (to 986)
+             982 YIELD_VALUE          1
+             984 RESUME               3
+             986 JUMP_BACKWARD_NO_INTERRUPT (to 978)
+         >>  988 END_SEND
+             990 STORE_FAST           (btn_rules)
+
+263:         992 LOAD_FAST            (btn_rules)
+             994 TO_BOOL
+            1002 POP_JUMP_IF_FALSE    (to 1054)
+            1006 LOAD_FAST            (btn_rules)
+            1008 LOAD_ATTR            (NULL|self + click)
+            1028 LOAD_CONST           (True)
+            1030 LOAD_CONST           (('force',))
+            1032 CALL_KW              1
+            1034 GET_AWAITABLE        0
+            1036 LOAD_CONST           (None)
+            1038 SEND                 (to 1046)
+            1042 YIELD_VALUE          1
+            1044 RESUME               3
+            1046 JUMP_BACKWARD_NO_INTERRUPT (to 1038)
+         >> 1048 END_SEND
+            1050 POP_TOP
+            1052 RETURN_CONST         (None)
+         >> 1054 RETURN_CONST         (None)
+
+260:     >> 1056 RETURN_CONST         (None)
+
+240:     >> 1058 CLEANUP_THROW
+            1060 EXTENDED_ARG         (256)
+            1062 JUMP_BACKWARD_NO_INTERRUPT (to 176)
+
+241:        1064 CLEANUP_THROW
+            1066 EXTENDED_ARG         (256)
+            1068 JUMP_BACKWARD_NO_INTERRUPT (to 250)
+
+242:        1070 CLEANUP_THROW
+            1072 EXTENDED_ARG         (256)
+            1074 JUMP_BACKWARD_NO_INTERRUPT (to 300)
+
+243:        1076 CLEANUP_THROW
+            1078 EXTENDED_ARG         (256)
+            1080 JUMP_BACKWARD_NO_INTERRUPT (to 374)
+
+247:        1082 CLEANUP_THROW
+            1084 EXTENDED_ARG         (256)
+            1086 JUMP_BACKWARD_NO_INTERRUPT (to 426)
+
+248:        1088 CLEANUP_THROW
+            1090 EXTENDED_ARG         (256)
+            1092 JUMP_BACKWARD_NO_INTERRUPT (to 474)
+
+249:        1094 CLEANUP_THROW
+            1096 EXTENDED_ARG         (256)
+            1098 JUMP_BACKWARD_NO_INTERRUPT (to 548)
+
+250:        1100 CLEANUP_THROW
+            1102 JUMP_BACKWARD_NO_INTERRUPT (to 598)
+
+251:        1104 CLEANUP_THROW
+            1106 JUMP_BACKWARD_NO_INTERRUPT (to 672)
+            1108 PUSH_EXC_INFO
+
+252:        1110 POP_TOP
+
+253:        1112 POP_EXCEPT
+            1114 JUMP_BACKWARD_NO_INTERRUPT (to 676)
+            1116 COPY                 3
+            1118 POP_EXCEPT
+            1120 RERAISE              1
+            1122 PUSH_EXC_INFO
+
+254:        1124 POP_TOP
+            1126 POP_EXCEPT
+            1128 JUMP_BACKWARD_NO_INTERRUPT (to 676)
+            1130 COPY                 3
+            1132 POP_EXCEPT
+            1134 RERAISE              1
+
+258:        1136 CLEANUP_THROW
+            1138 JUMP_BACKWARD_NO_INTERRUPT (to 810)
+            1140 CLEANUP_THROW
+            1142 JUMP_BACKWARD_NO_INTERRUPT (to 884)
+            1144 PUSH_EXC_INFO
+
+259:        1146 POP_TOP
+            1148 POP_EXCEPT
+            1150 JUMP_BACKWARD_NO_INTERRUPT (to 888)
+            1152 COPY                 3
+            1154 POP_EXCEPT
+            1156 RERAISE              1
+
+262:        1158 CLEANUP_THROW
+            1160 JUMP_BACKWARD_NO_INTERRUPT (to 988)
+
+263:        1162 CLEANUP_THROW
+            1164 JUMP_BACKWARD_NO_INTERRUPT (to 1048)
+            1166 PUSH_EXC_INFO
+
+264:        1168 POP_TOP
+            1170 POP_EXCEPT
+            1172 RETURN_CONST         (None)
+            1174 COPY                 3
+            1176 POP_EXCEPT
+            1178 RERAISE              1
+            1180 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+            1182 RERAISE              1
+
+ExceptionTable:
+  4 to 60 -> 1180 [0] lasti
+  64 to 168 -> 1122 [0]
+  170 to 170 -> 1058 [2]
+  172 to 242 -> 1122 [0]
+  244 to 244 -> 1064 [2]
+  246 to 252 -> 1122 [0]
+  254 to 254 -> 1180 [0] lasti
+  256 to 292 -> 1122 [0]
+  294 to 294 -> 1070 [2]
+  296 to 366 -> 1122 [0]
+  368 to 368 -> 1076 [2]
+  370 to 376 -> 1122 [0]
+  378 to 378 -> 1180 [0] lasti
+  382 to 418 -> 1108 [0]
+  420 to 420 -> 1082 [2]
+  422 to 466 -> 1108 [0]
+  468 to 468 -> 1088 [2]
+  470 to 540 -> 1108 [0]
+  542 to 542 -> 1094 [2]
+  544 to 550 -> 1108 [0]
+  552 to 552 -> 1180 [0] lasti
+  554 to 590 -> 1108 [0]
+  592 to 592 -> 1100 [2]
+  594 to 664 -> 1108 [0]
+  666 to 666 -> 1104 [2]
+  668 to 674 -> 1108 [0]
+  676 to 728 -> 1180 [0] lasti
+  732 to 802 -> 1144 [0]
+  804 to 804 -> 1136 [2]
+  806 to 876 -> 1144 [0]
+  878 to 878 -> 1140 [2]
+  880 to 886 -> 1144 [0]
+  888 to 940 -> 1180 [0] lasti
+  944 to 980 -> 1166 [0]
+  982 to 982 -> 1158 [2]
+  984 to 1040 -> 1166 [0]
+  1042 to 1042 -> 1162 [2]
+  1044 to 1050 -> 1166 [0]
+  1052 to 1056 -> 1180 [0] lasti
+  1058 to 1058 -> 1122 [0]
+  1064 to 1064 -> 1122 [0]
+  1070 to 1070 -> 1122 [0]
+  1076 to 1076 -> 1122 [0]
+  1082 to 1082 -> 1108 [0]
+  1088 to 1088 -> 1108 [0]
+  1094 to 1094 -> 1108 [0]
+  1100 to 1100 -> 1108 [0]
+  1104 to 1104 -> 1108 [0]
+  1108 to 1110 -> 1116 [1] lasti
+  1112 to 1112 -> 1122 [0]
+  1114 to 1114 -> 1180 [0] lasti
+  1116 to 1120 -> 1122 [0]
+  1122 to 1124 -> 1130 [1] lasti
+  1126 to 1134 -> 1180 [0] lasti
+  1136 to 1136 -> 1144 [0]
+  1140 to 1140 -> 1144 [0]
+  1144 to 1146 -> 1152 [1] lasti
+  1148 to 1156 -> 1180 [0] lasti
+  1158 to 1158 -> 1166 [0]
+  1162 to 1162 -> 1166 [0]
+  1166 to 1168 -> 1174 [1] lasti
+  1170 to 1178 -> 1180 [0] lasti
+
+# Method Name:       _fetch_followers
+# Filename:          src\bot_engine.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  12
+# Stack size:        6
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        266
+# Constants:
+#    0: None
+#    1: 'context_headless'
+#    2: 'Sync: Sidebar-Scrape kann nicht gestartet werden, da der Browser nicht initialisiert wurde oder die Engine aus ist.'
+#    3: 'Lese gefolgte Kan�le ein...'
+#    4: 'System: Sidebar-Scrape'
+#    5: 'https://www.twitch.tv/'
+#    6: 30000
+#    7: ('timeout',)
+#    8: 5
+#    9: 15
+#   10: 'button:has-text("Mehr anzeigen")'
+#   11: 0
+#   12: True
+#   13: ('force',)
+#   14: 1
+#   15: 'div[aria-label="Kan�le, denen du folgst"] a[href^="/"], div[aria-label="Folge ich"] a[href^="/"], div[aria-label="Followed Channels"] a[href^="/"]'
+#   16: 'href'
+#   17: '?'
+#   18: '/'
+#   19: 2
+#   20: ' '
+#   21: 'Habe '
+#   22: ' Follower gefunden.'
+#   23: 'Fehler beim Laden der Follower: '
+# Names:
+#    0: is_running
+#    1: hasattr
+#    2: context_headless
+#    3: logger
+#    4: error
+#    5: current_activities
+#    6: new_page
+#    7: goto
+#    8: asyncio
+#    9: sleep
+#   10: _click_banners
+#   11: range
+#   12: locator
+#   13: count
+#   14: first
+#   15: click
+#   16: all
+#   17: get_attribute
+#   18: split
+#   19: strip
+#   20: len
+#   21: lower
+#   22: append
+#   23: close
+#   24: list
+#   25: set
+#   26: info
+#   27: db
+#   28: upsert_channel
+#   29: pop
+#   30: Exception
+# Varnames:
+#	self, page, _, show_more, links, found, link, href, clean_href, name, c, e
+# Positional arguments:
+#	self
+# Local variables:
+#    1: page
+#    2: _
+#    3: show_more
+#    4: links
+#    5: found
+#    6: link
+#    7: href
+#    8: clean_href
+#    9: name
+#   10: c
+#   11: e
+
+266:           0 RETURN_GENERATOR
+               2 POP_TOP
+               4 RESUME               0
+
+267:           6 LOAD_FAST            (self)
+               8 LOAD_ATTR            (is_running)
+              28 TO_BOOL
+              36 POP_JUMP_IF_FALSE    (to 108)
+              40 LOAD_GLOBAL          (NULL + hasattr)
+              50 LOAD_FAST            (self)
+              52 LOAD_CONST           ("context_headless")
+              54 CALL                 (2 positional)
+              62 TO_BOOL
+              70 POP_JUMP_IF_FALSE    (to 108)
+              74 LOAD_FAST            (self)
+              76 LOAD_ATTR            (context_headless)
+              96 TO_BOOL
+             104 POP_JUMP_IF_TRUE     (to 156)
+
+268:     >>  108 LOAD_GLOBAL          (logger)
+             118 LOAD_ATTR            (error)
+             138 PUSH_NULL
+             140 LOAD_CONST           ("Sync: Sidebar-Scrape kann nicht gestartet werden, da der Browser nicht initialisiert wurde oder die Engine aus ist.")
+             142 CALL                 (1 positional)
+             150 POP_TOP
+
+269:         152 BUILD_LIST           0
+             154 RETURN_VALUE
+
+270:     >>  156 LOAD_CONST           ("Lese gefolgte Kan�le ein...")
+             158 LOAD_FAST            (self)
+             160 LOAD_ATTR            (current_activities)
+             180 LOAD_CONST           ("System: Sidebar-Scrape")
+             182 STORE_SUBSCR
+
+271:         186 NOP
+
+272:         188 LOAD_FAST            (self)
+             190 LOAD_ATTR            (context_headless)
+             210 LOAD_ATTR            (NULL|self + new_page)
+             230 CALL                 (0 positional)
+             238 GET_AWAITABLE        0
+             240 LOAD_CONST           (None)
+             242 SEND                 (to 250)
+             246 YIELD_VALUE          1
+             248 RESUME               3
+             250 JUMP_BACKWARD_NO_INTERRUPT (to 242)
+         >>  252 END_SEND
+             254 STORE_FAST           (page)
+
+273:         256 LOAD_FAST            (page)
+             258 LOAD_ATTR            (NULL|self + goto)
+             278 LOAD_CONST           ("https://www.twitch.tv/")
+             280 LOAD_CONST           (30000)
+             282 LOAD_CONST           (('timeout',))
+             284 CALL_KW              2
+             286 GET_AWAITABLE        0
+             288 LOAD_CONST           (None)
+             290 SEND                 (to 298)
+             294 YIELD_VALUE          1
+             296 RESUME               3
+             298 JUMP_BACKWARD_NO_INTERRUPT (to 290)
+         >>  300 END_SEND
+             302 POP_TOP
+
+274:         304 LOAD_GLOBAL          (asyncio)
+             314 LOAD_ATTR            (sleep)
+             334 PUSH_NULL
+             336 LOAD_CONST           (5)
+             338 CALL                 (1 positional)
+             346 GET_AWAITABLE        0
+             348 LOAD_CONST           (None)
+             350 SEND                 (to 358)
+             354 YIELD_VALUE          1
+             356 RESUME               3
+             358 JUMP_BACKWARD_NO_INTERRUPT (to 350)
+         >>  360 END_SEND
+             362 POP_TOP
+
+275:         364 LOAD_FAST            (self)
+             366 LOAD_ATTR            (NULL|self + _click_banners)
+             386 LOAD_FAST            (page)
+             388 CALL                 (1 positional)
+             396 GET_AWAITABLE        0
+             398 LOAD_CONST           (None)
+             400 SEND                 (to 408)
+             404 YIELD_VALUE          1
+             406 RESUME               3
+             408 JUMP_BACKWARD_NO_INTERRUPT (to 400)
+         >>  410 END_SEND
+             412 POP_TOP
+
+278:         414 NOP
+
+279:         416 LOAD_GLOBAL          (NULL + range)
+             426 LOAD_CONST           (15)
+             428 CALL                 (1 positional)
+             436 GET_ITER
+             438 FOR_ITER             (to 668)
+             442 STORE_FAST           (_)
+
+280:         444 LOAD_FAST            (page)
+             446 LOAD_ATTR            (NULL|self + locator)
+             466 LOAD_CONST           ('button:has-text("Mehr anzeigen")')
+             468 CALL                 (1 positional)
+             476 STORE_FAST           (show_more)
+
+281:         478 LOAD_FAST            (show_more)
+             480 LOAD_ATTR            (NULL|self + count)
+             500 CALL                 (0 positional)
+             508 GET_AWAITABLE        0
+             510 LOAD_CONST           (None)
+             512 SEND                 (to 520)
+             516 YIELD_VALUE          1
+             518 RESUME               3
+             520 JUMP_BACKWARD_NO_INTERRUPT (to 512)
+         >>  522 END_SEND
+             524 LOAD_CONST           (0)
+             526 COMPARE_OP           (>)
+             530 POP_JUMP_IF_FALSE    (to 664)
+
+282:         534 LOAD_FAST            (show_more)
+             536 LOAD_ATTR            (first)
+             556 LOAD_ATTR            (NULL|self + click)
+             576 LOAD_CONST           (True)
+             578 LOAD_CONST           (('force',))
+             580 CALL_KW              1
+             582 GET_AWAITABLE        0
+             584 LOAD_CONST           (None)
+             586 SEND                 (to 594)
+             590 YIELD_VALUE          1
+             592 RESUME               3
+             594 JUMP_BACKWARD_NO_INTERRUPT (to 586)
+         >>  596 END_SEND
+             598 POP_TOP
+
+283:         600 LOAD_GLOBAL          (asyncio)
+             610 LOAD_ATTR            (sleep)
+             630 PUSH_NULL
+             632 LOAD_CONST           (1)
+             634 CALL                 (1 positional)
+             642 GET_AWAITABLE        0
+             644 LOAD_CONST           (None)
+             646 SEND                 (to 654)
+             650 YIELD_VALUE          1
+             652 RESUME               3
+             654 JUMP_BACKWARD_NO_INTERRUPT (to 646)
+         >>  656 END_SEND
+             658 POP_TOP
+             660 JUMP_BACKWARD        (to 438)
+
+284:     >>  664 POP_TOP
+         >>  666 JUMP_FORWARD         (to 674)
+
+279:     >>  668 END_FOR
+             670 POP_TOP
+             672 NOP
+
+288:     >>  674 LOAD_FAST            (page)
+             676 LOAD_ATTR            (NULL|self + locator)
+             696 LOAD_CONST           ('div[aria-label="Kan�le, denen du folgst"] a[href^="/"], div[aria-label="Folge ich"] a[href^="/"], div[aria-label="Followed Channels"] a[href^="/"]')
+             698 CALL                 (1 positional)
+             706 LOAD_ATTR            (NULL|self + all)
+             726 CALL                 (0 positional)
+             734 GET_AWAITABLE        0
+             736 LOAD_CONST           (None)
+             738 SEND                 (to 746)
+             742 YIELD_VALUE          1
+             744 RESUME               3
+             746 JUMP_BACKWARD_NO_INTERRUPT (to 738)
+         >>  748 END_SEND
+             750 STORE_FAST           (links)
+
+290:         752 BUILD_LIST           0
+             754 STORE_FAST           (found)
+
+291:         756 LOAD_FAST            (links)
+         >>  758 GET_ITER
+             760 FOR_ITER             (to 1088)
+             764 STORE_FAST           (link)
+
+292:         766 LOAD_FAST            (link)
+             768 LOAD_ATTR            (NULL|self + get_attribute)
+             788 LOAD_CONST           ("href")
+             790 CALL                 (1 positional)
+             798 GET_AWAITABLE        0
+             800 LOAD_CONST           (None)
+             802 SEND                 (to 810)
+             806 YIELD_VALUE          1
+             808 RESUME               3
+             810 JUMP_BACKWARD_NO_INTERRUPT (to 802)
+         >>  812 END_SEND
+             814 STORE_FAST           (href)
+
+293:         816 LOAD_FAST            (href)
+             818 TO_BOOL
+             826 POP_JUMP_IF_TRUE     (to 834)
+             830 JUMP_BACKWARD        (to 760)
+
+294:     >>  834 LOAD_FAST            (href)
+             836 LOAD_ATTR            (NULL|self + split)
+             856 LOAD_CONST           ("?")
+             858 CALL                 (1 positional)
+             866 LOAD_CONST           (0)
+             868 BINARY_SUBSCR
+             872 LOAD_ATTR            (NULL|self + strip)
+             892 LOAD_CONST           ("/")
+             894 CALL                 (1 positional)
+             902 STORE_FAST           (clean_href)
+
+295:         904 LOAD_GLOBAL          (NULL + len)
+             914 LOAD_FAST            (clean_href)
+             916 LOAD_ATTR            (NULL|self + split)
+             936 LOAD_CONST           ("/")
+             938 CALL                 (1 positional)
+             946 CALL                 (1 positional)
+             954 LOAD_CONST           (1)
+             956 COMPARE_OP           (==)
+             960 POP_JUMP_IF_TRUE     (to 968)
+             964 JUMP_BACKWARD        (to 760)
+
+296:     >>  968 LOAD_FAST            (clean_href)
+             970 LOAD_ATTR            (NULL|self + lower)
+             990 CALL                 (0 positional)
+             998 STORE_FAST           (name)
+
+297:        1000 LOAD_GLOBAL          (NULL + len)
+            1010 LOAD_FAST            (name)
+            1012 CALL                 (1 positional)
+            1020 LOAD_CONST           (2)
+            1022 COMPARE_OP           (>)
+            1026 POP_JUMP_IF_TRUE     (to 1034)
+            1030 JUMP_BACKWARD        (to 760)
+         >> 1034 LOAD_CONST           (" ")
+            1036 LOAD_FAST            (name)
+            1038 CONTAINS_OP          (not in)
+            1042 POP_JUMP_IF_TRUE     (to 1050)
+            1046 JUMP_BACKWARD        (to 760)
+
+298:     >> 1050 LOAD_FAST            (found)
+            1052 LOAD_ATTR            (NULL|self + append)
+            1072 LOAD_FAST            (name)
+            1074 CALL                 (1 positional)
+            1082 POP_TOP
+            1084 JUMP_BACKWARD        (to 760)
+
+291:     >> 1088 END_FOR
+            1090 POP_TOP
+
+300:        1092 LOAD_FAST            (page)
+            1094 LOAD_ATTR            (NULL|self + close)
+            1114 CALL                 (0 positional)
+            1122 GET_AWAITABLE        0
+            1124 LOAD_CONST           (None)
+            1126 SEND                 (to 1134)
+            1130 YIELD_VALUE          1
+            1132 RESUME               3
+            1134 JUMP_BACKWARD_NO_INTERRUPT (to 1126)
+         >> 1136 END_SEND
+            1138 POP_TOP
+
+301:        1140 LOAD_GLOBAL          (NULL + list)
+            1150 LOAD_GLOBAL          (NULL + set)
+            1160 LOAD_FAST            (found)
+            1162 CALL                 (1 positional)
+            1170 CALL                 (1 positional)
+            1178 STORE_FAST           (found)
+
+302:        1180 LOAD_GLOBAL          (logger)
+            1190 LOAD_ATTR            (info)
+            1210 PUSH_NULL
+            1212 LOAD_CONST           ("Habe ")
+            1214 LOAD_GLOBAL          (NULL + len)
+            1224 LOAD_FAST            (found)
+            1226 CALL                 (1 positional)
+            1234 FORMAT_SIMPLE
+            1236 LOAD_CONST           (" Follower gefunden.")
+            1238 BUILD_STRING         3
+            1240 CALL                 (1 positional)
+            1248 POP_TOP
+
+304:        1250 LOAD_FAST            (found)
+            1252 GET_ITER
+            1254 FOR_ITER             (to 1308)
+            1258 STORE_FAST           (c)
+
+305:        1260 LOAD_GLOBAL          (db)
+            1270 LOAD_ATTR            (upsert_channel)
+            1290 PUSH_NULL
+            1292 LOAD_FAST            (c)
+            1294 CALL                 (1 positional)
+            1302 POP_TOP
+            1304 JUMP_BACKWARD        (to 1254)
+
+304:     >> 1308 END_FOR
+            1310 POP_TOP
+
+307:        1312 LOAD_FAST            (found)
+
+312:        1314 LOAD_FAST            (self)
+            1316 LOAD_ATTR            (current_activities)
+            1336 LOAD_ATTR            (NULL|self + pop)
+            1356 LOAD_CONST           ("System: Sidebar-Scrape")
+            1358 LOAD_CONST           (None)
+            1360 CALL                 (2 positional)
+            1368 POP_TOP
+            1370 RETURN_VALUE
+
+272:        1372 CLEANUP_THROW
+            1374 EXTENDED_ARG         (512)
+            1376 JUMP_BACKWARD_NO_INTERRUPT (to 252)
+
+273:        1378 CLEANUP_THROW
+            1380 EXTENDED_ARG         (512)
+            1382 JUMP_BACKWARD_NO_INTERRUPT (to 300)
+
+274:        1384 CLEANUP_THROW
+            1386 EXTENDED_ARG         (512)
+            1388 JUMP_BACKWARD_NO_INTERRUPT (to 360)
+
+275:        1390 CLEANUP_THROW
+            1392 EXTENDED_ARG         (256)
+            1394 JUMP_BACKWARD_NO_INTERRUPT (to 410)
+
+281:        1396 CLEANUP_THROW
+            1398 EXTENDED_ARG         (256)
+            1400 JUMP_BACKWARD_NO_INTERRUPT (to 522)
+
+282:        1402 CLEANUP_THROW
+            1404 EXTENDED_ARG         (256)
+            1406 JUMP_BACKWARD_NO_INTERRUPT (to 596)
+
+283:        1408 CLEANUP_THROW
+            1410 EXTENDED_ARG         (256)
+            1412 JUMP_BACKWARD_NO_INTERRUPT (to 656)
+            1414 PUSH_EXC_INFO
+
+285:     >> 1416 POP_TOP
+            1418 POP_EXCEPT
+            1420 EXTENDED_ARG         (256)
+            1422 JUMP_BACKWARD_NO_INTERRUPT (to 674)
+            1424 COPY                 3
+            1426 POP_EXCEPT
+            1428 RERAISE              1
+
+288:        1430 CLEANUP_THROW
+            1432 EXTENDED_ARG         (256)
+            1434 JUMP_BACKWARD_NO_INTERRUPT (to 748)
+
+292:        1436 CLEANUP_THROW
+            1438 EXTENDED_ARG         (256)
+            1440 JUMP_BACKWARD_NO_INTERRUPT (to 812)
+
+300:        1442 CLEANUP_THROW
+            1444 JUMP_BACKWARD_NO_INTERRUPT (to 1136)
+            1446 PUSH_EXC_INFO
+
+308:        1448 LOAD_GLOBAL          (Exception)
+            1458 CHECK_EXC_MATCH
+            1460 POP_JUMP_IF_FALSE    (to 1594)
+            1464 STORE_FAST           (e)
+
+309:        1466 LOAD_GLOBAL          (logger)
+            1476 LOAD_ATTR            (error)
+            1496 PUSH_NULL
+            1498 LOAD_CONST           ("Fehler beim Laden der Follower: ")
+            1500 LOAD_FAST            (e)
+            1502 FORMAT_SIMPLE
+            1504 BUILD_STRING         2
+            1506 CALL                 (1 positional)
+            1514 POP_TOP
+
+310:        1516 BUILD_LIST           0
+            1518 SWAP                 (TOS <-> TOS1)
+            1520 POP_EXCEPT
+            1522 LOAD_CONST           (None)
+            1524 STORE_FAST           (e)
+            1526 DELETE_FAST          (e)
+
+312:        1528 LOAD_FAST            (self)
+            1530 LOAD_ATTR            (current_activities)
+            1550 LOAD_ATTR            (NULL|self + pop)
+            1570 LOAD_CONST           ("System: Sidebar-Scrape")
+            1572 LOAD_CONST           (None)
+            1574 CALL                 (2 positional)
+            1582 POP_TOP
+            1584 RETURN_VALUE
+            1586 LOAD_CONST           (None)
+            1588 STORE_FAST           (e)
+            1590 DELETE_FAST          (e)
+            1592 RERAISE              1
+
+308:     >> 1594 RERAISE              0
+            1596 COPY                 3
+            1598 POP_EXCEPT
+            1600 RERAISE              1
+            1602 PUSH_EXC_INFO
+
+312:        1604 LOAD_FAST            (self)
+            1606 LOAD_ATTR            (current_activities)
+            1626 LOAD_ATTR            (NULL|self + pop)
+            1646 LOAD_CONST           ("System: Sidebar-Scrape")
+            1648 LOAD_CONST           (None)
+            1650 CALL                 (2 positional)
+            1658 POP_TOP
+            1660 RERAISE              0
+            1662 COPY                 3
+            1664 POP_EXCEPT
+            1666 RERAISE              1
+            1668 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+            1670 RERAISE              1
+
+ExceptionTable:
+  4 to 184 -> 1668 [0] lasti
+  188 to 244 -> 1446 [0]
+  246 to 246 -> 1372 [2]
+  248 to 292 -> 1446 [0]
+  294 to 294 -> 1378 [2]
+  296 to 352 -> 1446 [0]
+  354 to 354 -> 1384 [2]
+  356 to 402 -> 1446 [0]
+  404 to 404 -> 1390 [2]
+  406 to 412 -> 1446 [0]
+  416 to 514 -> 1414 [0]
+  516 to 516 -> 1396 [3]
+  518 to 588 -> 1414 [0]
+  590 to 590 -> 1402 [3]
+  592 to 648 -> 1414 [0]
+  650 to 650 -> 1408 [3]
+  652 to 664 -> 1414 [0]
+  666 to 666 -> 1446 [0]
+  668 to 670 -> 1414 [0]
+  672 to 740 -> 1446 [0]
+  742 to 742 -> 1430 [2]
+  744 to 804 -> 1446 [0]
+  806 to 806 -> 1436 [3]
+  808 to 824 -> 1446 [0]
+  834 to 958 -> 1446 [0]
+  968 to 1024 -> 1446 [0]
+  1034 to 1040 -> 1446 [0]
+  1050 to 1128 -> 1446 [0]
+  1130 to 1130 -> 1442 [2]
+  1132 to 1312 -> 1446 [0]
+  1314 to 1370 -> 1668 [0] lasti
+  1372 to 1372 -> 1446 [0]
+  1378 to 1378 -> 1446 [0]
+  1384 to 1384 -> 1446 [0]
+  1390 to 1390 -> 1446 [0]
+  1396 to 1396 -> 1414 [0]
+  1402 to 1402 -> 1414 [0]
+  1408 to 1408 -> 1414 [0]
+  1414 to 1416 -> 1424 [1] lasti
+  1418 to 1430 -> 1446 [0]
+  1436 to 1436 -> 1446 [0]
+  1442 to 1442 -> 1446 [0]
+  1446 to 1464 -> 1596 [1] lasti
+  1466 to 1516 -> 1586 [1] lasti
+  1518 to 1518 -> 1596 [1] lasti
+  1520 to 1526 -> 1602 [0]
+  1528 to 1584 -> 1668 [0] lasti
+  1586 to 1594 -> 1596 [1] lasti
+  1596 to 1600 -> 1602 [0]
+  1602 to 1660 -> 1662 [1] lasti
+  1662 to 1666 -> 1668 [0] lasti
+
+# Method Name:       run_sync_standalone
+# Filename:          src\bot_engine.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  5
+# Stack size:        7
+# Flags:             0x00000083 (COROUTINE | NEWLOCALS | OPTIMIZED)
+# First Line:        314
+# Constants:
+#    0: None
+#    1: True
+#    2: ('force_fetch_followers',)
+#    3: 'Starte manuellen Sync (unabh�ngig)...'
+#    4: 'Kein Token gefunden. Bitte im Dashboard eintragen.'
+#    5: 'PLAYWRIGHT_BROWSERS_PATH'
+#    6: 'headless'
+#    7: 'executable_path'
+#    8: 1280
+#    9: 720
+#   10: ('width', 'height')
+#   11: ('viewport',)
+#   12: "\n                window.localStorage.setItem('volume', '0.0');\n                window.localStorage.setItem('muted', 'true');\n            "
+#   13: 'auth-token'
+#   14: '.twitch.tv'
+#   15: '/'
+#   16: ('name', 'value', 'domain', 'path')
+#   17: 'playwright'
+#   18: 'Manueller Sync abgeschlossen.'
+#   19: 'Fehler beim manuellen Sync: '
+#   20: ()
+# Names:
+#    0: is_running
+#    1: _sync_mode
+#    2: logger
+#    3: info
+#    4: load_token
+#    5: error
+#    6: PLAYWRIGHT_BROWSERS_PATH
+#    7: os
+#    8: environ
+#    9: async_playwright
+#   10: start
+#   11: playwright
+#   12: CUSTOM_FIREFOX_PATH
+#   13: firefox
+#   14: launch
+#   15: browser
+#   16: new_context
+#   17: context
+#   18: add_init_script
+#   19: add_cookies
+#   20: close
+#   21: stop
+#   22: hasattr
+#   23: delattr
+#   24: Exception
+# Varnames:
+#	self, token, launch_kwargs, was_running, e
+# Positional arguments:
+#	self
+# Local variables:
+#    1: token
+#    2: launch_kwargs
+#    3: was_running
+#    4: e
+
+314:           0 RETURN_GENERATOR
+               2 POP_TOP
+               4 RESUME               0
+
+315:           6 LOAD_FAST            (self)
+               8 LOAD_ATTR            (is_running)
+              28 TO_BOOL
+              36 POP_JUMP_IF_FALSE    (to 88)
+
+316:          40 LOAD_FAST            (self)
+              42 LOAD_ATTR            (NULL|self + _sync_mode)
+              62 LOAD_CONST           (True)
+              64 LOAD_CONST           (('force_fetch_followers',))
+              66 CALL_KW              1
+              68 GET_AWAITABLE        0
+              70 LOAD_CONST           (None)
+              72 SEND                 (to 80)
+              76 YIELD_VALUE          1
+              78 RESUME               3
+              80 JUMP_BACKWARD_NO_INTERRUPT (to 72)
+         >>   82 END_SEND
+              84 POP_TOP
+
+317:          86 RETURN_CONST         (None)
+
+319:     >>   88 LOAD_GLOBAL          (logger)
+              98 LOAD_ATTR            (info)
+             118 PUSH_NULL
+             120 LOAD_CONST           ("Starte manuellen Sync (unabh�ngig)...")
+             122 CALL                 (1 positional)
+             130 POP_TOP
+
+320:         132 LOAD_GLOBAL          (NULL + load_token)
+             142 CALL                 (0 positional)
+             150 STORE_FAST           (token)
+
+321:         152 LOAD_FAST            (token)
+             154 TO_BOOL
+             162 POP_JUMP_IF_TRUE     (to 212)
+
+322:         166 LOAD_GLOBAL          (logger)
+             176 LOAD_ATTR            (error)
+             196 PUSH_NULL
+             198 LOAD_CONST           ("Kein Token gefunden. Bitte im Dashboard eintragen.")
+             200 CALL                 (1 positional)
+             208 POP_TOP
+
+323:         210 RETURN_CONST         (None)
+
+325:     >>  212 NOP
+
+326:         214 LOAD_GLOBAL          (PLAYWRIGHT_BROWSERS_PATH)
+             224 LOAD_GLOBAL          (os)
+             234 LOAD_ATTR            (environ)
+             254 LOAD_CONST           ("PLAYWRIGHT_BROWSERS_PATH")
+             256 STORE_SUBSCR
+
+327:         260 LOAD_GLOBAL          (NULL + async_playwright)
+             270 CALL                 (0 positional)
+             278 LOAD_ATTR            (NULL|self + start)
+             298 CALL                 (0 positional)
+             306 GET_AWAITABLE        0
+             308 LOAD_CONST           (None)
+             310 SEND                 (to 318)
+             314 YIELD_VALUE          1
+             316 RESUME               3
+             318 JUMP_BACKWARD_NO_INTERRUPT (to 310)
+         >>  320 END_SEND
+             322 LOAD_FAST            (self)
+             324 STORE_ATTR           (playwright)
+
+329:         334 LOAD_CONST           ("headless")
+             336 LOAD_CONST           (True)
+             338 BUILD_MAP            1
+             340 STORE_FAST           (launch_kwargs)
+
+330:         342 LOAD_GLOBAL          (CUSTOM_FIREFOX_PATH)
+             352 TO_BOOL
+             360 POP_JUMP_IF_FALSE    (to 382)
+
+331:         364 LOAD_GLOBAL          (CUSTOM_FIREFOX_PATH)
+             374 LOAD_FAST            (launch_kwargs)
+             376 LOAD_CONST           ("executable_path")
+             378 STORE_SUBSCR
+
+332:     >>  382 LOAD_FAST            (self)
+             384 LOAD_ATTR            (playwright)
+             404 LOAD_ATTR            (firefox)
+             424 LOAD_ATTR            (launch)
+             444 PUSH_NULL
+             446 LOAD_CONST           (())
+             448 BUILD_MAP            0
+             450 LOAD_FAST            (launch_kwargs)
+             452 DICT_MERGE           1
+             454 CALL_FUNCTION_EX     (keyword and positional arguments)
+             456 GET_AWAITABLE        0
+             458 LOAD_CONST           (None)
+             460 SEND                 (to 468)
+             464 YIELD_VALUE          1
+             466 RESUME               3
+             468 JUMP_BACKWARD_NO_INTERRUPT (to 460)
+         >>  470 END_SEND
+             472 LOAD_FAST            (self)
+             474 STORE_ATTR           (browser)
+
+333:         484 LOAD_FAST            (self)
+             486 LOAD_ATTR            (browser)
+             506 LOAD_ATTR            (NULL|self + new_context)
+             526 LOAD_CONST           (1280)
+             528 LOAD_CONST           (720)
+             530 LOAD_CONST           (('width', 'height'))
+             532 BUILD_CONST_KEY_MAP  2
+             534 LOAD_CONST           (('viewport',))
+             536 CALL_KW              1
+             538 GET_AWAITABLE        0
+             540 LOAD_CONST           (None)
+             542 SEND                 (to 550)
+             546 YIELD_VALUE          1
+             548 RESUME               3
+             550 JUMP_BACKWARD_NO_INTERRUPT (to 542)
+         >>  552 END_SEND
+             554 LOAD_FAST            (self)
+             556 STORE_ATTR           (context)
+
+335:         566 LOAD_FAST            (self)
+             568 LOAD_ATTR            (context)
+             588 LOAD_ATTR            (NULL|self + add_init_script)
+             608 LOAD_CONST           ("\n                window.localStorage.setItem('volume', '0.0');\n                window.localStorage.setItem('muted', 'true');\n            ")
+             610 CALL                 (1 positional)
+             618 GET_AWAITABLE        0
+             620 LOAD_CONST           (None)
+             622 SEND                 (to 630)
+             626 YIELD_VALUE          1
+             628 RESUME               3
+             630 JUMP_BACKWARD_NO_INTERRUPT (to 622)
+         >>  632 END_SEND
+             634 POP_TOP
+
+339:         636 LOAD_FAST            (self)
+             638 LOAD_ATTR            (context)
+             658 LOAD_ATTR            (NULL|self + add_cookies)
+             678 LOAD_CONST           ("auth-token")
+             680 LOAD_FAST            (token)
+             682 LOAD_CONST           (".twitch.tv")
+             684 LOAD_CONST           ("/")
+             686 LOAD_CONST           (('name', 'value', 'domain', 'path'))
+             688 BUILD_CONST_KEY_MAP  4
+             690 BUILD_LIST           1
+             692 CALL                 (1 positional)
+             700 GET_AWAITABLE        0
+             702 LOAD_CONST           (None)
+             704 SEND                 (to 712)
+             708 YIELD_VALUE          1
+             710 RESUME               3
+             712 JUMP_BACKWARD_NO_INTERRUPT (to 704)
+         >>  714 END_SEND
+             716 POP_TOP
+
+341:         718 LOAD_FAST            (self)
+             720 LOAD_ATTR            (is_running)
+             740 STORE_FAST           (was_running)
+
+342:         742 LOAD_CONST           (True)
+             744 LOAD_FAST            (self)
+             746 STORE_ATTR           (is_running)
+
+344:         756 NOP
+
+345:         758 LOAD_FAST            (self)
+             760 LOAD_ATTR            (NULL|self + _sync_mode)
+             780 LOAD_CONST           (True)
+             782 LOAD_CONST           (('force_fetch_followers',))
+             784 CALL_KW              1
+             786 GET_AWAITABLE        0
+             788 LOAD_CONST           (None)
+             790 SEND                 (to 798)
+             794 YIELD_VALUE          1
+             796 RESUME               3
+             798 JUMP_BACKWARD_NO_INTERRUPT (to 790)
+         >>  800 END_SEND
+             802 POP_TOP
+
+347:         804 LOAD_FAST_LOAD_FAST  (was_running, self)
+             806 STORE_ATTR           (is_running)
+
+349:         816 LOAD_FAST            (self)
+             818 LOAD_ATTR            (context)
+             838 LOAD_ATTR            (NULL|self + close)
+             858 CALL                 (0 positional)
+             866 GET_AWAITABLE        0
+             868 LOAD_CONST           (None)
+             870 SEND                 (to 878)
+             874 YIELD_VALUE          1
+             876 RESUME               3
+             878 JUMP_BACKWARD_NO_INTERRUPT (to 870)
+         >>  880 END_SEND
+             882 POP_TOP
+
+350:         884 LOAD_FAST            (self)
+             886 LOAD_ATTR            (browser)
+             906 LOAD_ATTR            (NULL|self + close)
+             926 CALL                 (0 positional)
+             934 GET_AWAITABLE        0
+             936 LOAD_CONST           (None)
+             938 SEND                 (to 946)
+             942 YIELD_VALUE          1
+             944 RESUME               3
+             946 JUMP_BACKWARD_NO_INTERRUPT (to 938)
+         >>  948 END_SEND
+             950 POP_TOP
+
+351:         952 LOAD_FAST            (self)
+             954 LOAD_ATTR            (playwright)
+             974 LOAD_ATTR            (NULL|self + stop)
+             994 CALL                 (0 positional)
+            1002 GET_AWAITABLE        0
+            1004 LOAD_CONST           (None)
+            1006 SEND                 (to 1014)
+            1010 YIELD_VALUE          1
+            1012 RESUME               3
+            1014 JUMP_BACKWARD_NO_INTERRUPT (to 1006)
+         >> 1016 END_SEND
+            1018 POP_TOP
+
+352:        1020 LOAD_CONST           (None)
+            1022 LOAD_FAST            (self)
+            1024 STORE_ATTR           (context)
+
+353:        1034 LOAD_CONST           (None)
+            1036 LOAD_FAST            (self)
+            1038 STORE_ATTR           (browser)
+
+354:        1048 LOAD_GLOBAL          (NULL + hasattr)
+            1058 LOAD_FAST            (self)
+            1060 LOAD_CONST           ("playwright")
+            1062 CALL                 (2 positional)
+            1070 TO_BOOL
+            1078 POP_JUMP_IF_FALSE    (to 1106)
+            1082 LOAD_GLOBAL          (NULL + delattr)
+            1092 LOAD_FAST            (self)
+            1094 LOAD_CONST           ("playwright")
+            1096 CALL                 (2 positional)
+            1104 POP_TOP
+
+355:     >> 1106 LOAD_GLOBAL          (logger)
+            1116 LOAD_ATTR            (info)
+            1136 PUSH_NULL
+            1138 LOAD_CONST           ("Manueller Sync abgeschlossen.")
+            1140 CALL                 (1 positional)
+            1148 POP_TOP
+            1150 RETURN_CONST         (None)
+
+316:        1152 CLEANUP_THROW
+            1154 EXTENDED_ARG         (512)
+            1156 JUMP_BACKWARD_NO_INTERRUPT (to 82)
+
+327:        1158 CLEANUP_THROW
+            1160 EXTENDED_ARG         (256)
+            1162 JUMP_BACKWARD_NO_INTERRUPT (to 320)
+
+332:        1164 CLEANUP_THROW
+            1166 EXTENDED_ARG         (256)
+            1168 JUMP_BACKWARD_NO_INTERRUPT (to 470)
+
+333:        1170 CLEANUP_THROW
+            1172 EXTENDED_ARG         (256)
+            1174 JUMP_BACKWARD_NO_INTERRUPT (to 552)
+
+335:        1176 CLEANUP_THROW
+            1178 EXTENDED_ARG         (256)
+            1180 JUMP_BACKWARD_NO_INTERRUPT (to 632)
+
+339:        1182 CLEANUP_THROW
+            1184 JUMP_BACKWARD_NO_INTERRUPT (to 714)
+
+345:        1186 CLEANUP_THROW
+            1188 JUMP_BACKWARD_NO_INTERRUPT (to 800)
+            1190 PUSH_EXC_INFO
+
+347:        1192 LOAD_FAST_LOAD_FAST  (was_running, self)
+            1194 STORE_ATTR           (is_running)
+            1204 RERAISE              0
+            1206 COPY                 3
+            1208 POP_EXCEPT
+            1210 RERAISE              1
+
+349:        1212 CLEANUP_THROW
+            1214 JUMP_BACKWARD_NO_INTERRUPT (to 880)
+
+350:        1216 CLEANUP_THROW
+            1218 JUMP_BACKWARD_NO_INTERRUPT (to 948)
+
+351:        1220 CLEANUP_THROW
+            1222 JUMP_BACKWARD_NO_INTERRUPT (to 1016)
+            1224 PUSH_EXC_INFO
+
+356:        1226 LOAD_GLOBAL          (Exception)
+            1236 CHECK_EXC_MATCH
+            1238 POP_JUMP_IF_FALSE    (to 1312)
+            1242 STORE_FAST           (e)
+
+357:        1244 LOAD_GLOBAL          (logger)
+            1254 LOAD_ATTR            (error)
+            1274 PUSH_NULL
+            1276 LOAD_CONST           ("Fehler beim manuellen Sync: ")
+            1278 LOAD_FAST            (e)
+            1280 FORMAT_SIMPLE
+            1282 BUILD_STRING         2
+            1284 CALL                 (1 positional)
+            1292 POP_TOP
+            1294 POP_EXCEPT
+            1296 LOAD_CONST           (None)
+            1298 STORE_FAST           (e)
+            1300 DELETE_FAST          (e)
+            1302 RETURN_CONST         (None)
+            1304 LOAD_CONST           (None)
+            1306 STORE_FAST           (e)
+            1308 DELETE_FAST          (e)
+            1310 RERAISE              1
+
+356:     >> 1312 RERAISE              0
+            1314 COPY                 3
+            1316 POP_EXCEPT
+            1318 RERAISE              1
+            1320 CALL_INTRINSIC_1     (INTRINSIC_STOPITERATION_ERROR)
+            1322 RERAISE              1
+
+ExceptionTable:
+  4 to 74 -> 1320 [0] lasti
+  76 to 76 -> 1152 [2]
+  78 to 210 -> 1320 [0] lasti
+  214 to 312 -> 1224 [0]
+  314 to 314 -> 1158 [2]
+  316 to 462 -> 1224 [0]
+  464 to 464 -> 1164 [2]
+  466 to 544 -> 1224 [0]
+  546 to 546 -> 1170 [2]
+  548 to 624 -> 1224 [0]
+  626 to 626 -> 1176 [2]
+  628 to 706 -> 1224 [0]
+  708 to 708 -> 1182 [2]
+  710 to 754 -> 1224 [0]
+  758 to 792 -> 1190 [0]
+  794 to 794 -> 1186 [2]
+  796 to 802 -> 1190 [0]
+  804 to 872 -> 1224 [0]
+  874 to 874 -> 1212 [2]
+  876 to 940 -> 1224 [0]
+  942 to 942 -> 1216 [2]
+  944 to 1008 -> 1224 [0]
+  1010 to 1010 -> 1220 [2]
+  1012 to 1148 -> 1224 [0]
+  1150 to 1152 -> 1320 [0] lasti
+  1158 to 1158 -> 1224 [0]
+  1164 to 1164 -> 1224 [0]
+  1170 to 1170 -> 1224 [0]
+  1176 to 1176 -> 1224 [0]
+  1182 to 1182 -> 1224 [0]
+  1186 to 1186 -> 1190 [0]
+  1190 to 1204 -> 1206 [1] lasti
+  1206 to 1212 -> 1224 [0]
+  1216 to 1216 -> 1224 [0]
+  1220 to 1220 -> 1224 [0]
+  1224 to 1242 -> 1314 [1] lasti
+  1244 to 1292 -> 1304 [1] lasti
+  1294 to 1302 -> 1320 [0] lasti
+  1304 to 1312 -> 1314 [1] lasti
+  1314 to 1318 -> 1320 [0] lasti
+'charmap' codec can't encode character '\u2705' in position 997: character maps to <undefined>

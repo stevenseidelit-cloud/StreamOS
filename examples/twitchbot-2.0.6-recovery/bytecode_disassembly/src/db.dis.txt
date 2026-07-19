@@ -1,0 +1,1741 @@
+﻿# pydisasm version 6.3.0
+# CPython Python bytecode 3.13.0 (3571)
+#   Disassembled from CPython Python 3.12.13 (main, Mar  3 2026, 15:01:35) [MSC v.1944 64 bit (AMD64)]
+# Timestamp in code: 0 (1970-01-01 01:00:00)
+# Source code size mod 2**32: 0 bytes
+# Method Name:       <module>
+# Filename:          src\db.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        4
+# Flags:             0x00000000 (0x0)
+# First Line:        1
+# Constants:
+#    0: 0
+#    1: None
+#    2: ('DB_PATH', 'BACKUP_DIR')
+#    3: <Code311 code object Database at 0x1d87c616bd0, file src\db.py>, line 7
+#    4: 'Database'
+# Names:
+#    0: sqlite3
+#    1: os
+#    2: shutil
+#    3: datetime
+#    4: src.paths
+#    5: DB_PATH
+#    6: BACKUP_DIR
+#    7: Database
+#    8: db
+
+  0:           0 RESUME               0
+
+  1:           2 LOAD_CONST           (0)
+               4 LOAD_CONST           (None)
+               6 IMPORT_NAME          (sqlite3)
+               8 STORE_NAME           (sqlite3)
+
+  2:          10 LOAD_CONST           (0)
+              12 LOAD_CONST           (None)
+              14 IMPORT_NAME          (os)
+              16 STORE_NAME           (os)
+
+  3:          18 LOAD_CONST           (0)
+              20 LOAD_CONST           (None)
+              22 IMPORT_NAME          (shutil)
+              24 STORE_NAME           (shutil)
+
+  4:          26 LOAD_CONST           (0)
+              28 LOAD_CONST           (None)
+              30 IMPORT_NAME          (datetime)
+              32 STORE_NAME           (datetime)
+
+  5:          34 LOAD_CONST           (0)
+              36 LOAD_CONST           (('DB_PATH', 'BACKUP_DIR'))
+              38 IMPORT_NAME          (src.paths)
+              40 IMPORT_FROM          (DB_PATH)
+              42 STORE_NAME           (DB_PATH)
+              44 IMPORT_FROM          (BACKUP_DIR)
+              46 STORE_NAME           (BACKUP_DIR)
+              48 POP_TOP
+
+  7:          50 LOAD_BUILD_CLASS
+              52 PUSH_NULL
+              54 LOAD_CONST           (<Code311 code object Database at 0x1d87c616bd0, file src\db.py>, line 7)
+              56 MAKE_FUNCTION
+              58 LOAD_CONST           ("Database")
+              60 CALL                 (2 positional)
+              68 STORE_NAME           (Database)
+
+223:          70 LOAD_NAME            (Database)
+              72 PUSH_NULL
+              74 CALL                 (0 positional)
+              82 STORE_NAME           (db)
+              84 RETURN_CONST         (None)
+
+
+# Method Name:       Database
+# Filename:          src\db.py
+# Argument count:    0
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  0
+# Stack size:        2
+# Flags:             0x00000000 (0x0)
+# First Line:        7
+# Constants:
+#    0: 'Database'
+#    1: 7
+#    2: <Code311 code object __init__ at 0x1d87c24ecf0, file src\db.py>, line 8
+#    3: <Code311 code object _init_db at 0x1d87c24f800, file src\db.py>, line 13
+#    4: None
+#    5: <Code311 code object get_setting at 0x1d87c616090, file src\db.py>, line 89
+#    6: <Code311 code object set_setting at 0x1d87c616210, file src\db.py>, line 95
+#    7: <Code311 code object get_all_settings at 0x1d87c6162a0, file src\db.py>, line 99
+#    8: <Code311 code object get_channel at 0x1d87c616150, file src\db.py>, line 104
+#    9: <Code311 code object get_all_channels at 0x1d87c616390, file src\db.py>, line 110
+#   10: <Code311 code object upsert_channel at 0x1d87c6164e0, file src\db.py>, line 115
+#   11: <Code311 code object log_activity at 0x1d87c6165a0, file src\db.py>, line 175
+#   12: <Code311 code object get_activities at 0x1d87c616600, file src\db.py>, line 192
+#   13: <Code311 code object delete_channel at 0x1d87c616660, file src\db.py>, line 200
+#   14: <Code311 code object backup_database at 0x1d87c616990, file src\db.py>, line 204
+#   15: <Code311 code object reset_database at 0x1d87c6169c0, file src\db.py>, line 218
+#   16: ('conn',)
+#   17: (None,)
+#   18: (None, None, None, None, None, None, None, None, None, None, None, None, None)
+#   19: (100,)
+# Names:
+#    0: __name__
+#    1: __module__
+#    2: __qualname__
+#    3: __firstlineno__
+#    4: __init__
+#    5: _init_db
+#    6: get_setting
+#    7: set_setting
+#    8: get_all_settings
+#    9: get_channel
+#   10: get_all_channels
+#   11: upsert_channel
+#   12: log_activity
+#   13: get_activities
+#   14: delete_channel
+#   15: backup_database
+#   16: reset_database
+#   17: __static_attributes__
+
+  7:           0 RESUME               0
+               2 LOAD_NAME            (__name__)
+               4 STORE_NAME           (__module__)
+               6 LOAD_CONST           ("Database")
+               8 STORE_NAME           (__qualname__)
+              10 LOAD_CONST           (7)
+              12 STORE_NAME           (__firstlineno__)
+
+  8:          14 LOAD_CONST           (<Code311 code object __init__ at 0x1d87c24ecf0, file src\db.py>, line 8)
+              16 MAKE_FUNCTION
+              18 STORE_NAME           (__init__)
+
+ 13:          20 LOAD_CONST           (<Code311 code object _init_db at 0x1d87c24f800, file src\db.py>, line 13)
+              22 MAKE_FUNCTION
+              24 STORE_NAME           (_init_db)
+
+ 89:          26 LOAD_CONST           ((None,))
+              28 LOAD_CONST           (<Code311 code object get_setting at 0x1d87c616090, file src\db.py>, line 89)
+              30 MAKE_FUNCTION
+              32 SET_FUNCTION_ATTRIBUTE 1
+              34 STORE_NAME           (get_setting)
+
+ 95:          36 LOAD_CONST           (<Code311 code object set_setting at 0x1d87c616210, file src\db.py>, line 95)
+              38 MAKE_FUNCTION
+              40 STORE_NAME           (set_setting)
+
+ 99:          42 LOAD_CONST           (<Code311 code object get_all_settings at 0x1d87c6162a0, file src\db.py>, line 99)
+              44 MAKE_FUNCTION
+              46 STORE_NAME           (get_all_settings)
+
+104:          48 LOAD_CONST           (<Code311 code object get_channel at 0x1d87c616150, file src\db.py>, line 104)
+              50 MAKE_FUNCTION
+              52 STORE_NAME           (get_channel)
+
+110:          54 LOAD_CONST           (<Code311 code object get_all_channels at 0x1d87c616390, file src\db.py>, line 110)
+              56 MAKE_FUNCTION
+              58 STORE_NAME           (get_all_channels)
+
+115:          60 LOAD_CONST           ((None, None, None, None, None, None, None, None, None, None, None, None, None))
+              62 LOAD_CONST           (<Code311 code object upsert_channel at 0x1d87c6164e0, file src\db.py>, line 115)
+              64 MAKE_FUNCTION
+              66 SET_FUNCTION_ATTRIBUTE 1
+              68 STORE_NAME           (upsert_channel)
+
+175:          70 LOAD_CONST           (<Code311 code object log_activity at 0x1d87c6165a0, file src\db.py>, line 175)
+              72 MAKE_FUNCTION
+              74 STORE_NAME           (log_activity)
+
+192:          76 LOAD_CONST           ((100,))
+              78 LOAD_CONST           (<Code311 code object get_activities at 0x1d87c616600, file src\db.py>, line 192)
+              80 MAKE_FUNCTION
+              82 SET_FUNCTION_ATTRIBUTE 1
+              84 STORE_NAME           (get_activities)
+
+200:          86 LOAD_CONST           (<Code311 code object delete_channel at 0x1d87c616660, file src\db.py>, line 200)
+              88 MAKE_FUNCTION
+              90 STORE_NAME           (delete_channel)
+
+204:          92 LOAD_CONST           (<Code311 code object backup_database at 0x1d87c616990, file src\db.py>, line 204)
+              94 MAKE_FUNCTION
+              96 STORE_NAME           (backup_database)
+
+218:          98 LOAD_CONST           (<Code311 code object reset_database at 0x1d87c6169c0, file src\db.py>, line 218)
+             100 MAKE_FUNCTION
+             102 STORE_NAME           (reset_database)
+             104 LOAD_CONST           (('conn',))
+             106 STORE_NAME           (__static_attributes__)
+             108 RETURN_CONST         (None)
+
+
+# Method Name:       __init__
+# Filename:          src\db.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  1
+# Stack size:        5
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        8
+# Constants:
+#    0: None
+#    1: False
+#    2: ('check_same_thread',)
+# Names:
+#    0: sqlite3
+#    1: connect
+#    2: DB_PATH
+#    3: conn
+#    4: Row
+#    5: row_factory
+#    6: _init_db
+# Varnames:
+#	self
+# Positional arguments:
+#	self
+
+  8:           0 RESUME               0
+
+  9:           2 LOAD_GLOBAL          (sqlite3)
+              12 LOAD_ATTR            (connect)
+              32 PUSH_NULL
+              34 LOAD_GLOBAL          (DB_PATH)
+              44 LOAD_CONST           (False)
+              46 LOAD_CONST           (('check_same_thread',))
+              48 CALL_KW              2
+              50 LOAD_FAST            (self)
+              52 STORE_ATTR           (conn)
+
+ 10:          62 LOAD_GLOBAL          (sqlite3)
+              72 LOAD_ATTR            (Row)
+              92 LOAD_FAST            (self)
+              94 LOAD_ATTR            (conn)
+             114 STORE_ATTR           (row_factory)
+
+ 11:         124 LOAD_FAST            (self)
+             126 LOAD_ATTR            (NULL|self + _init_db)
+             146 CALL                 (0 positional)
+             154 POP_TOP
+             156 RETURN_CONST         (None)
+
+
+# Method Name:       _init_db
+# Filename:          src\db.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  3
+# Stack size:        6
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        13
+# Constants:
+#    0: None
+#    1: "\n                CREATE TABLE IF NOT EXISTS channels (\n                    name TEXT PRIMARY KEY,\n                    streak TEXT DEFAULT '?',\n                    status TEXT DEFAULT 'baseline',\n                    is_live BOOLEAN DEFAULT 0,\n                    last_update TEXT DEFAULT 'Nie',\n                    error_count INTEGER DEFAULT 0,\n                    offline_checks INTEGER DEFAULT 0,\n                    is_ignored INTEGER DEFAULT 0\n                )\n            "
+#    2: 'ALTER TABLE channels ADD COLUMN is_ignored INTEGER DEFAULT 0'
+#    3: 'ALTER TABLE channels ADD COLUMN favorite_priority INTEGER DEFAULT 0'
+#    4: 'ALTER TABLE channels ADD COLUMN offline_since TEXT DEFAULT NULL'
+#    5: 'ALTER TABLE channels ADD COLUMN points_balance INTEGER DEFAULT 0'
+#    6: 'ALTER TABLE channels ADD COLUMN points_earned_by_bot INTEGER DEFAULT 0'
+#    7: 'ALTER TABLE channels ADD COLUMN chests_claimed INTEGER DEFAULT 0'
+#    8: "ALTER TABLE channels ADD COLUMN sub_tier TEXT DEFAULT 'Keins'"
+#    9: '\n                CREATE TABLE IF NOT EXISTS activity_log (\n                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n                    channel TEXT,\n                    event_type TEXT,\n                    message TEXT,\n                    timestamp TEXT\n                )\n            '
+#   10: '\n                CREATE TABLE IF NOT EXISTS settings (\n                    key TEXT PRIMARY KEY,\n                    value TEXT\n                )\n            '
+#   11: 'SELECT COUNT(*) FROM settings'
+#   12: 0
+#   13: (('radar_interval_minutes', '15'), ('worker_limit', '3'), ('series_check_minutes', '3'), ('max_watch_minutes', '45'), ('headless_mode', '1'), ('mute_audio', '1'), ('auto_cookie', '1'), ('auto_rules', '1'), ('auto_18plus', '1'), ('initial_setup_done', '0'))
+#   14: 'INSERT INTO settings (key, value) VALUES (?, ?)'
+# Names:
+#    0: conn
+#    1: execute
+#    2: sqlite3
+#    3: OperationalError
+#    4: cursor
+#    5: fetchone
+#    6: executemany
+# Varnames:
+#	self, cursor, defaults
+# Positional arguments:
+#	self
+# Local variables:
+#    1: cursor
+#    2: defaults
+
+ 13:           0 RESUME               0
+
+ 14:           2 LOAD_FAST            (self)
+               4 LOAD_ATTR            (conn)
+              24 BEFORE_WITH
+              26 POP_TOP
+
+ 15:          28 LOAD_FAST            (self)
+              30 LOAD_ATTR            (conn)
+              50 LOAD_ATTR            (NULL|self + execute)
+              70 LOAD_CONST           ("\n                CREATE TABLE IF NOT EXISTS channels (\n                    name TEXT PRIMARY KEY,\n                    streak TEXT DEFAULT '?',\n                    status TEXT DEFAULT 'baseline',\n                    is_live BOOLEAN DEFAULT 0,\n                    last_update TEXT DEFAULT 'Nie',\n                    error_count INTEGER DEFAULT 0,\n                    offline_checks INTEGER DEFAULT 0,\n                    is_ignored INTEGER DEFAULT 0\n                )\n            ")
+              72 CALL                 (1 positional)
+              80 POP_TOP
+
+ 28:          82 NOP
+
+ 29:          84 LOAD_FAST            (self)
+              86 LOAD_ATTR            (conn)
+             106 LOAD_ATTR            (NULL|self + execute)
+             126 LOAD_CONST           ("ALTER TABLE channels ADD COLUMN is_ignored INTEGER DEFAULT 0")
+             128 CALL                 (1 positional)
+             136 POP_TOP
+
+ 32:         138 NOP
+
+ 33:         140 LOAD_FAST            (self)
+             142 LOAD_ATTR            (conn)
+             162 LOAD_ATTR            (NULL|self + execute)
+             182 LOAD_CONST           ("ALTER TABLE channels ADD COLUMN favorite_priority INTEGER DEFAULT 0")
+             184 CALL                 (1 positional)
+             192 POP_TOP
+
+ 36:         194 NOP
+
+ 37:         196 LOAD_FAST            (self)
+             198 LOAD_ATTR            (conn)
+             218 LOAD_ATTR            (NULL|self + execute)
+             238 LOAD_CONST           ("ALTER TABLE channels ADD COLUMN offline_since TEXT DEFAULT NULL")
+             240 CALL                 (1 positional)
+             248 POP_TOP
+
+ 40:         250 NOP
+
+ 41:         252 LOAD_FAST            (self)
+             254 LOAD_ATTR            (conn)
+             274 LOAD_ATTR            (NULL|self + execute)
+             294 LOAD_CONST           ("ALTER TABLE channels ADD COLUMN points_balance INTEGER DEFAULT 0")
+             296 CALL                 (1 positional)
+             304 POP_TOP
+
+ 44:         306 NOP
+
+ 45:         308 LOAD_FAST            (self)
+             310 LOAD_ATTR            (conn)
+             330 LOAD_ATTR            (NULL|self + execute)
+             350 LOAD_CONST           ("ALTER TABLE channels ADD COLUMN points_earned_by_bot INTEGER DEFAULT 0")
+             352 CALL                 (1 positional)
+             360 POP_TOP
+
+ 48:         362 NOP
+
+ 49:         364 LOAD_FAST            (self)
+             366 LOAD_ATTR            (conn)
+             386 LOAD_ATTR            (NULL|self + execute)
+             406 LOAD_CONST           ("ALTER TABLE channels ADD COLUMN chests_claimed INTEGER DEFAULT 0")
+             408 CALL                 (1 positional)
+             416 POP_TOP
+
+ 52:         418 NOP
+
+ 53:         420 LOAD_FAST            (self)
+             422 LOAD_ATTR            (conn)
+             442 LOAD_ATTR            (NULL|self + execute)
+             462 LOAD_CONST           ("ALTER TABLE channels ADD COLUMN sub_tier TEXT DEFAULT 'Keins'")
+             464 CALL                 (1 positional)
+             472 POP_TOP
+
+ 56:         474 LOAD_FAST            (self)
+             476 LOAD_ATTR            (conn)
+             496 LOAD_ATTR            (NULL|self + execute)
+             516 LOAD_CONST           ("\n                CREATE TABLE IF NOT EXISTS activity_log (\n                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n                    channel TEXT,\n                    event_type TEXT,\n                    message TEXT,\n                    timestamp TEXT\n                )\n            ")
+             518 CALL                 (1 positional)
+             526 POP_TOP
+
+ 65:         528 LOAD_FAST            (self)
+             530 LOAD_ATTR            (conn)
+             550 LOAD_ATTR            (NULL|self + execute)
+             570 LOAD_CONST           ("\n                CREATE TABLE IF NOT EXISTS settings (\n                    key TEXT PRIMARY KEY,\n                    value TEXT\n                )\n            ")
+             572 CALL                 (1 positional)
+             580 POP_TOP
+
+ 72:         582 LOAD_FAST            (self)
+             584 LOAD_ATTR            (conn)
+             604 LOAD_ATTR            (NULL|self + cursor)
+             624 CALL                 (0 positional)
+             632 STORE_FAST           (cursor)
+
+ 73:         634 LOAD_FAST            (cursor)
+             636 LOAD_ATTR            (NULL|self + execute)
+             656 LOAD_CONST           ("SELECT COUNT(*) FROM settings")
+             658 CALL                 (1 positional)
+             666 POP_TOP
+
+ 74:         668 LOAD_FAST            (cursor)
+             670 LOAD_ATTR            (NULL|self + fetchone)
+             690 CALL                 (0 positional)
+             698 LOAD_CONST           (0)
+             700 BINARY_SUBSCR
+             704 LOAD_CONST           (0)
+             706 COMPARE_OP           (==)
+             710 POP_JUMP_IF_FALSE    (to 758)
+
+ 75:         714 BUILD_LIST           0
+             716 LOAD_CONST           ((('radar_interval_minutes', '15'), ('worker_limit', '3'), ('series_check_minutes', '3'), ('max_watch_minutes', '45'), ('headless_mode', '1'), ('mute_audio', '1'), ('auto_cookie', '1'), ('auto_rules', '1'), ('auto_18plus', '1'), ('initial_setup_done', '0')))
+             718 LIST_EXTEND          1
+             720 STORE_FAST           (defaults)
+
+ 87:         722 LOAD_FAST            (cursor)
+             724 LOAD_ATTR            (NULL|self + executemany)
+             744 LOAD_CONST           ("INSERT INTO settings (key, value) VALUES (?, ?)")
+             746 LOAD_FAST            (defaults)
+             748 CALL                 (2 positional)
+             756 POP_TOP
+
+ 14:     >>  758 LOAD_CONST           (None)
+             760 LOAD_CONST           (None)
+             762 LOAD_CONST           (None)
+             764 CALL                 (2 positional)
+             772 POP_TOP
+             774 RETURN_CONST         (None)
+             776 PUSH_EXC_INFO
+
+ 30:         778 LOAD_GLOBAL          (sqlite3)
+             788 LOAD_ATTR            (OperationalError)
+             808 CHECK_EXC_MATCH
+             810 POP_JUMP_IF_FALSE    (to 822)
+             814 POP_TOP
+
+ 31:         816 POP_EXCEPT
+             818 EXTENDED_ARG         (256)
+             820 JUMP_BACKWARD_NO_INTERRUPT (to 138)
+
+ 30:     >>  822 RERAISE              0
+             824 COPY                 3
+             826 POP_EXCEPT
+             828 RERAISE              1
+             830 PUSH_EXC_INFO
+
+ 34:         832 LOAD_GLOBAL          (sqlite3)
+             842 LOAD_ATTR            (OperationalError)
+             862 CHECK_EXC_MATCH
+             864 POP_JUMP_IF_FALSE    (to 876)
+             868 POP_TOP
+
+ 35:         870 POP_EXCEPT
+             872 EXTENDED_ARG         (256)
+             874 JUMP_BACKWARD_NO_INTERRUPT (to 194)
+
+ 34:     >>  876 RERAISE              0
+             878 COPY                 3
+             880 POP_EXCEPT
+             882 RERAISE              1
+             884 PUSH_EXC_INFO
+
+ 38:         886 LOAD_GLOBAL          (sqlite3)
+             896 LOAD_ATTR            (OperationalError)
+             916 CHECK_EXC_MATCH
+             918 POP_JUMP_IF_FALSE    (to 930)
+             922 POP_TOP
+
+ 39:         924 POP_EXCEPT
+             926 EXTENDED_ARG         (256)
+             928 JUMP_BACKWARD_NO_INTERRUPT (to 250)
+
+ 38:     >>  930 RERAISE              0
+             932 COPY                 3
+             934 POP_EXCEPT
+             936 RERAISE              1
+             938 PUSH_EXC_INFO
+
+ 42:         940 LOAD_GLOBAL          (sqlite3)
+             950 LOAD_ATTR            (OperationalError)
+             970 CHECK_EXC_MATCH
+             972 POP_JUMP_IF_FALSE    (to 984)
+             976 POP_TOP
+
+ 43:         978 POP_EXCEPT
+             980 EXTENDED_ARG         (256)
+             982 JUMP_BACKWARD_NO_INTERRUPT (to 306)
+
+ 42:     >>  984 RERAISE              0
+             986 COPY                 3
+             988 POP_EXCEPT
+             990 RERAISE              1
+             992 PUSH_EXC_INFO
+
+ 46:         994 LOAD_GLOBAL          (sqlite3)
+            1004 LOAD_ATTR            (OperationalError)
+            1024 CHECK_EXC_MATCH
+            1026 POP_JUMP_IF_FALSE    (to 1038)
+            1030 POP_TOP
+
+ 47:        1032 POP_EXCEPT
+            1034 EXTENDED_ARG         (256)
+            1036 JUMP_BACKWARD_NO_INTERRUPT (to 362)
+
+ 46:     >> 1038 RERAISE              0
+            1040 COPY                 3
+            1042 POP_EXCEPT
+            1044 RERAISE              1
+            1046 PUSH_EXC_INFO
+
+ 50:        1048 LOAD_GLOBAL          (sqlite3)
+            1058 LOAD_ATTR            (OperationalError)
+            1078 CHECK_EXC_MATCH
+            1080 POP_JUMP_IF_FALSE    (to 1092)
+            1084 POP_TOP
+
+ 51:        1086 POP_EXCEPT
+            1088 EXTENDED_ARG         (256)
+            1090 JUMP_BACKWARD_NO_INTERRUPT (to 418)
+
+ 50:     >> 1092 RERAISE              0
+            1094 COPY                 3
+            1096 POP_EXCEPT
+            1098 RERAISE              1
+            1100 PUSH_EXC_INFO
+
+ 54:        1102 LOAD_GLOBAL          (sqlite3)
+            1112 LOAD_ATTR            (OperationalError)
+            1132 CHECK_EXC_MATCH
+            1134 POP_JUMP_IF_FALSE    (to 1146)
+            1138 POP_TOP
+
+ 55:        1140 POP_EXCEPT
+            1142 EXTENDED_ARG         (256)
+            1144 JUMP_BACKWARD_NO_INTERRUPT (to 474)
+
+ 54:     >> 1146 RERAISE              0
+            1148 COPY                 3
+            1150 POP_EXCEPT
+            1152 RERAISE              1
+
+ 14:        1154 PUSH_EXC_INFO
+            1156 WITH_EXCEPT_START    0
+            1158 TO_BOOL
+            1166 POP_JUMP_IF_TRUE     (to 1172)
+            1170 RERAISE              2
+         >> 1172 POP_TOP
+            1174 POP_EXCEPT
+            1176 POP_TOP
+            1178 POP_TOP
+            1180 RETURN_CONST         (None)
+            1182 COPY                 3
+            1184 POP_EXCEPT
+            1186 RERAISE              1
+
+ExceptionTable:
+  26 to 80 -> 1154 [1] lasti
+  84 to 136 -> 776 [1]
+  140 to 192 -> 830 [1]
+  196 to 248 -> 884 [1]
+  252 to 304 -> 938 [1]
+  308 to 360 -> 992 [1]
+  364 to 416 -> 1046 [1]
+  420 to 472 -> 1100 [1]
+  474 to 756 -> 1154 [1] lasti
+  776 to 814 -> 824 [2] lasti
+  816 to 820 -> 1154 [1] lasti
+  822 to 822 -> 824 [2] lasti
+  824 to 828 -> 1154 [1] lasti
+  830 to 868 -> 878 [2] lasti
+  870 to 874 -> 1154 [1] lasti
+  876 to 876 -> 878 [2] lasti
+  878 to 882 -> 1154 [1] lasti
+  884 to 922 -> 932 [2] lasti
+  924 to 928 -> 1154 [1] lasti
+  930 to 930 -> 932 [2] lasti
+  932 to 936 -> 1154 [1] lasti
+  938 to 976 -> 986 [2] lasti
+  978 to 982 -> 1154 [1] lasti
+  984 to 984 -> 986 [2] lasti
+  986 to 990 -> 1154 [1] lasti
+  992 to 1030 -> 1040 [2] lasti
+  1032 to 1036 -> 1154 [1] lasti
+  1038 to 1038 -> 1040 [2] lasti
+  1040 to 1044 -> 1154 [1] lasti
+  1046 to 1084 -> 1094 [2] lasti
+  1086 to 1090 -> 1154 [1] lasti
+  1092 to 1092 -> 1094 [2] lasti
+  1094 to 1098 -> 1154 [1] lasti
+  1100 to 1138 -> 1148 [2] lasti
+  1140 to 1144 -> 1154 [1] lasti
+  1146 to 1146 -> 1148 [2] lasti
+  1148 to 1152 -> 1154 [1] lasti
+  1154 to 1172 -> 1182 [3] lasti
+
+# Method Name:       get_setting
+# Filename:          src\db.py
+# Argument count:    3
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  5
+# Stack size:        4
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        89
+# Constants:
+#    0: None
+#    1: 'SELECT value FROM settings WHERE key = ?'
+#    2: 'value'
+# Names:
+#    0: conn
+#    1: cursor
+#    2: execute
+#    3: fetchone
+# Varnames:
+#	self, key, default, cursor, row
+# Positional arguments:
+#	self, key, default
+# Local variables:
+#    3: cursor
+#    4: row
+
+ 89:           0 RESUME               0
+
+ 90:           2 LOAD_FAST            (self)
+               4 LOAD_ATTR            (conn)
+              24 LOAD_ATTR            (NULL|self + cursor)
+              44 CALL                 (0 positional)
+              52 STORE_FAST           (cursor)
+
+ 91:          54 LOAD_FAST            (cursor)
+              56 LOAD_ATTR            (NULL|self + execute)
+              76 LOAD_CONST           ("SELECT value FROM settings WHERE key = ?")
+              78 LOAD_FAST            (key)
+              80 BUILD_TUPLE          1
+              82 CALL                 (2 positional)
+              90 POP_TOP
+
+ 92:          92 LOAD_FAST            (cursor)
+              94 LOAD_ATTR            (NULL|self + fetchone)
+             114 CALL                 (0 positional)
+             122 STORE_FAST           (row)
+
+ 93:         124 LOAD_FAST            (row)
+             126 TO_BOOL
+             134 POP_JUMP_IF_FALSE    (to 148)
+             138 LOAD_FAST            (row)
+             140 LOAD_CONST           ("value")
+             142 BINARY_SUBSCR
+             146 RETURN_VALUE
+         >>  148 LOAD_FAST            (default)
+             150 RETURN_VALUE
+
+
+# Method Name:       set_setting
+# Filename:          src\db.py
+# Argument count:    3
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  3
+# Stack size:        8
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        95
+# Constants:
+#    0: None
+#    1: 'INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)'
+# Names:
+#    0: conn
+#    1: execute
+#    2: str
+# Varnames:
+#	self, key, value
+# Positional arguments:
+#	self, key, value
+
+ 95:           0 RESUME               0
+
+ 96:           2 LOAD_FAST            (self)
+               4 LOAD_ATTR            (conn)
+              24 BEFORE_WITH
+              26 POP_TOP
+
+ 97:          28 LOAD_FAST            (self)
+              30 LOAD_ATTR            (conn)
+              50 LOAD_ATTR            (NULL|self + execute)
+              70 LOAD_CONST           ("INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)")
+              72 LOAD_FAST            (key)
+              74 LOAD_GLOBAL          (NULL + str)
+              84 LOAD_FAST            (value)
+              86 CALL                 (1 positional)
+              94 BUILD_TUPLE          2
+              96 CALL                 (2 positional)
+             104 POP_TOP
+
+ 96:         106 LOAD_CONST           (None)
+             108 LOAD_CONST           (None)
+             110 LOAD_CONST           (None)
+             112 CALL                 (2 positional)
+             120 POP_TOP
+             122 RETURN_CONST         (None)
+             124 PUSH_EXC_INFO
+             126 WITH_EXCEPT_START    0
+             128 TO_BOOL
+             136 POP_JUMP_IF_TRUE     (to 142)
+             140 RERAISE              2
+         >>  142 POP_TOP
+             144 POP_EXCEPT
+             146 POP_TOP
+             148 POP_TOP
+             150 RETURN_CONST         (None)
+             152 COPY                 3
+             154 POP_EXCEPT
+             156 RERAISE              1
+
+ExceptionTable:
+  26 to 104 -> 124 [1] lasti
+  124 to 142 -> 152 [3] lasti
+
+# Method Name:       get_all_settings
+# Filename:          src\db.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  3
+# Stack size:        6
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        99
+# Constants:
+#    0: None
+#    1: 'SELECT key, value FROM settings'
+#    2: 'key'
+#    3: 'value'
+# Names:
+#    0: conn
+#    1: cursor
+#    2: execute
+#    3: fetchall
+# Varnames:
+#	self, cursor, row
+# Positional arguments:
+#	self
+# Local variables:
+#    1: cursor
+#    2: row
+
+ 99:           0 RESUME               0
+
+100:           2 LOAD_FAST            (self)
+               4 LOAD_ATTR            (conn)
+              24 LOAD_ATTR            (NULL|self + cursor)
+              44 CALL                 (0 positional)
+              52 STORE_FAST           (cursor)
+
+101:          54 LOAD_FAST            (cursor)
+              56 LOAD_ATTR            (NULL|self + execute)
+              76 LOAD_CONST           ("SELECT key, value FROM settings")
+              78 CALL                 (1 positional)
+              86 POP_TOP
+
+102:          88 LOAD_FAST            (cursor)
+              90 LOAD_ATTR            (NULL|self + fetchall)
+             110 CALL                 (0 positional)
+             118 GET_ITER
+             120 LOAD_FAST_AND_CLEAR  (row)
+             122 SWAP                 (TOS <-> TOS1)
+             124 BUILD_MAP            0
+             126 SWAP                 (TOS <-> TOS1)
+             128 GET_ITER
+             130 FOR_ITER             (to 156)
+             134 STORE_FAST_LOAD_FAST (row, row)
+             136 LOAD_CONST           ("key")
+             138 BINARY_SUBSCR
+             142 LOAD_FAST            (row)
+             144 LOAD_CONST           ("value")
+             146 BINARY_SUBSCR
+             150 MAP_ADD              2
+             152 JUMP_BACKWARD        (to 130)
+         >>  156 END_FOR
+             158 POP_TOP
+             160 SWAP                 (TOS <-> TOS1)
+             162 STORE_FAST           (row)
+             164 RETURN_VALUE
+             166 SWAP                 (TOS <-> TOS1)
+             168 POP_TOP
+
+102:         170 SWAP                 (TOS <-> TOS1)
+             172 STORE_FAST           (row)
+             174 RERAISE              0
+
+ExceptionTable:
+  124 to 158 -> 166 [2]
+
+# Method Name:       get_channel
+# Filename:          src\db.py
+# Argument count:    2
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  4
+# Stack size:        4
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        104
+# Constants:
+#    0: None
+#    1: 'SELECT * FROM channels WHERE name = ?'
+# Names:
+#    0: conn
+#    1: cursor
+#    2: execute
+#    3: fetchone
+#    4: dict
+# Varnames:
+#	self, name, cursor, row
+# Positional arguments:
+#	self, name
+# Local variables:
+#    2: cursor
+#    3: row
+
+104:           0 RESUME               0
+
+105:           2 LOAD_FAST            (self)
+               4 LOAD_ATTR            (conn)
+              24 LOAD_ATTR            (NULL|self + cursor)
+              44 CALL                 (0 positional)
+              52 STORE_FAST           (cursor)
+
+106:          54 LOAD_FAST            (cursor)
+              56 LOAD_ATTR            (NULL|self + execute)
+              76 LOAD_CONST           ("SELECT * FROM channels WHERE name = ?")
+              78 LOAD_FAST            (name)
+              80 BUILD_TUPLE          1
+              82 CALL                 (2 positional)
+              90 POP_TOP
+
+107:          92 LOAD_FAST            (cursor)
+              94 LOAD_ATTR            (NULL|self + fetchone)
+             114 CALL                 (0 positional)
+             122 STORE_FAST           (row)
+
+108:         124 LOAD_FAST            (row)
+             126 TO_BOOL
+             134 POP_JUMP_IF_FALSE    (to 160)
+             138 LOAD_GLOBAL          (NULL + dict)
+             148 LOAD_FAST            (row)
+             150 CALL                 (1 positional)
+             158 RETURN_VALUE
+         >>  160 LOAD_CONST           (None)
+             162 RETURN_VALUE
+
+
+# Method Name:       get_all_channels
+# Filename:          src\db.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  3
+# Stack size:        7
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        110
+# Constants:
+#    0: None
+#    1: 'SELECT * FROM channels'
+#    2: 'name'
+# Names:
+#    0: conn
+#    1: cursor
+#    2: execute
+#    3: fetchall
+#    4: dict
+# Varnames:
+#	self, cursor, row
+# Positional arguments:
+#	self
+# Local variables:
+#    1: cursor
+#    2: row
+
+110:           0 RESUME               0
+
+111:           2 LOAD_FAST            (self)
+               4 LOAD_ATTR            (conn)
+              24 LOAD_ATTR            (NULL|self + cursor)
+              44 CALL                 (0 positional)
+              52 STORE_FAST           (cursor)
+
+112:          54 LOAD_FAST            (cursor)
+              56 LOAD_ATTR            (NULL|self + execute)
+              76 LOAD_CONST           ("SELECT * FROM channels")
+              78 CALL                 (1 positional)
+              86 POP_TOP
+
+113:          88 LOAD_FAST            (cursor)
+              90 LOAD_ATTR            (NULL|self + fetchall)
+             110 CALL                 (0 positional)
+             118 GET_ITER
+             120 LOAD_FAST_AND_CLEAR  (row)
+             122 SWAP                 (TOS <-> TOS1)
+             124 BUILD_MAP            0
+             126 SWAP                 (TOS <-> TOS1)
+             128 GET_ITER
+             130 FOR_ITER             (to 168)
+             134 STORE_FAST_LOAD_FAST (row, row)
+             136 LOAD_CONST           ("name")
+             138 BINARY_SUBSCR
+             142 LOAD_GLOBAL          (NULL + dict)
+             152 LOAD_FAST            (row)
+             154 CALL                 (1 positional)
+             162 MAP_ADD              2
+             164 JUMP_BACKWARD        (to 130)
+         >>  168 END_FOR
+             170 POP_TOP
+             172 SWAP                 (TOS <-> TOS1)
+             174 STORE_FAST           (row)
+             176 RETURN_VALUE
+             178 SWAP                 (TOS <-> TOS1)
+             180 POP_TOP
+
+113:         182 SWAP                 (TOS <-> TOS1)
+             184 STORE_FAST           (row)
+             186 RERAISE              0
+
+ExceptionTable:
+  124 to 170 -> 178 [2]
+
+# Method Name:       upsert_channel
+# Filename:          src\db.py
+# Argument count:    15
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  16
+# Stack size:        19
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        115
+# Constants:
+#    0: None
+#    1: '?'
+#    2: 'baseline'
+#    3: 0
+#    4: 'Nie'
+#    5: 'Keins'
+#    6: ('name', 'streak', 'status', 'is_live', 'last_update', 'error_count', 'offline_checks', 'is_ignored', 'favorite_priority', 'offline_since', 'points_balance', 'points_earned_by_bot', 'chests_claimed', 'sub_tier')
+#    7: 'favorite_priority'
+#    8: 'offline_since'
+#    9: 'points_balance'
+#   10: 'points_earned_by_bot'
+#   11: 'chests_claimed'
+#   12: 'sub_tier'
+#   13: 'streak'
+#   14: 'status'
+#   15: 1
+#   16: 'is_live'
+#   17: 'last_update'
+#   18: 'error_count'
+#   19: 'offline_checks'
+#   20: 'is_ignored'
+#   21: 'CLEAR'
+#   22: '\n                INSERT OR REPLACE INTO channels \n                (name, streak, status, is_live, last_update, error_count, offline_checks, is_ignored, favorite_priority, offline_since, points_balance, points_earned_by_bot, chests_claimed, sub_tier)\n                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)\n            '
+#   23: 'name'
+# Names:
+#    0: get_channel
+#    1: conn
+#    2: execute
+# Varnames:
+#	self, name, streak, status, is_live, last_update, error_count, offline_checks, is_ignored, favorite_priority, offline_since, points_balance, points_earned_by_bot, chests_claimed, sub_tier, channel
+# Positional arguments:
+#	self, name, streak, status, is_live, last_update, error_count, offline_checks, is_ignored, favorite_priority, offline_since, points_balance, points_earned_by_bot, chests_claimed, sub_tier
+# Local variables:
+#   15: channel
+
+115:           0 RESUME               0
+
+116:           2 LOAD_FAST            (self)
+               4 LOAD_ATTR            (NULL|self + get_channel)
+              24 LOAD_FAST            (name)
+              26 CALL                 (1 positional)
+              34 STORE_FAST           (channel)
+
+117:          36 LOAD_FAST            (channel)
+              38 TO_BOOL
+              46 POP_JUMP_IF_TRUE     (to 84)
+
+119:          50 LOAD_FAST            (name)
+
+120:          52 LOAD_CONST           ("?")
+
+121:          54 LOAD_CONST           ("baseline")
+
+122:          56 LOAD_CONST           (0)
+
+123:          58 LOAD_CONST           ("Nie")
+
+124:          60 LOAD_CONST           (0)
+
+125:          62 LOAD_CONST           (0)
+
+126:          64 LOAD_CONST           (0)
+
+127:          66 LOAD_CONST           (0)
+
+128:          68 LOAD_CONST           (None)
+
+129:          70 LOAD_CONST           (0)
+
+130:          72 LOAD_CONST           (0)
+
+131:          74 LOAD_CONST           (0)
+
+132:          76 LOAD_CONST           ("Keins")
+
+118:          78 LOAD_CONST           (('name', 'streak', 'status', 'is_live', 'last_update', 'error_count', 'offline_checks', 'is_ignored', 'favorite_priority', 'offline_since', 'points_balance', 'points_earned_by_bot', 'chests_claimed', 'sub_tier'))
+              80 BUILD_CONST_KEY_MAP  14
+              82 STORE_FAST           (channel)
+
+136:     >>   84 LOAD_CONST           ("favorite_priority")
+              86 LOAD_FAST            (channel)
+              88 CONTAINS_OP          (not in)
+              92 POP_JUMP_IF_FALSE    (to 106)
+              96 LOAD_CONST           (0)
+              98 LOAD_FAST            (channel)
+             100 LOAD_CONST           ("favorite_priority")
+             102 STORE_SUBSCR
+
+137:     >>  106 LOAD_CONST           ("offline_since")
+             108 LOAD_FAST            (channel)
+             110 CONTAINS_OP          (not in)
+             114 POP_JUMP_IF_FALSE    (to 128)
+             118 LOAD_CONST           (None)
+             120 LOAD_FAST            (channel)
+             122 LOAD_CONST           ("offline_since")
+             124 STORE_SUBSCR
+
+138:     >>  128 LOAD_CONST           ("points_balance")
+             130 LOAD_FAST            (channel)
+             132 CONTAINS_OP          (not in)
+             136 POP_JUMP_IF_FALSE    (to 150)
+             140 LOAD_CONST           (0)
+             142 LOAD_FAST            (channel)
+             144 LOAD_CONST           ("points_balance")
+             146 STORE_SUBSCR
+
+139:     >>  150 LOAD_CONST           ("points_earned_by_bot")
+             152 LOAD_FAST            (channel)
+             154 CONTAINS_OP          (not in)
+             158 POP_JUMP_IF_FALSE    (to 172)
+             162 LOAD_CONST           (0)
+             164 LOAD_FAST            (channel)
+             166 LOAD_CONST           ("points_earned_by_bot")
+             168 STORE_SUBSCR
+
+140:     >>  172 LOAD_CONST           ("chests_claimed")
+             174 LOAD_FAST            (channel)
+             176 CONTAINS_OP          (not in)
+             180 POP_JUMP_IF_FALSE    (to 194)
+             184 LOAD_CONST           (0)
+             186 LOAD_FAST            (channel)
+             188 LOAD_CONST           ("chests_claimed")
+             190 STORE_SUBSCR
+
+141:     >>  194 LOAD_CONST           ("sub_tier")
+             196 LOAD_FAST            (channel)
+             198 CONTAINS_OP          (not in)
+             202 POP_JUMP_IF_FALSE    (to 216)
+             206 LOAD_CONST           ("Keins")
+             208 LOAD_FAST            (channel)
+             210 LOAD_CONST           ("sub_tier")
+             212 STORE_SUBSCR
+
+143:     >>  216 LOAD_FAST            (streak)
+             218 POP_JUMP_IF_NONE     (to 230)
+             222 LOAD_FAST_LOAD_FAST  (streak, channel)
+             224 LOAD_CONST           ("streak")
+             226 STORE_SUBSCR
+
+144:     >>  230 LOAD_FAST            (status)
+             232 POP_JUMP_IF_NONE     (to 244)
+             236 LOAD_FAST_LOAD_FAST  (status, channel)
+             238 LOAD_CONST           ("status")
+             240 STORE_SUBSCR
+
+145:     >>  244 LOAD_FAST            (is_live)
+             246 POP_JUMP_IF_NONE     (to 278)
+             250 LOAD_FAST            (is_live)
+             252 TO_BOOL
+             260 POP_JUMP_IF_FALSE    (to 268)
+             264 LOAD_CONST           (1)
+             266 JUMP_FORWARD         (to 270)
+         >>  268 LOAD_CONST           (0)
+         >>  270 LOAD_FAST            (channel)
+             272 LOAD_CONST           ("is_live")
+             274 STORE_SUBSCR
+
+146:     >>  278 LOAD_FAST            (last_update)
+             280 POP_JUMP_IF_NONE     (to 292)
+             284 LOAD_FAST_LOAD_FAST  (last_update, channel)
+             286 LOAD_CONST           ("last_update")
+             288 STORE_SUBSCR
+
+147:     >>  292 LOAD_FAST            (error_count)
+             294 POP_JUMP_IF_NONE     (to 306)
+             298 LOAD_FAST_LOAD_FAST  (error_count, channel)
+             300 LOAD_CONST           ("error_count")
+             302 STORE_SUBSCR
+
+148:     >>  306 LOAD_FAST            (offline_checks)
+             308 POP_JUMP_IF_NONE     (to 320)
+             312 LOAD_FAST_LOAD_FAST  (offline_checks, channel)
+             314 LOAD_CONST           ("offline_checks")
+             316 STORE_SUBSCR
+
+149:     >>  320 LOAD_FAST            (is_ignored)
+             322 POP_JUMP_IF_NONE     (to 354)
+             326 LOAD_FAST            (is_ignored)
+             328 TO_BOOL
+             336 POP_JUMP_IF_FALSE    (to 344)
+             340 LOAD_CONST           (1)
+             342 JUMP_FORWARD         (to 346)
+         >>  344 LOAD_CONST           (0)
+         >>  346 LOAD_FAST            (channel)
+             348 LOAD_CONST           ("is_ignored")
+             350 STORE_SUBSCR
+
+150:     >>  354 LOAD_FAST            (favorite_priority)
+             356 POP_JUMP_IF_NONE     (to 368)
+             360 LOAD_FAST_LOAD_FAST  (favorite_priority, channel)
+             362 LOAD_CONST           ("favorite_priority")
+             364 STORE_SUBSCR
+
+151:     >>  368 LOAD_FAST            (points_balance)
+             370 POP_JUMP_IF_NONE     (to 382)
+             374 LOAD_FAST_LOAD_FAST  (points_balance, channel)
+             376 LOAD_CONST           ("points_balance")
+             378 STORE_SUBSCR
+
+152:     >>  382 LOAD_FAST            (points_earned_by_bot)
+             384 POP_JUMP_IF_NONE     (to 396)
+             388 LOAD_FAST_LOAD_FAST  (points_earned_by_bot, channel)
+             390 LOAD_CONST           ("points_earned_by_bot")
+             392 STORE_SUBSCR
+
+153:     >>  396 LOAD_FAST            (chests_claimed)
+             398 POP_JUMP_IF_NONE     (to 410)
+             402 LOAD_FAST_LOAD_FAST  (chests_claimed, channel)
+             404 LOAD_CONST           ("chests_claimed")
+             406 STORE_SUBSCR
+
+154:     >>  410 LOAD_FAST            (sub_tier)
+             412 POP_JUMP_IF_NONE     (to 424)
+             416 LOAD_FAST_LOAD_FAST  (sub_tier, channel)
+             418 LOAD_CONST           ("sub_tier")
+             420 STORE_SUBSCR
+
+156:     >>  424 LOAD_FAST            (offline_since)
+             426 POP_JUMP_IF_NONE     (to 462)
+
+157:         430 LOAD_FAST            (offline_since)
+             432 LOAD_CONST           ("CLEAR")
+             434 COMPARE_OP           (==)
+             438 POP_JUMP_IF_FALSE    (to 454)
+
+158:         442 LOAD_CONST           (None)
+             444 LOAD_FAST            (channel)
+             446 LOAD_CONST           ("offline_since")
+             448 STORE_SUBSCR
+             452 JUMP_FORWARD         (to 462)
+
+160:     >>  454 LOAD_FAST_LOAD_FAST  (offline_since, channel)
+             456 LOAD_CONST           ("offline_since")
+             458 STORE_SUBSCR
+
+162:     >>  462 LOAD_FAST            (self)
+             464 LOAD_ATTR            (conn)
+             484 BEFORE_WITH
+             486 POP_TOP
+
+163:         488 LOAD_FAST            (self)
+             490 LOAD_ATTR            (conn)
+             510 LOAD_ATTR            (NULL|self + execute)
+             530 LOAD_CONST           ("\n                INSERT OR REPLACE INTO channels \n                (name, streak, status, is_live, last_update, error_count, offline_checks, is_ignored, favorite_priority, offline_since, points_balance, points_earned_by_bot, chests_claimed, sub_tier)\n                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)\n            ")
+
+168:         532 LOAD_FAST            (channel)
+             534 LOAD_CONST           ("name")
+             536 BINARY_SUBSCR
+             540 LOAD_FAST            (channel)
+             542 LOAD_CONST           ("streak")
+             544 BINARY_SUBSCR
+             548 LOAD_FAST            (channel)
+             550 LOAD_CONST           ("status")
+             552 BINARY_SUBSCR
+
+169:         556 LOAD_FAST            (channel)
+             558 LOAD_CONST           ("is_live")
+             560 BINARY_SUBSCR
+             564 LOAD_FAST            (channel)
+             566 LOAD_CONST           ("last_update")
+             568 BINARY_SUBSCR
+             572 LOAD_FAST            (channel)
+             574 LOAD_CONST           ("error_count")
+             576 BINARY_SUBSCR
+             580 LOAD_FAST            (channel)
+             582 LOAD_CONST           ("offline_checks")
+             584 BINARY_SUBSCR
+
+170:         588 LOAD_FAST            (channel)
+             590 LOAD_CONST           ("is_ignored")
+             592 BINARY_SUBSCR
+             596 LOAD_FAST            (channel)
+             598 LOAD_CONST           ("favorite_priority")
+             600 BINARY_SUBSCR
+             604 LOAD_FAST            (channel)
+             606 LOAD_CONST           ("offline_since")
+             608 BINARY_SUBSCR
+
+171:         612 LOAD_FAST            (channel)
+             614 LOAD_CONST           ("points_balance")
+             616 BINARY_SUBSCR
+             620 LOAD_FAST            (channel)
+             622 LOAD_CONST           ("points_earned_by_bot")
+             624 BINARY_SUBSCR
+             628 LOAD_FAST            (channel)
+             630 LOAD_CONST           ("chests_claimed")
+             632 BINARY_SUBSCR
+
+172:         636 LOAD_FAST            (channel)
+             638 LOAD_CONST           ("sub_tier")
+             640 BINARY_SUBSCR
+
+167:         644 BUILD_TUPLE          14
+
+163:         646 CALL                 (2 positional)
+             654 POP_TOP
+
+162:         656 LOAD_CONST           (None)
+             658 LOAD_CONST           (None)
+             660 LOAD_CONST           (None)
+             662 CALL                 (2 positional)
+             670 POP_TOP
+             672 RETURN_CONST         (None)
+             674 PUSH_EXC_INFO
+             676 WITH_EXCEPT_START    0
+             678 TO_BOOL
+             686 POP_JUMP_IF_TRUE     (to 692)
+             690 RERAISE              2
+         >>  692 POP_TOP
+             694 POP_EXCEPT
+             696 POP_TOP
+             698 POP_TOP
+             700 RETURN_CONST         (None)
+             702 COPY                 3
+             704 POP_EXCEPT
+             706 RERAISE              1
+
+ExceptionTable:
+  486 to 654 -> 674 [1] lasti
+  674 to 692 -> 702 [3] lasti
+
+# Method Name:       log_activity
+# Filename:          src\db.py
+# Argument count:    4
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  5
+# Stack size:        8
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        175
+# Constants:
+#    0: None
+#    1: '%Y-%m-%d %H:%M:%S'
+#    2: '\n                    INSERT INTO activity_log (channel, event_type, message, timestamp)\n                    VALUES (?, ?, ?, ?)\n                '
+#    3: '\n                    DELETE FROM activity_log WHERE id NOT IN (\n                        SELECT id FROM activity_log ORDER BY id DESC LIMIT 1000\n                    )\n                '
+# Names:
+#    0: datetime
+#    1: now
+#    2: strftime
+#    3: conn
+#    4: execute
+#    5: Exception
+# Varnames:
+#	self, channel, event_type, message, now
+# Positional arguments:
+#	self, channel, event_type, message
+# Local variables:
+#    4: now
+
+175:           0 RESUME               0
+
+176:           2 NOP
+
+177:           4 LOAD_GLOBAL          (datetime)
+              14 LOAD_ATTR            (datetime)
+              34 LOAD_ATTR            (NULL|self + now)
+              54 CALL                 (0 positional)
+              62 LOAD_ATTR            (NULL|self + strftime)
+              82 LOAD_CONST           ("%Y-%m-%d %H:%M:%S")
+              84 CALL                 (1 positional)
+              92 STORE_FAST           (now)
+
+178:          94 LOAD_FAST            (self)
+              96 LOAD_ATTR            (conn)
+             116 BEFORE_WITH
+             118 POP_TOP
+
+179:         120 LOAD_FAST            (self)
+             122 LOAD_ATTR            (conn)
+             142 LOAD_ATTR            (NULL|self + execute)
+             162 LOAD_CONST           ("\n                    INSERT INTO activity_log (channel, event_type, message, timestamp)\n                    VALUES (?, ?, ?, ?)\n                ")
+
+182:         164 LOAD_FAST_LOAD_FAST  (channel, event_type)
+             166 LOAD_FAST_LOAD_FAST  (message, now)
+             168 BUILD_TUPLE          4
+
+179:         170 CALL                 (2 positional)
+             178 POP_TOP
+
+184:         180 LOAD_FAST            (self)
+             182 LOAD_ATTR            (conn)
+             202 LOAD_ATTR            (NULL|self + execute)
+             222 LOAD_CONST           ("\n                    DELETE FROM activity_log WHERE id NOT IN (\n                        SELECT id FROM activity_log ORDER BY id DESC LIMIT 1000\n                    )\n                ")
+             224 CALL                 (1 positional)
+             232 POP_TOP
+
+178:         234 LOAD_CONST           (None)
+             236 LOAD_CONST           (None)
+             238 LOAD_CONST           (None)
+             240 CALL                 (2 positional)
+             248 POP_TOP
+             250 RETURN_CONST         (None)
+             252 PUSH_EXC_INFO
+             254 WITH_EXCEPT_START    0
+             256 TO_BOOL
+             264 POP_JUMP_IF_TRUE     (to 270)
+             268 RERAISE              2
+         >>  270 POP_TOP
+             272 POP_EXCEPT
+             274 POP_TOP
+             276 POP_TOP
+             278 RETURN_CONST         (None)
+             280 COPY                 3
+             282 POP_EXCEPT
+             284 RERAISE              1
+             286 PUSH_EXC_INFO
+
+189:         288 LOAD_GLOBAL          (Exception)
+             298 CHECK_EXC_MATCH
+             300 POP_JUMP_IF_FALSE    (to 310)
+             304 POP_TOP
+
+190:         306 POP_EXCEPT
+             308 RETURN_CONST         (None)
+
+189:     >>  310 RERAISE              0
+             312 COPY                 3
+             314 POP_EXCEPT
+             316 RERAISE              1
+
+ExceptionTable:
+  4 to 116 -> 286 [0]
+  118 to 232 -> 252 [1] lasti
+  234 to 248 -> 286 [0]
+  252 to 270 -> 280 [3] lasti
+  272 to 276 -> 286 [0]
+  280 to 284 -> 286 [0]
+  286 to 304 -> 312 [1] lasti
+  310 to 310 -> 312 [1] lasti
+
+# Method Name:       get_activities
+# Filename:          src\db.py
+# Argument count:    2
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  4
+# Stack size:        6
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        192
+# Constants:
+#    0: None
+#    1: 'SELECT * FROM activity_log ORDER BY id DESC LIMIT ?'
+# Names:
+#    0: conn
+#    1: cursor
+#    2: execute
+#    3: fetchall
+#    4: dict
+#    5: Exception
+# Varnames:
+#	self, limit, cursor, row
+# Positional arguments:
+#	self, limit
+# Local variables:
+#    2: cursor
+#    3: row
+
+192:           0 RESUME               0
+
+193:           2 NOP
+
+194:           4 LOAD_FAST            (self)
+               6 LOAD_ATTR            (conn)
+              26 LOAD_ATTR            (NULL|self + cursor)
+              46 CALL                 (0 positional)
+              54 STORE_FAST           (cursor)
+
+195:          56 LOAD_FAST            (cursor)
+              58 LOAD_ATTR            (NULL|self + execute)
+              78 LOAD_CONST           ("SELECT * FROM activity_log ORDER BY id DESC LIMIT ?")
+              80 LOAD_FAST            (limit)
+              82 BUILD_TUPLE          1
+              84 CALL                 (2 positional)
+              92 POP_TOP
+
+196:          94 LOAD_FAST            (cursor)
+              96 LOAD_ATTR            (NULL|self + fetchall)
+             116 CALL                 (0 positional)
+             124 GET_ITER
+             126 LOAD_FAST_AND_CLEAR  (row)
+             128 SWAP                 (TOS <-> TOS1)
+             130 BUILD_LIST           0
+             132 SWAP                 (TOS <-> TOS1)
+             134 GET_ITER
+             136 FOR_ITER             (to 168)
+             140 STORE_FAST           (row)
+             142 LOAD_GLOBAL          (NULL + dict)
+             152 LOAD_FAST            (row)
+             154 CALL                 (1 positional)
+             162 LIST_APPEND          2
+             164 JUMP_BACKWARD        (to 136)
+         >>  168 END_FOR
+             170 POP_TOP
+             172 SWAP                 (TOS <-> TOS1)
+             174 STORE_FAST           (row)
+             176 RETURN_VALUE
+             178 SWAP                 (TOS <-> TOS1)
+             180 POP_TOP
+
+196:         182 SWAP                 (TOS <-> TOS1)
+             184 STORE_FAST           (row)
+             186 RERAISE              0
+             188 PUSH_EXC_INFO
+
+197:         190 LOAD_GLOBAL          (Exception)
+         >>  200 CHECK_EXC_MATCH
+             202 POP_JUMP_IF_FALSE    (to 216)
+             206 POP_TOP
+
+198:         208 BUILD_LIST           0
+             210 SWAP                 (TOS <-> TOS1)
+             212 POP_EXCEPT
+             214 RETURN_VALUE
+
+197:     >>  216 RERAISE              0
+             218 COPY                 3
+             220 POP_EXCEPT
+             222 RERAISE              1
+
+ExceptionTable:
+  4 to 128 -> 188 [0]
+  130 to 170 -> 178 [2]
+  172 to 174 -> 188 [0]
+  178 to 186 -> 188 [0]
+  188 to 210 -> 218 [1] lasti
+  216 to 216 -> 218 [1] lasti
+
+# Method Name:       delete_channel
+# Filename:          src\db.py
+# Argument count:    2
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  2
+# Stack size:        6
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        200
+# Constants:
+#    0: None
+#    1: 'DELETE FROM channels WHERE name = ?'
+# Names:
+#    0: conn
+#    1: execute
+# Varnames:
+#	self, name
+# Positional arguments:
+#	self, name
+
+200:           0 RESUME               0
+
+201:           2 LOAD_FAST            (self)
+               4 LOAD_ATTR            (conn)
+              24 BEFORE_WITH
+              26 POP_TOP
+
+202:          28 LOAD_FAST            (self)
+              30 LOAD_ATTR            (conn)
+              50 LOAD_ATTR            (NULL|self + execute)
+              70 LOAD_CONST           ("DELETE FROM channels WHERE name = ?")
+              72 LOAD_FAST            (name)
+              74 BUILD_TUPLE          1
+              76 CALL                 (2 positional)
+              84 POP_TOP
+
+201:          86 LOAD_CONST           (None)
+              88 LOAD_CONST           (None)
+              90 LOAD_CONST           (None)
+              92 CALL                 (2 positional)
+             100 POP_TOP
+             102 RETURN_CONST         (None)
+             104 PUSH_EXC_INFO
+             106 WITH_EXCEPT_START    0
+             108 TO_BOOL
+             116 POP_JUMP_IF_TRUE     (to 122)
+             120 RERAISE              2
+         >>  122 POP_TOP
+             124 POP_EXCEPT
+             126 POP_TOP
+             128 POP_TOP
+             130 RETURN_CONST         (None)
+             132 COPY                 3
+             134 POP_EXCEPT
+             136 RERAISE              1
+
+ExceptionTable:
+  26 to 84 -> 104 [1] lasti
+  104 to 122 -> 132 [3] lasti
+
+# Method Name:       backup_database
+# Filename:          src\db.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  6
+# Stack size:        8
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        204
+# Constants:
+#    0: None
+#    1: '%Y-%m-%d'
+#    2: 'twitchbot_backup_'
+#    3: '.db'
+#    4: 5
+#    5: 0
+# Names:
+#    0: datetime
+#    1: now
+#    2: strftime
+#    3: os
+#    4: path
+#    5: join
+#    6: BACKUP_DIR
+#    7: exists
+#    8: shutil
+#    9: copy2
+#   10: DB_PATH
+#   11: sorted
+#   12: listdir
+#   13: endswith
+#   14: len
+#   15: pop
+#   16: remove
+# Varnames:
+#	self, today, backup_file, f, backups, oldest
+# Positional arguments:
+#	self
+# Local variables:
+#    1: today
+#    2: backup_file
+#    3: f
+#    4: backups
+#    5: oldest
+
+204:           0 RESUME               0
+
+205:           2 LOAD_GLOBAL          (datetime)
+              12 LOAD_ATTR            (datetime)
+              32 LOAD_ATTR            (NULL|self + now)
+              52 CALL                 (0 positional)
+              60 LOAD_ATTR            (NULL|self + strftime)
+              80 LOAD_CONST           ("%Y-%m-%d")
+              82 CALL                 (1 positional)
+              90 STORE_FAST           (today)
+
+206:          92 LOAD_GLOBAL          (os)
+             102 LOAD_ATTR            (path)
+             122 LOAD_ATTR            (NULL|self + join)
+             142 LOAD_GLOBAL          (BACKUP_DIR)
+             152 LOAD_CONST           ("twitchbot_backup_")
+             154 LOAD_FAST            (today)
+             156 FORMAT_SIMPLE
+             158 LOAD_CONST           (".db")
+             160 BUILD_STRING         3
+             162 CALL                 (2 positional)
+             170 STORE_FAST           (backup_file)
+
+207:         172 LOAD_GLOBAL          (os)
+             182 LOAD_ATTR            (path)
+             202 LOAD_ATTR            (NULL|self + exists)
+             222 LOAD_FAST            (backup_file)
+             224 CALL                 (1 positional)
+             232 TO_BOOL
+             240 POP_JUMP_IF_TRUE     (to 664)
+
+208:         244 LOAD_GLOBAL          (shutil)
+             254 LOAD_ATTR            (copy2)
+             274 PUSH_NULL
+             276 LOAD_GLOBAL          (DB_PATH)
+             286 LOAD_FAST            (backup_file)
+             288 CALL                 (2 positional)
+             296 POP_TOP
+
+211:         298 LOAD_GLOBAL          (NULL + sorted)
+             308 LOAD_GLOBAL          (os)
+             318 LOAD_ATTR            (listdir)
+             338 PUSH_NULL
+             340 LOAD_GLOBAL          (BACKUP_DIR)
+             350 CALL                 (1 positional)
+             358 GET_ITER
+             360 LOAD_FAST_AND_CLEAR  (f)
+             362 SWAP                 (TOS <-> TOS1)
+             364 BUILD_LIST           0
+             366 SWAP                 (TOS <-> TOS1)
+             368 GET_ITER
+             370 FOR_ITER             (to 430)
+             374 STORE_FAST_LOAD_FAST (f, f)
+             376 LOAD_ATTR            (NULL|self + endswith)
+             396 LOAD_CONST           (".db")
+             398 CALL                 (1 positional)
+             406 TO_BOOL
+             414 POP_JUMP_IF_TRUE     (to 422)
+             418 JUMP_BACKWARD        (to 370)
+         >>  422 LOAD_FAST            (f)
+             424 LIST_APPEND          2
+             426 JUMP_BACKWARD        (to 370)
+         >>  430 END_FOR
+             432 POP_TOP
+             434 SWAP                 (TOS <-> TOS1)
+             436 STORE_FAST           (f)
+             438 CALL                 (1 positional)
+             446 STORE_FAST           (backups)
+
+212:         448 LOAD_GLOBAL          (NULL + len)
+             458 LOAD_FAST            (backups)
+             460 CALL                 (1 positional)
+             468 LOAD_CONST           (5)
+             470 COMPARE_OP           (>)
+         >>  474 POP_JUMP_IF_FALSE    (to 662)
+
+213:         478 LOAD_FAST            (backups)
+             480 LOAD_ATTR            (NULL|self + pop)
+             500 LOAD_CONST           (0)
+             502 CALL                 (1 positional)
+             510 STORE_FAST           (oldest)
+
+214:         512 NOP
+
+215:         514 LOAD_GLOBAL          (os)
+             524 LOAD_ATTR            (remove)
+             544 PUSH_NULL
+             546 LOAD_GLOBAL          (os)
+             556 LOAD_ATTR            (path)
+             576 LOAD_ATTR            (NULL|self + join)
+             596 LOAD_GLOBAL          (BACKUP_DIR)
+             606 LOAD_FAST            (oldest)
+             608 CALL                 (2 positional)
+             616 CALL                 (1 positional)
+             624 POP_TOP
+
+212:         626 LOAD_GLOBAL          (NULL + len)
+             636 LOAD_FAST            (backups)
+             638 CALL                 (1 positional)
+             646 LOAD_CONST           (5)
+             648 COMPARE_OP           (>)
+             652 POP_JUMP_IF_FALSE    (to 660)
+             656 JUMP_BACKWARD        (to 478)
+         >>  660 RETURN_CONST         (None)
+         >>  662 RETURN_CONST         (None)
+
+207:     >>  664 RETURN_CONST         (None)
+             666 SWAP                 (TOS <-> TOS1)
+             668 POP_TOP
+
+211:         670 SWAP                 (TOS <-> TOS1)
+             672 STORE_FAST           (f)
+             674 RERAISE              0
+             676 PUSH_EXC_INFO
+
+216:         678 POP_TOP
+             680 POP_EXCEPT
+             682 JUMP_BACKWARD_NO_INTERRUPT (to 626)
+             684 COPY                 3
+             686 POP_EXCEPT
+             688 RERAISE              1
+
+ExceptionTable:
+  364 to 412 -> 666 [4]
+  422 to 432 -> 666 [4]
+  514 to 624 -> 676 [0]
+  676 to 678 -> 684 [1] lasti
+
+# Method Name:       reset_database
+# Filename:          src\db.py
+# Argument count:    1
+# Position-only argument count: 0
+# Keyword-only arguments: 0
+# Number of locals:  1
+# Stack size:        6
+# Flags:             0x00000003 (NEWLOCALS | OPTIMIZED)
+# First Line:        218
+# Constants:
+#    0: None
+#    1: 'DELETE FROM channels'
+# Names:
+#    0: conn
+#    1: execute
+# Varnames:
+#	self
+# Positional arguments:
+#	self
+
+218:           0 RESUME               0
+
+219:           2 LOAD_FAST            (self)
+               4 LOAD_ATTR            (conn)
+              24 BEFORE_WITH
+              26 POP_TOP
+
+220:          28 LOAD_FAST            (self)
+              30 LOAD_ATTR            (conn)
+              50 LOAD_ATTR            (NULL|self + execute)
+              70 LOAD_CONST           ("DELETE FROM channels")
+              72 CALL                 (1 positional)
+              80 POP_TOP
+
+219:          82 LOAD_CONST           (None)
+              84 LOAD_CONST           (None)
+              86 LOAD_CONST           (None)
+              88 CALL                 (2 positional)
+              96 POP_TOP
+              98 RETURN_CONST         (None)
+             100 PUSH_EXC_INFO
+             102 WITH_EXCEPT_START    0
+             104 TO_BOOL
+             112 POP_JUMP_IF_TRUE     (to 118)
+             116 RERAISE              2
+         >>  118 POP_TOP
+             120 POP_EXCEPT
+             122 POP_TOP
+             124 POP_TOP
+             126 RETURN_CONST         (None)
+             128 COPY                 3
+             130 POP_EXCEPT
+             132 RERAISE              1
+
+ExceptionTable:
+  26 to 80 -> 100 [1] lasti
+  100 to 118 -> 128 [3] lasti

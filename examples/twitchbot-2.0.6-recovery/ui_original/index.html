@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TwitchBot 2.0</title>
+    <script>
+        window.onerror = function(message, source, lineno, colno, error) {
+            fetch('/api/log/error', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: message, source: source, line: lineno })
+            });
+            return false;
+        };
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    <div id="token-modal" class="modal">
+        <div class="modal-content">
+            <h2>Willkommen bei TwitchBot 2.0</h2>
+            <p>Bitte gib deinen Twitch Auth-Token ein, um zu starten.</p>
+            <input type="password" id="auth-token-input" placeholder="Twitch Auth-Token">
+            <button onclick="saveToken()">Speichern</button>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <i data-lucide="twitch" class="brand-icon"></i>
+                <h1>TwitchBot 2.0</h1>
+            </div>
+            <nav>
+                <a href="#" class="nav-item active" onclick="switchTab('dashboard')">
+                    <i data-lucide="layout-dashboard"></i> Dashboard
+                </a>
+                <a href="#" class="nav-item" onclick="switchTab('settings')">
+                    <i data-lucide="settings"></i> Einstellungen
+                </a>
+                <a href="#" class="nav-item" onclick="switchTab('logs')">
+                    <i data-lucide="file-text"></i> Logs
+                </a>
+                <a href="#" class="nav-item" onclick="switchTab('stats')">
+                    <i data-lucide="bar-chart-2"></i> Statistiken
+                </a>
+                <a href="#" class="nav-item" onclick="switchTab('activities')">
+                    <i data-lucide="activity"></i> Aktivitäten
+                </a>
+                <a href="#" class="nav-item" onclick="switchTab('about')">
+                    <i data-lucide="info"></i> Über
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <div id="bot-status-dot" class="status-dot"></div>
+                    <span id="bot-status-text">Bot gestoppt</span>
+                </div>
+                <div class="footer-stats">
+                    <small>Worker: <span id="worker-count">0</span> / <input type="number" id="worker-limit-input" min="1" max="10" value="3" onchange="changeWorkerLimit(this.value)"></small>
+                </div>
+                
+                <!-- Aktive Tasks Anzeige -->
+                <div id="active-tasks-container" class="active-tasks-container"></div>
+
+                <div class="footer-actions">
+                    <button id="btn-start" onclick="toggleBot()">Start</button>
+                    <button id="btn-sync" onclick="startSync()">Sync</button>
+                    <button id="btn-quit" onclick="quitApp()" class="btn-danger" style="margin-top: 5px; width: 100%;">Bot Beenden</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            
+            <!-- Dashboard Tab -->
+            <section id="tab-dashboard" class="tab-content active">
+                <header>
+                    <h2>Dashboard</h2>
+                </header>
+                
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <h3>Gesamt</h3>
+                        <p class="kpi-value" id="kpi-total">0</p>
+                    </div>
+                    <div class="kpi-card kpi-live">
+                        <h3>Live</h3>
+                        <p class="kpi-value" id="kpi-live">0</p>
+                    </div>
+                    <div class="kpi-card kpi-ready">
+                        <h3>Bereit</h3>
+                        <p class="kpi-value" id="kpi-ready">0</p>
+                    </div>
+                    <div class="kpi-card kpi-done">
+                        <h3>Erledigt</h3>
+                        <p class="kpi-value" id="kpi-done">0</p>
+                    </div>
+                    <div class="kpi-card kpi-error">
+                        <h3>Fehler</h3>
+                        <p class="kpi-value" id="kpi-error">0</p>
+                    </div>
+                </div>
+                <div class="table-controls" style="flex-direction: column; align-items: stretch; gap: 10px;">
+                    <div style="display: flex; gap: 10px; width: 100%;">
+                        <input type="text" id="search-input" placeholder="Kanal suchen..." onkeyup="renderTable()" style="flex: 1;">
+                    </div>
+                    <div id="filter-chips" class="filter-chips-container">
+                        <button class="filter-chip active" data-val="all" onclick="toggleFilter('all')">Alle</button>
+                        <button class="filter-chip" data-val="live" onclick="toggleFilter('live')">Live</button>
+                        <button class="filter-chip" data-val="offline" onclick="toggleFilter('offline')">Offline</button>
+                        <button class="filter-chip" data-val="monitored" onclick="toggleFilter('monitored')">Überwacht</button>
+                        <button class="filter-chip" data-val="ready" onclick="toggleFilter('ready')">Bereit</button>
+                        <button class="filter-chip" data-val="done" onclick="toggleFilter('done')">Erledigt</button>
+                        <button class="filter-chip" data-val="error" onclick="toggleFilter('error')">Fehler</button>
+                        <button class="filter-chip" data-val="waiting" onclick="toggleFilter('waiting')">Warteschleife</button>
+                        <button class="filter-chip" data-val="ignored" onclick="toggleFilter('ignored')">Ignoriert</button>
+                        <button class="filter-chip" data-val="favorites" onclick="toggleFilter('favorites')">⭐ Favoriten</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="text-align: center; cursor: pointer; white-space: nowrap; width: 60px;" onclick="setSort('favorite_priority')">⭐ <span id="sort-icon-favorite_priority"></span></th>
+                                <th style="text-align: center; cursor: pointer; white-space: nowrap;" onclick="setSort('is_ignored')">Überwachen <span id="sort-icon-is_ignored"></span></th>
+                                <th style="cursor: pointer; white-space: nowrap;" onclick="setSort('name')">Kanal <span id="sort-icon-name"></span></th>
+                                <th style="cursor: pointer; white-space: nowrap;" onclick="setSort('streak')">Serie <span id="sort-icon-streak"></span></th>
+                                <th style="cursor: pointer; white-space: nowrap;" onclick="setSort('last_update')">Zuletzt aktualisiert <span id="sort-icon-last_update"></span></th>
+                                <th style="cursor: pointer; white-space: nowrap;" onclick="setSort('is_live')">Live <span id="sort-icon-is_live"></span></th>
+                                <th style="cursor: pointer; white-space: nowrap;" onclick="setSort('status')">Status <span id="sort-icon-status"></span></th>
+                                <th style="white-space: nowrap;">Aktionen</th>
+                            </tr>
+                        </thead>
+                        <tbody id="channel-table-body">
+                            <!-- Rows via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Settings Tab -->
+            <section id="tab-settings" class="tab-content">
+                <header>
+                    <h2>Einstellungen</h2>
+                </header>
+                <div class="settings-grid">
+                    
+                    <div class="settings-card">
+                        <h3>Twitch Account</h3>
+                        <div class="form-group">
+                            <label>Auth Token</label>
+                            <input type="password" id="set-auth-token" placeholder="Neuer Token...">
+                            <button onclick="updateToken()">Token speichern</button>
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3>Allgemeine Parameter</h3>
+                        <div class="form-group">
+                            <label>Scan-Intervall Live-Radar (Minuten)</label>
+                            <input type="number" id="set-radar_interval_minutes" class="setting-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Prüfintervall während Stream (Minuten)</label>
+                            <input type="number" id="set-series_check_minutes" class="setting-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Max. Zuschauzeit pro Stream (Minuten)</label>
+                            <input type="number" id="set-max_watch_minutes" class="setting-input">
+                        </div>
+                        <button onclick="saveSettings()" class="save-settings-btn">Einstellungen speichern</button>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3>Verhalten</h3>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="set-headless_mode" class="setting-cb">
+                            <label>Headless-Modus (Video-Fenster unsichtbar)</label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="set-mute_audio" class="setting-cb">
+                            <label>Audio stummschalten (Mute Audio)</label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="set-auto_cookie" class="setting-cb">
+                            <label>Cookie Banner automatisch schließen</label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="set-auto_rules" class="setting-cb">
+                            <label>Chat Regeln automatisch schließen</label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="set-auto_18plus" class="setting-cb">
+                            <label>18+ Warnungen automatisch schließen</label>
+                        </div>
+                        <button onclick="saveSettings()" class="save-settings-btn">Einstellungen speichern</button>
+                    </div>
+
+                    <div class="settings-card danger-zone">
+                        <h3>Daten & Wartung</h3>
+                        <p>Hier kannst du die Datenbank sichern oder zurücksetzen.</p>
+                        <div class="action-buttons">
+                            <button onclick="backupDb()" class="btn-secondary">Datenbank sichern (Diagnose)</button>
+                            <button onclick="resetDb()" class="btn-danger">Datenbank zurücksetzen</button>
+                            <button onclick="uninstallBot()" class="btn-danger">Bot deinstallieren</button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Logs Tab -->
+            <section id="tab-logs" class="tab-content">
+                <header>
+                    <h2>Live Logs</h2>
+                </header>
+                <div class="log-container" id="log-container">
+                    <!-- Logs via JS -->
+                </div>
+                <button onclick="downloadLogs()" class="btn-secondary" style="margin-top: 10px;">Logs exportieren (.txt)</button>
+            </section>
+
+            <section id="tab-stats" class="tab-content">
+                <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h2>Statistiken</h2>
+                    <button id="btn-refresh-stats" onclick="refreshStatsData()" style="max-width: 150px; font-size: 13px; padding: 0.5rem 1rem;">Aktualisieren</button>
+                </header>
+                
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <h3>Punkte gesamt</h3>
+                        <p class="kpi-value" id="stats-total-points">0</p>
+                    </div>
+                    <div class="kpi-card kpi-ready">
+                        <h3>Geöffnete Truhen</h3>
+                        <p class="kpi-value" id="stats-total-chests">0</p>
+                    </div>
+                    <div class="kpi-card kpi-live">
+                        <h3>Durchschnittliche Serie</h3>
+                        <p class="kpi-value" id="stats-avg-streak">0</p>
+                    </div>
+                </div>
+
+                <div class="table-container" style="margin-top: 20px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Kanal</th>
+                                <th>Abo-Status</th>
+                                <th>Aktueller Stand</th>
+                                <th>Vom Bot gesammelt</th>
+                                <th>🎁 Truhen</th>
+                                <th>Serie</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stats-table-body">
+                            <!-- Stats rows loaded via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <section id="tab-activities" class="tab-content">
+                <header>
+                    <h2>Aktivitäten-Verlauf</h2>
+                </header>
+                <div class="activity-timeline-container" id="activity-timeline">
+                    <!-- Activities loaded via API and JS -->
+                </div>
+            </section>
+            
+            <section id="tab-about" class="tab-content">
+                <header>
+                    <h2>Über TwitchBot 2.0</h2>
+                </header>
+                <p>Version: 2.0.6</p>
+                <p>Entwickelt für automatisierte Twitch Serien-Überwachung.</p>
+            </section>
+            
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
